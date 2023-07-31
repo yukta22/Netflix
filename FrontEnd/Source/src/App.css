@@ -1,0 +1,247 @@
+body {
+  overflow-x: hidden;
+  background-color: hsl(212, 68%, 11%);
+}
+
+.front_page {
+  background-color: hsl(213, 85%, 3%);
+  /* background-color: #122f4d; */
+}
+.showmore {
+  background-color: hsla(230, 4%, 31%, 0.879);
+}
+
+.title {
+  padding-top: 900px;
+}
+.dashboard_box {
+  background-color: hsl(212, 92%, 21%);
+  width: 20rem;
+  height: 7rem;
+}
+
+.front_page_background_image {
+  background-image: url("https://help.nflxext.com/0af6ce3e-b27a-4722-a5f0-e32af4df3045_what_is_netflix_5_en.png");
+  background-repeat: no-repeat;
+  height: 100vh;
+  /* background-size: 330vw 80vh; */
+}
+
+.front_page_accordion {
+  background-color: hsl(212, 35%, 8%);
+  padding-left: 220px;
+  color: white;
+}
+.accordion {
+  padding-left: 80px;
+  padding-right: 300px;
+}
+.accordion-item-background {
+  background-color: hsl(212, 76%, 18%);
+  color: white;
+  border: none;
+  font-size: 20px;
+}
+
+.btn {
+  border: none;
+}
+
+.accordion-button.collapsed::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: hsl(212, 57%, 24%);
+  color: rgb(124, 135, 144);
+}
+
+.textForMembership {
+  padding-left: 270px;
+  font-size: 18px;
+}
+.horizonal_line {
+  background-color: white;
+  height: 2px;
+  margin: 2rem 20rem;
+  opacity: 0.6;
+}
+
+.footer {
+  padding-left: 320px;
+}
+
+.select_plan_div {
+  height: 140px;
+  width: 180px;
+}
+
+.signUpform::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* Firefox */
+}
+
+.dropdown-menu[data-bs-popper] {
+  top: 33px;
+  left: -140px;
+}
+
+li a:hover {
+  color: hsl(212, 35%, 8%);
+}
+
+.accordion-button {
+  color: black;
+}
+
+.profile_control {
+  transform: translate3d(0px, 60px, 0px) !important;
+}
+
+.slick-prev:before {
+  width: 10px;
+  color: white !important;
+}
+
+.slick-next:before {
+  color: white !important;
+}
+
+.cards {
+  position: relative;
+}
+
+.cards img {
+  width: 18vw;
+  height: 200px;
+  cursor: pointer;
+  transition: transform 0.6s;
+}
+
+.moviecard {
+  display: none;
+  background-color: #0f1014;
+  position: absolute;
+  /* width: 380px;
+  height: 450px; */
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -20%) scale(0);
+  opacity: 0;
+  transition: 0.9s;
+  z-index: 1;
+  border-radius: 5px;
+  /* transform: scale(0); */
+  overflow: hidden;
+}
+
+.moviecard img {
+  width: 380px;
+  height: 1555px;
+}
+
+.cards:hover .moviecard {
+  display: block;
+  transition-delay: 0.2s;
+  transform: scale(1);
+  opacity: 1;
+  max-height: 500px;
+  margin-top: -130px;
+}
+
+.button {
+  display: inline-block;
+  margin: 4px 2px;
+  margin-left: 10px;
+  /* background-color: #444; */
+  font-size: 14px;
+  padding-left: 32px;
+  padding-right: 32px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.button:hover {
+  transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s;
+  -o-transition-duration: 0.4s;
+  background-color: white;
+  color: black;
+}
+
+.search-container {
+  position: relative;
+  display: inline-block;
+  margin: 4px 2px;
+  height: 50px;
+  width: 50px;
+  vertical-align: bottom;
+}
+
+.mglass {
+  display: inline-block;
+  pointer-events: none;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+}
+
+.searchbutton {
+  position: absolute;
+  font-size: 22px;
+  width: 100%;
+  margin-top: -15px;
+  padding: 0;
+}
+
+.search:focus + .searchbutton {
+  transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s;
+  -o-transition-duration: 0.4s;
+  background-color: white;
+  color: black;
+}
+
+.search {
+  position: absolute;
+  left: 49px; /* Button width-1px (Not 50px/100% because that will sometimes show a 1px line between the search box and button) */
+  background-color: white;
+  outline: none;
+  border: none;
+  padding: 0;
+  width: 0;
+  height: 100%;
+  z-index: 10;
+  transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  -webkit-transition-duration: 0.4s;
+  -o-transition-duration: 0.4s;
+}
+
+.search:focus {
+  width: 363px; /* Bar width+1px */
+  padding: 0 16px 0 0;
+}
+
+.expandright {
+  left: auto;
+  right: 4px;
+  margin-top: -15px; /* Button width-1px */
+}
+
+.expandright:focus {
+  padding: 0 0 0 16px;
+}

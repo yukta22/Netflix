@@ -1,0 +1,479 @@
+import React, { useEffect } from "react";
+import { useState } from "react";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+
+const Front_page = () => {
+  const navigate = useNavigate();
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   if (token) {
+  //     // const foundUser = JSON.parse(loggedInUser);
+  //     navigate("/home");
+  //   }
+  // }, []);
+
+  return (
+    <>
+      <div>
+        <div className="ms-5  text-white  bg-image ms-2  front_page_background_image">
+          <div className="ms-5 ps-4  w-100  ">
+            <p
+              className="fw-bold ms-5 "
+              style={{ paddingTop: "220px", fontSize: "46px" }}
+            >
+              Unlimited Movies, TV s and more
+            </p>
+            <p className="fs-5 ms-5">Watch anywhare. Cancel anytime</p>
+            <p className="pt-3 fs-5 ms-5">
+              Ready to watch? Enter your email to create or restart your
+              membership.
+            </p>
+            <div className="d-flex ms-5">
+              <input
+                type="text"
+                className="bg-none p-1 text-white"
+                placeholder="Email Address"
+                name="userEmail"
+                onChange={handleChange}
+                style={{
+                  background: "transparent",
+                  fontWeight: "bold",
+                  border: "1px solid gray",
+                }}
+              ></input>
+              <button
+                type="button"
+                className="fw-bold ms-2 btn btn-danger p-2 px-3 text-white fs-5"
+              >
+                <Link to="/SignUp" className="text-decoration-none text-white">
+                  Get Started
+                </Link>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className=" d-flex flex-row justify-content-center py-5">
+          <div className="d-flex justify-content-between align-items-center ms-5 w-50 py-3 text-white">
+            <div className="w-50 pe-4">
+              <p className="fs-3 fw-bold ">Enjoy on your TV</p>
+              <p>
+                Watch on smart TV, PlayStation, Xbox, Chromecast, Apple TV,
+                Blu-ray players and more.
+              </p>
+            </div>
+            <div className="w-50">
+              <img
+                src="https://cdn.mos.cms.futurecdn.net/rDJegQJaCyGaYysj2g5XWY.jpg"
+                alt="..."
+                width="300px"
+                height="200px"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="horizonal_line" />
+        <div className=" d-flex flex-row justify-content-center p-5">
+          <div className="d-flex justify-content-between align-items-center ms-5 w-50 text-white">
+            <div className="w-50">
+              <img
+                src="https://cdn.mos.cms.futurecdn.net/rDJegQJaCyGaYysj2g5XWY.jpg"
+                alt="..."
+                width="300px"
+                height="200px"
+              />
+            </div>
+            <div className="w-50 pe-4">
+              <p className="fs-3 fw-bold ">Watch everywhere</p>
+              <p>
+                Stream Unlimited movies and TV s on your phone, tablet, laptop,
+                and TV.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="horizonal_line" />
+        <div className=" d-flex flex-row justify-content-center p-5">
+          <div className="d-flex justify-content-between align-items-center ms-5 w-50 text-white">
+            <div className="w-50 pe-4">
+              <p className="fs-3 fw-bold ">Create profile for Kids</p>
+              <p>
+                Send children on adventures with there favourite characters in a
+                space made just for them-free with your membership.
+              </p>
+            </div>
+            <div className="w-50">
+              <img
+                src="https://cdn.mos.cms.futurecdn.net/rDJegQJaCyGaYysj2g5XWY.jpg"
+                alt="..."
+                width="300px"
+                height="200px"
+              />
+            </div>
+          </div>
+        </div>
+        <div className="horizonal_line" />
+        <div className=" d-flex flex-row justify-content-center p-5">
+          <div className="d-flex justify-content-between align-items-center ms-5 w-50 text-white">
+            <div className="w-50">
+              <img
+                src="https://cdn.mos.cms.futurecdn.net/rDJegQJaCyGaYysj2g5XWY.jpg"
+                alt="..."
+                width="300px"
+                height="200px"
+              />
+            </div>
+            <div className="w-50 pe-4">
+              <p className="fs-3 fw-bold ">
+                Download your shows to watch offline
+              </p>
+              <p>
+                Save your favourites easily and always have something to watch.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="front_page_accordion   pt-5">
+        <h1 className="text-white ms-5 px-5">Frequenty Asked Questions</h1>
+        <div className="accordion " id="accordionExample">
+          <div className="accordion-item m-3 accordion-item-background ">
+            <h2 className="accordion-header" id="headingOne">
+              <button
+                className="accordion-button accordion-item-background  "
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="true"
+                aria-controls="collapseOne"
+              >
+                What is Netflix?
+              </button>
+            </h2>
+            <div
+              id="collapseOne"
+              className="accordion-collapse accordion-item-background  collapse  "
+              aria-labelledby="headingOne"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <strong>This is the first item's accordion body.</strong> It is
+                n by default, until the collapse plugin adds the appropriate
+                classes that we use to style each element. These classes control
+                the overall appearance, as well as the ing and hiding via CSS
+                transitions. You can modify any of this with custom CSS or
+                overriding our default variables. It's also worth noting that
+                just about any HTML can go within the , though the transition
+                does limit overflow.
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item m-3 accordion-item-background ">
+            <h2 className="accordion-header" id="headingTwo">
+              <button
+                className="accordion-button accordion-item-background collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+                aria-expanded="true"
+                aria-controls="collapseTwo"
+              >
+                How much does Netflix cost?
+              </button>
+            </h2>
+            <div
+              id="collapseTwo"
+              className="accordion-collapse accordion-item-background  collapse  "
+              aria-labelledby="headingTwo"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <strong>This is the first item's accordion body.</strong> It is
+                n by default, until the collapse plugin adds the appropriate
+                classes that we use to style each element. These classes control
+                the overall appearance, as well as the ing and hiding via CSS
+                transitions. You can modify any of this with custom CSS or
+                overriding our default variables. It's also worth noting that
+                just about any HTML can go within the , though the transition
+                does limit overflow.
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item m-3 accordion-item-background ">
+            <h2 className="accordion-header" id="headingThree">
+              <button
+                className="accordion-button accordion-item-background collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseThree"
+                aria-expanded="true"
+                aria-controls="collapseThree"
+              >
+                Where can I watch?
+              </button>
+            </h2>
+            <div
+              id="collapseThree"
+              className="accordion-collapse accordion-item-background  collapse  "
+              aria-labelledby="headingThree"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <strong>This is the first item's accordion body.</strong> It is
+                n by default, until the collapse plugin adds the appropriate
+                classes that we use to style each element. These classes control
+                the overall appearance, as well as the ing and hiding via CSS
+                transitions. You can modify any of this with custom CSS or
+                overriding our default variables. It's also worth noting that
+                just about any HTML can go within the , though the transition
+                does limit overflow.
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item m-3 accordion-item-background ">
+            <h2 className="accordion-header" id="headingFour">
+              <button
+                className="accordion-button accordion-item-background collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFour"
+                aria-expanded="true"
+                aria-controls="collapseFour"
+              >
+                How do I cancel?
+              </button>
+            </h2>
+            <div
+              id="collapseFour"
+              className="accordion-collapse accordion-item-background  collapse  "
+              aria-labelledby="headingFour"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <strong>This is the first item's accordion body.</strong> It is
+                n by default, until the collapse plugin adds the appropriate
+                classes that we use to style each element. These classes control
+                the overall appearance, as well as the ing and hiding via CSS
+                transitions. You can modify any of this with custom CSS or
+                overriding our default variables. It's also worth noting that
+                just about any HTML can go within the , though the transition
+                does limit overflow.
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item m-3 accordion-item-background ">
+            <h2 className="accordion-header" id="headingFive">
+              <button
+                className="accordion-button accordion-item-background collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseFive"
+                aria-expanded="true"
+                aria-controls="collapseFive"
+              >
+                What can I watch on Netflix?
+              </button>
+            </h2>
+            <div
+              id="collapseFive"
+              className="accordion-collapse accordion-item-background  collapse  "
+              aria-labelledby="headingFive"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <strong>This is the first item's accordion body.</strong> It is
+                n by default, until the collapse plugin adds the appropriate
+                classes that we use to style each element. These classes control
+                the overall appearance, as well as the ing and hiding via CSS
+                transitions. You can modify any of this with custom CSS or
+                overriding our default variables. It's also worth noting that
+                just about any HTML can go within the , though the transition
+                does limit overflow.
+              </div>
+            </div>
+          </div>
+          <div className="accordion-item m-3 accordion-item-background ">
+            <h2 className="accordion-header" id="headingSix">
+              <button
+                className="accordion-button accordion-item-background collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseSix"
+                aria-expanded="true"
+                aria-controls="collapseSix"
+              >
+                Is Netflix is good for kids?
+              </button>
+            </h2>
+            <div
+              id="collapseSix"
+              className="accordion-collapse accordion-item-background  collapse  "
+              aria-labelledby="headingSix"
+              data-bs-parent="#accordionExample"
+            >
+              <div className="accordion-body">
+                <strong>This is the first item's accordion body.</strong> It is
+                n by default, until the collapse plugin adds the appropriate
+                classes that we use to style each element. These classes control
+                the overall appearance, as well as the ing and hiding via CSS
+                transitions. You can modify any of this with custom CSS or
+                overriding our default variables. It's also worth noting that
+                just about any HTML can go within the , though the transition
+                does limit overflow.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="ms-5 text-white textForMembership">
+        <div>
+          Ready to Watch? Enter your email to create or restart your membership.
+        </div>
+        <div className="d-flex py-3">
+          <input
+            type="text"
+            className="bg-none p-1"
+            placeholder="Email Address"
+            style={{
+              background: "transparent",
+              fontWeight: "bold",
+              border: "1px solid gray",
+            }}
+          ></input>
+          <button
+            type="button"
+            className="fw-bold ms-2 btn btn-danger  px-3 text-white fs-5"
+          >
+            Get Started
+          </button>
+        </div>
+      </div>
+      <div className="footer py-5 mt-5 text-muted">
+        <div>
+          <p>
+            Questions? Call{" "}
+            <span className="text-underline">
+              <u>000-800-919-1694</u>
+            </span>
+          </p>
+        </div>
+        <div className="row">
+          <div className="col-lg-4 col-md-6 mb-4 pt-4 mb-md-0">
+            <ul className="list-unstyled mb-0 ">
+              <li className="py-1">
+                <a href="#!" className="text-muted ">
+                  FAQ
+                </a>
+              </li>
+              <li className="py-1">
+                <a href="#!" className="text-muted ">
+                  Media Center
+                </a>
+              </li>
+              <li className="py-1">
+                <a href="#!" className="text-muted ">
+                  Ways to Watch
+                </a>
+              </li>
+              <li className="py-1">
+                <a href="#!" className="text-muted ">
+                  Cookie Preferences
+                </a>
+              </li>
+              <li className="py-1">
+                <a href="#!" className="text-muted ">
+                  Speed Test
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="col-lg-4 col-md-6 mb-4 pt-4 mb-md-0">
+            <ul className="list-unstyled mb-0">
+              <li className="py-1">
+                <a href="#!" className="text-muted ">
+                  Help Center
+                </a>
+              </li>
+              <li className="py-1">
+                <a href="#!" className="text-muted ">
+                  Investor Relations
+                </a>
+              </li>
+              <li className="py-1">
+                <a href="#!" className="text-muted">
+                  Terms of Use
+                </a>
+              </li>
+              <li className="py-1">
+                <a href="#!" className="text-muted ">
+                  Corporate Information
+                </a>
+              </li>
+              <li className="py-1">
+                <a href="#!" className="text-muted ">
+                  Legal Notices
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="col-lg-4 col-md-6 mb-4 pt-4 mb-md-0">
+            <ul className="list-unstyled mb-0">
+              <li className="py-1">
+                <a href="#!" className="text-muted ">
+                  Account
+                </a>
+              </li>
+              <li className="py-1">
+                <a href="#!" className="text-muted ">
+                  Jobs
+                </a>
+              </li>
+              <li className="py-1">
+                <a href="#!" className="text-muted ">
+                  Privacy
+                </a>
+              </li>
+              <li className="py-1">
+                <a href="#!" className="text-muted ">
+                  Contact Us
+                </a>
+              </li>
+              <li className="py-1">
+                <a href="#!" className="text-muted ">
+                  Only on Netflix
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div className="dropdown py-3" style={{ paddingLeft: "320px" }}>
+        <button
+          className="btn bg-transparent text-white border border-white  dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          English
+        </button>
+        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li>
+            <a className="dropdown-item" href="#">
+              Hindi
+            </a>
+          </li>
+        </ul>
+        <div className="py-4">
+          <p className="text-muted">Netflix India</p>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Front_page;
