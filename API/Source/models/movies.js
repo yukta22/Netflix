@@ -11,22 +11,25 @@ const moviesSchema = mongoose.Schema({
   },
   image: {
     type: String,
+    required: true,
   },
   video_360p: {
     type: String,
+    required: true,
   },
   video_480p: {
     type: String,
+    required: true,
   },
   video_720p: {
     type: String,
+    required: true,
   },
   video_1080p: {
     type: String,
+    required: true,
   },
-  // videoSize: {
-  //   type: Number,
-  // },
+
   releaseDate: {
     type: Date,
     default: Date.now,

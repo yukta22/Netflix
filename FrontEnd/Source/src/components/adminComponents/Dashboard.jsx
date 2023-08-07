@@ -1,27 +1,62 @@
 import React, { useEffect, useState } from "react";
 import AdminNavbar from "./AdminNavbar";
 import axios from "axios";
+import Tabledata from "./Tabledata";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const [userdata, setUserdata] = useState();
   const [moviedata, setMoviedata] = useState();
   const [showdata, setShowdata] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get("http://localhost:9000/users").then((response) => {
-      setUserdata(response.data);
-    });
-    axios.get("http://localhost:9000/movie").then((response) => {
-      setMoviedata(response.data);
-    });
-    axios.get("http://localhost:9000/shows").then((response) => {
-      setShowdata(response.data);
-    });
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+      return;
+    }
+    axios
+      .get("/getUsers", {
+        headers: {
+          token: token,
+        },
+      })
+      .then((response) => {
+        setUserdata(response.data);
+      });
+    axios
+      .get("/movie", {
+        headers: {
+          token: token,
+        },
+      })
+      .then((response) => {
+        setMoviedata(response.data);
+      });
+    axios
+      .get("/shows", {
+        headers: {
+          token: token,
+        },
+      })
+      .then((response) => {
+        setShowdata(response.data);
+      });
   }, []);
+
+  const navigateCatalog = () => {
+    navigate("/catalog");
+  };
+
+  const navigateUser = () => {
+    navigate("/users");
+  };
+
   return (
     <>
       <AdminNavbar />
-      <div className="d-flex justify-content-around text-light">
+      <div className="d-flex flex-sm-column flex-md-row flex-lg-row justify-content-around text-light">
         <div className="dashboard_box py-2 px-5 ps-3 m-2 rounded">
           <div className="m-2">
             <div className="fs-5">Total User</div>
@@ -35,11 +70,18 @@ const Dashboard = () => {
                   strokeWidth="1.5"
                   stroke="currentColor"
                   className="w-6 h-6"
+                  width="40px"
+                  height="30px"
                 >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 01-1.125-1.125M3.375 19.5h1.5C5.496 19.5 6 18.996 6 18.375m-3.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-1.5A1.125 1.125 0 0118 18.375M20.625 4.5H3.375m17.25 0c.621 0 1.125.504 1.125 1.125M20.625 4.5h-1.5C18.504 4.5 18 5.004 18 5.625m3.75 0v1.5c0 .621-.504 1.125-1.125 1.125M3.375 4.5c-.621 0-1.125.504-1.125 1.125M3.375 4.5h1.5C5.496 4.5 6 5.004 6 5.625m-3.75 0v1.5c0 .621.504 1.125 1.125 1.125m0 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m1.5-3.75C5.496 8.25 6 7.746 6 7.125v-1.5M4.875 8.25C5.496 8.25 6 8.754 6 9.375v1.5m0-5.25v5.25m0-5.25C6 5.004 6.504 4.5 7.125 4.5h9.75c.621 0 1.125.504 1.125 1.125m1.125 2.625h1.5m-1.5 0A1.125 1.125 0 0118 7.125v-1.5m1.125 2.625c-.621 0-1.125.504-1.125 1.125v1.5m2.625-2.625c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125M18 5.625v5.25M7.125 12h9.75m-9.75 0A1.125 1.125 0 016 10.875M7.125 12C6.504 12 6 12.504 6 13.125m0-2.25C6 11.496 5.496 12 4.875 12M18 10.875c0 .621-.504 1.125-1.125 1.125M18 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m-12 5.25v-5.25m0 5.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125m-12 0v-1.5c0-.621-.504-1.125-1.125-1.125M18 18.375v-5.25m0 5.25v-1.5c0-.621.504-1.125 1.125-1.125M18 13.125v1.5c0 .621.504 1.125 1.125 1.125M18 13.125c0-.621.504-1.125 1.125-1.125M6 13.125v1.5c0 .621-.504 1.125-1.125 1.125M6 13.125C6 12.504 5.496 12 4.875 12m-1.5 0h1.5m-1.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M19.125 12h1.5m0 0c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h1.5m14.25 0h1.5"
+                    d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
                   />
                 </svg>
               </div>
@@ -48,7 +90,7 @@ const Dashboard = () => {
         </div>
         <div className="dashboard_box py-2 px-5 ps-3 m-2 rounded">
           <div className="m-2">
-            <div className="fs-5">Total Shows</div>
+            <div className="fs-5">Total Movies</div>
             <div className="d-flex justify-content-between mt-2">
               <div className="fs-4">{moviedata?.length}</div>
               <div className="ms-5">
@@ -87,35 +129,151 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="d-flex justify-content-around">
-        <div
-          className="rounded"
-          style={{ backgroundColor: "hsl(212, 92%, 21%)" }}
-        >
-          <div className="d-flex">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className="w-6 h-6 text-light m-3"
-              width="30px"
-              height="30px"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"
-              />
-            </svg>
-            <div className="fs-5 text-light m-3">Top Items</div>
+      <div className="px-5 mx-5 mt-4">
+        <div className="d-flex  flex-sm-column flex-md-row justify-content-around">
+          <div
+            className="rounded my-4 mx-5 w-50"
+            style={{ backgroundColor: "hsl(212, 92%, 21%)", width: "auto" }}
+          >
+            <div className="d-flex ">
+              <div className="d-flex justify-content-around">
+                <div className="d-flex me-4 ms-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6 text-light m-3"
+                    width="30px"
+                    height="30px"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"
+                    />
+                  </svg>
+                  <div className="fs-5 text-light m-3">Movies</div>
+                </div>
+                <div className="ms-5" style={{ cursor: "pointer" }}>
+                  <span
+                    className="badge rounded-pill bg-primary p-2 m-3 me-0"
+                    onClick={() => navigateCatalog()}
+                  >
+                    View All
+                  </span>
+                </div>
+              </div>
+            </div>
+            <Tabledata data={moviedata} />
+          </div>
+          <div
+            className="rounded my-4 mx-5 w-50"
+            style={{ backgroundColor: "hsl(212, 92%, 21%)", width: "auto" }}
+          >
+            <div className="d-flex ">
+              <div className="d-flex justify-content-around mx-2">
+                <div className="d-flex me-4 ms-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="1.5"
+                    stroke="currentColor"
+                    className="w-6 h-6 text-light m-3"
+                    width="30px"
+                    height="30px"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"
+                    />
+                  </svg>
+                  <div className="fs-5 text-light m-3">Tv Shows</div>
+                </div>
+                <div className="ms-5" style={{ cursor: "pointer" }}>
+                  <span
+                    className="badge rounded-pill bg-primary p-2 m-3 me-0"
+                    onClick={() => navigateCatalog()}
+                  >
+                    View All
+                  </span>
+                </div>
+              </div>
+            </div>
+            <Tabledata data={showdata} />
           </div>
         </div>
+      </div>
+      <div className="px-5  my-3 text-white" style={{ margin: "0px 95px" }}>
         <div
-          className="rounded"
+          className="rounded w-100 "
           style={{ backgroundColor: "hsl(212, 92%, 21%)" }}
-        ></div>
+        >
+          <div className="d-flex ">
+            <div className="d-flex justify-content-around mx-2">
+              <div className="d-flex me-4 ms-1">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6 text-light m-3"
+                  width="30px"
+                  height="30px"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z"
+                  />
+                </svg>
+                <div className="fs-5 text-light m-3">Users</div>
+              </div>
+              <div className="ms-5" style={{ cursor: "pointer" }}>
+                <span
+                  className="badge rounded-pill bg-primary p-2 m-3 me-0"
+                  onClick={() => navigateUser()}
+                >
+                  View All
+                </span>
+              </div>
+            </div>
+          </div>
+          <div className="px-4 py-2">
+            <div
+              className="horizonal_line"
+              style={{
+                backgroundColor: "rgb(202, 209, 222)",
+                margin: "1px 1px",
+                height: "1px",
+              }}
+            ></div>
+            <table className="text-white table">
+              <thead>
+                <tr className="fw-bold">
+                  <td>User Name</td>
+                  <td>User Email</td>
+                  <td>Role</td>
+                </tr>
+              </thead>
+              <tbody>
+                {userdata?.slice(0, 5).map((ele) => {
+                  return (
+                    <tr key={ele._id}>
+                      <td>{ele.userName}</td>
+                      <td>{ele.userEmail}</td>
+                      <td>{ele.role}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </>
   );

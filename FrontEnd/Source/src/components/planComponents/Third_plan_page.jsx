@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -6,6 +6,14 @@ import { faLock } from "@fortawesome/fontawesome-free-solid";
 
 const Third_plan_page = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const registerUser = localStorage.getItem("registerUser");
+    if (!registerUser) {
+      navigate("/");
+      return;
+    }
+  }, []);
 
   const navigateSignin = () => {
     navigate("/signin");

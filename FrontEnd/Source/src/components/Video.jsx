@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
 const Video = () => {
   const { state } = useLocation();
+  const videoRef = useRef(null);
   const navigate = useNavigate();
   const [selectedQuality, setSelectedQuality] = useState("360p");
   const [videoUrl, setVideoUrl] = useState(state?.video_360p);
@@ -12,36 +13,60 @@ const Video = () => {
   const [qualityFlag, setQualityflag] = useState(false);
   const [post, setPost] = useState();
 
-  // const user = useSelector((state) => state.login.user);
-  // console.log(user);
+  const savePlaybackPosition = () => {
+    const currentTime = videoRef.current.currentTime;
+    localStorage.setItem("videoPlaybackPosition", currentTime);
+  };
+
+  // Function to load the saved playback position from local storage and resume playback
+  const loadSavedPlaybackPosition = () => {
+    const savedPosition = localStorage.getItem("videoPlaybackPosition");
+    if (savedPosition !== null) {
+      videoRef.current.currentTime = parseFloat(savedPosition);
+    }
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
       navigate("/");
       return;
     }
-
-    axios.get("http://localhost:9000/subscriptions").then((response) => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    console.log(user.id);
+    axios.post(`/subscriptions/${user.id}`).then((response) => {
       setPost(response.data);
     });
+
+    const savePosition = () => savePlaybackPosition();
+    window.addEventListener("beforeunload", savePosition);
+    loadSavedPlaybackPosition();
+    return () => {
+      window.removeEventListener("beforeunload", savePosition);
+    };
   }, [selectedQuality]);
 
-  let user = localStorage.getItem("user");
-  user = user.substring(1, user.length - 1);
+  // let user = localStorage.getItem("user");
+  // user = user.substring(1, user.length - 1);
 
-  const userSubscriptionData = post?.find((e) => e.user?.userEmail == user);
+  // let user = JSON.parse(localStorage.getItem("user"));
+  // console.log(user.id);
+
+  // const userSubscriptionData = post?.find(
+  //   (e) => e.user?.userEmail == user.email
+  // );
   // console.log(userSubscriptionData?.plan.name);
+
   const handleQualityChange = (e) => {
-    console.log(selectedQuality);
     const quality = e.target.value;
     setSelectedQuality(quality);
-    if (selectedQuality == "360p") {
+    if (e.target.value == "360p") {
       setVideoUrl(state?.video_360p);
-    } else if (selectedQuality == "480p") {
+    } else if (e.target.value == "480p") {
       setVideoUrl(state?.video_480p);
-    } else if (selectedQuality == "720p") {
+    } else if (e.target.value == "720p") {
       setVideoUrl(state?.video_720p);
-    } else if (selectedQuality == "1080p") {
+    } else if (e.target.value == "1080p") {
       setVideoUrl(state?.video_1080p);
     }
     setFlag(false);
@@ -55,15 +80,16 @@ const Video = () => {
   // const handleQualitySetting = () => {
   //   setQualityflag(!qualityFlag);
   // };
-
+  console.log(post);
   return (
     <>
-      <div>
+      <div style={{ overflowY: "hidden" }}>
         <video
+          ref={videoRef}
           src={videoUrl}
           controls
-          style={{ width: "100%", height: "auto" }}
-          className="position-relative"
+          style={{ width: "100%", height: "960px", overflowY: "hidden" }}
+          className="position-relative mt-2"
         ></video>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -75,8 +101,9 @@ const Video = () => {
           style={{
             width: "30px",
             height: "30px",
-            top: 964,
-            right: 225,
+            marginBottom: "10px",
+            top: "896px",
+            right: "220px",
             cursor: "pointer",
           }}
           onClick={handleSetting}
@@ -95,7 +122,7 @@ const Video = () => {
 
         {flag && (
           <div
-            className="bg-dark text-white position-absolute"
+            className="bg-dark text-white position-absolute me-5"
             style={{ top: 800, right: 210 }}
             // onClick={handleQualitySetting}
           >
@@ -125,9 +152,9 @@ const Video = () => {
                   />
                 </svg>
               </div>
-              <div className="ps-5">Quality</div>
+              {/* <div className="ps-5 pe-5">Quality</div> */}
             </div>
-            <div className="d-flex  py-3 px-5">
+            <div className="d-flex  py-3 px-5 me-5  mt-3">
               <div>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -135,7 +162,7 @@ const Video = () => {
                   viewBox="0 0 24 24"
                   strokeWidth="1.5"
                   stroke="currentColor"
-                  className="text-white position-absolute"
+                  className="text-white position-absolute me-5"
                   style={{
                     width: "30px",
                     height: "30px",
@@ -178,17 +205,17 @@ const Video = () => {
         {qualityFlag && (
           <select
             onChange={handleQualityChange}
-            className="position-absolute bg-dark text-light"
+            className="position-absolute bg-dark text-white mb-3"
             style={{
               top: 818,
-              right: 240,
+              right: 290,
               border: "none",
               cursor: "pointer",
               width: "140px",
             }}
           >
             {(() => {
-              if (userSubscriptionData?.plan.name == "Mobile") {
+              if (post?.plan.name == "Mobile") {
                 return (
                   <>
                     <option value="select">Quality</option>
@@ -196,7 +223,7 @@ const Video = () => {
                     <option value="480p">480p</option>
                   </>
                 );
-              } else if (userSubscriptionData?.plan.name == "Basic") {
+              } else if (post?.plan.name == "Basic") {
                 return (
                   <>
                     <option value="select">Quality</option>
@@ -205,7 +232,7 @@ const Video = () => {
                     <option value="720p">720p</option>
                   </>
                 );
-              } else if (userSubscriptionData?.plan.name == "Standard") {
+              } else if (post?.plan.name == "Standard") {
                 return (
                   <>
                     <option value="select">Quality</option>
@@ -215,7 +242,7 @@ const Video = () => {
                     <option value="1080p">1080p</option>
                   </>
                 );
-              } else if (userSubscriptionData?.plan.name == "Premium") {
+              } else if (post?.plan.name == "Premium") {
                 return (
                   <>
                     <option value="Quality">Quality</option>

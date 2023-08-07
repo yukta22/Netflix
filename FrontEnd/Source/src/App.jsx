@@ -21,6 +21,15 @@ import TvShow from "./components/TVshowsComponents/TvShow";
 import Dashboard from "./components/adminComponents/Dashboard";
 import AddMovie from "./components/adminComponents/AddMovie";
 import AddShows from "./components/adminComponents/AddShows";
+import Catalog from "./components/adminComponents/Catalog";
+import Users from "./components/adminComponents/Users";
+import axios from "axios";
+import Newpopular from "./components/TVshowsComponents/Newpopular";
+import Updateuser from "./components/adminComponents/Updateuser";
+import WatchHistory from "./components/WatchHistory";
+import Changeplan from "./components/userComponents/Changeplan";
+
+axios.defaults.baseURL = "http://192.168.101.161:9000";
 
 function App() {
   const [data, setData] = useState({});
@@ -53,9 +62,15 @@ function App() {
         <Route path="/home/movie" element={<Video />}></Route>
         <Route path="/home/search" element={<Search />}></Route>
         <Route path="/tvShows" element={<TvShow />}></Route>
+        <Route path="/new" element={<Newpopular />}></Route>
+        <Route path="/watchHistory" element={<WatchHistory />}></Route>
+        <Route path="/changePlan" element={<Changeplan />}></Route>
         <Route path="/adminPage" element={<Dashboard />}></Route>
         <Route path="/addMovie" element={<AddMovie />}></Route>
         <Route path="/addShows" element={<AddShows />}></Route>
+        <Route path="/catalog" element={<Catalog />}></Route>
+        <Route path="/users" element={<Users />}></Route>
+        <Route path="/updateUser" element={<Updateuser />}></Route>
       </Routes>
     </>
   );

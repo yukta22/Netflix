@@ -61,19 +61,25 @@ body {
   font-size: 18px;
 }
 .horizonal_line {
-  background-color: white;
+  background-color: rgb(202, 209, 222);
   height: 2px;
   margin: 2rem 20rem;
   opacity: 0.6;
 }
 
-.footer {
-  padding-left: 320px;
-}
-
 .select_plan_div {
   height: 140px;
   width: 180px;
+}
+
+.cardName {
+  background-color: hsl(212, 76%, 18%);
+  color: white;
+  cursor: pointer;
+}
+
+.cardName :hover {
+  background-color: hsl(212, 45%, 45%);
 }
 
 .signUpform::placeholder {
@@ -96,7 +102,7 @@ li a:hover {
 }
 
 .profile_control {
-  transform: translate3d(0px, 60px, 0px) !important;
+  transform: translate3d(40px, 5px, 0px) !important;
 }
 
 .slick-prev:before {
@@ -244,4 +250,10 @@ li a:hover {
 
 .expandright:focus {
   padding: 0 0 0 16px;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 3px;
 }

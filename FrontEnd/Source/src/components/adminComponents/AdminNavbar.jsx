@@ -39,18 +39,18 @@ const AdminNavbar = () => {
                 Add Movie
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link className="nav-link" to="/addShows">
                 Add Shows
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
-              <Link className="nav-link" to="/home">
-                Edit User
+              <Link className="nav-link" to="/catalog">
+                Catalog
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/new">
+              <Link className="nav-link" to="/users">
                 Users
               </Link>
             </li>
@@ -67,42 +67,6 @@ const AdminNavbar = () => {
                     aria-expanded="false"
                   ></button>
                   <ul className="dropdown-menu ">
-                    <li className="">
-                      <Link
-                        to="/home/profile-manage"
-                        className="d-flex dropdown-item text-decoration-none text-dark ps-2"
-                      >
-                        <FontAwesomeIcon
-                          icon={faPencilAlt}
-                          className="p-1 ps-3"
-                        />
-                        <p className="mb-0 ps-1">Manage Profile</p>
-                      </Link>
-                    </li>
-                    <li className="">
-                      <Link
-                        to="/home/account"
-                        className="d-flex dropdown-item text-decoration-none text-dark ps-2"
-                      >
-                        <FontAwesomeIcon icon={faUser} className="p-1 ps-3" />
-                        <p className="mb-0 ps-2">Account</p>
-                      </Link>
-                    </li>
-                    <li className="">
-                      <Link
-                        to="/home/helpPage"
-                        className="d-flex dropdown-item text-decoration-none text-dark ps-2"
-                      >
-                        <FontAwesomeIcon
-                          icon={faInfoCircle}
-                          className="p-1 ps-3"
-                        />
-                        <p className="mb-0 ps-1">Help Center</p>
-                      </Link>
-                    </li>
-                    <li>
-                      <hr className="dropdown-divider bg-white" />
-                    </li>
                     <li>
                       <Link
                         to="/"

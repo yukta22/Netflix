@@ -1,9 +1,7 @@
 import { User } from "../models/users.js";
-import { Otp } from "../models/otp.js";
-import { sendotp } from "../utils/twilioOtp.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { uploadS3 } from "../utils/uploadS3.js";
+import { uploadUserProfileS3 } from "../utils/userProfileS3.js";
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -40,9 +38,22 @@ const getUser = async (req, res) => {
     if (findData) {
       bcrypt.compare(userPassword, findData.userPassword, (err, result) => {
         if (result) {
-          const token = jwt.sign({ findData }, process.env.SECRET_KEY, {
-            expiresIn: "12h",
+          console.log({
+            userName: findData.userName,
+            userEmail: findData.userEmail,
+            role: findData.role,
           });
+          const token = jwt.sign(
+            {
+              userName: findData.userName,
+              userEmail: findData.userEmail,
+              role: findData.role,
+            },
+            process.env.SECRET_KEY,
+            {
+              expiresIn: "12h",
+            }
+          );
           res.status(201).send({ findData, token, data });
         } else {
           res.send("Login failure");
@@ -56,9 +67,22 @@ const getUser = async (req, res) => {
   }
 };
 
-const getAllUser = async (req, res) => {
+const getUsers = async (req, res) => {
   try {
     const users = await User.find();
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+const getAllUser = async (req, res) => {
+  try {
+    const pageno = req.headers.pageno;
+    const skipData = 5;
+    const users = await User.find()
+      .skip((pageno - 1) * skipData)
+      .limit(5);
     res.status(201).send(users);
   } catch (err) {
     res.status(500).send(err);
@@ -67,20 +91,13 @@ const getAllUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const { userEmail } = req.body;
-    const findData = await User.findOne({ userEmail: userEmail });
-    if (!findData) {
-      res.status(409).send("User Not Found");
-    }
     // console.log(req.files.userProfile);
-    const file = req.files.userProfile;
-    const url = await uploadS3(file.name, file.data);
-    const updateData = await User.findOneAndUpdate(
-      { userEmail: userEmail },
-      {
-        userName: req.body.userName,
-        userProfile: url,
-      },
+    // const file = req.files.userProfile;
+    const { userName, userEmail } = req.body;
+    console.log(req.params.id, req.body);
+    const updateData = await User.findByIdAndUpdate(
+      req.params.id,
+      { userName, userEmail },
       {
         new: true,
       }
@@ -95,11 +112,12 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   try {
-    await User.findByIdAndDelete(req.params.id);
-    res.status(201).send("User deleted successfully");
+    console.log(req.params.id);
+    const data = await User.findByIdAndDelete(req.params.id);
+    res.status(201).send(data);
   } catch (err) {
     res.status(500).send(err);
   }
 };
 
-export { createUser, getUser, getAllUser, updateUser, deleteUser };
+export { createUser, getUser, getUsers, getAllUser, updateUser, deleteUser };

@@ -20,7 +20,7 @@ const TvShow = () => {
     }
     let config = {
       method: "get",
-      url: "http://localhost:9000/shows",
+      url: "/shows",
       headers: {
         token: token,
       },

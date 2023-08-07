@@ -6,14 +6,18 @@ import {
   deleteMovies,
   getVideoplayer,
   searchMovies,
+  getrandomMovie,
+  getMoviesAdmin,
 } from "../controllers/movieController.js";
 // import { upload } from "../utils/multer.js";
 // import { upload } from "../utils/multerS3.js";
-import { verifyAdmin } from "../middleware/verifyJwt.js";
+import { verifyAdmin, verifyUser } from "../middleware/verifyJwt.js";
 
 const movieRoute = express.Router();
 
-movieRoute.get("/movie", getMovies);
+movieRoute.get("/movie", verifyUser, getMovies);
+movieRoute.get("/admin/movie", getMoviesAdmin);
+movieRoute.get("/randommovie", getrandomMovie);
 movieRoute.get("/searchMovie/:title", searchMovies);
 movieRoute.post("/movie/videoplayer", getVideoplayer);
 
@@ -30,7 +34,7 @@ movieRoute.post("/movie/videoplayer", getVideoplayer);
 //   createMovie
 // );
 movieRoute.post("/movie", verifyAdmin, createMovie);
-movieRoute.put("/movie/:id", updateMovies);
-movieRoute.delete("/movie/:id", deleteMovies);
+movieRoute.put("/movie", verifyAdmin, updateMovies);
+movieRoute.delete("/movie/:id", verifyAdmin, deleteMovies);
 
 export { movieRoute };

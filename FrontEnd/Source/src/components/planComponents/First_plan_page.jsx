@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -10,6 +10,13 @@ const First_plan_page = () => {
     navigate("/");
   };
 
+  useEffect(() => {
+    const registerUser = localStorage.getItem("registerUser");
+    if (!registerUser) {
+      navigate("/");
+      return;
+    }
+  }, []);
   const navigateSecondPage = () => {
     navigate("/signUp/plan2");
   };
@@ -31,7 +38,7 @@ const First_plan_page = () => {
       <div className="ms-5  text-white  bg-image ms-2   position-relative">
         <div
           className="bg-dark w-50 mx-auto position-absolute p-5"
-          style={{ top: "70px", left: "500px" }}
+          style={{ top: "70px", left: "400px" }}
         >
           <div className="px-5 mx-auto">
             <p className="px-5">STEP 2 OF 3</p>

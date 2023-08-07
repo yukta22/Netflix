@@ -11,7 +11,9 @@ const ManageProfile = () => {
   const navigateEditImage = () => {
     navigate("/home/profile-manage/editImage");
   };
-  const user = useSelector((state) => state.login.user);
+  // const user = useSelector((state) => state.login.user);
+  let user = JSON.parse(localStorage.getItem("user"));
+  user = user?.email;
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -19,17 +21,10 @@ const ManageProfile = () => {
       navigate("/");
     }
 
-    // const userdata = JSON.parse(localStorage.getItem("user"));
-
     if (userdata) {
       setUserdata(user);
     }
   }, []);
-
-  const handleChange = (e) => {
-    const updatedUserdata = { ...userdata, userName: e.target.value };
-    setUserdata(updatedUserdata);
-  };
 
   const handleSubmit = (e) => {
     console.log("submit");
@@ -45,21 +40,19 @@ const ManageProfile = () => {
   };
 
   const editUser = async (formData) => {
-    const res = await axios.put("http://localhost:9000/user", formData, {
+    const res = await axios.put("/user", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
     });
     console.log(res);
-    // localStorage.removeItem("user");
-    // localStorage.setItem("user", JSON.stringify(res.data));
   };
 
   return (
     <div>
       <div className="text-white m-5">
         <form onSubmit={handleSubmit}>
-          <h1>Edit Profile</h1>
+          <h1>Manage Profile</h1>
           <div
             className="horizonal_line "
             style={{
@@ -68,22 +61,7 @@ const ManageProfile = () => {
             }}
           ></div>
           <div className="d-flex m-5">
-            <div>
-              <img
-                src={userdata?.userProfile}
-                alt="..."
-                name="userProfile"
-                onClick={navigateEditImage}
-              />
-            </div>
             <div className="ms-3 w-75">
-              <input
-                type="text"
-                className="form-control bg-secondary text-white"
-                id="exampleFormControlInput1"
-                value={userdata?.userName || ""}
-                onChange={handleChange}
-              />
               <div className="fs-5 mt-3">Language:</div>
               <select
                 className="form-select w-25 bg-secondary text-white"

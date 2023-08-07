@@ -16,9 +16,16 @@ const Search = () => {
   const [post, setPost] = useState();
   const [data, setData] = useState();
   useEffect(() => {
-    axios.get("http://localhost:9000/movie").then((response) => {
-      setPost(response.data);
-    });
+    const token = localStorage.getItem("token");
+    axios
+      .get("/movie", {
+        headers: {
+          token: token,
+        },
+      })
+      .then((response) => {
+        setPost(response.data);
+      });
   }, [data]);
 
   const searchChange = (e) => {
@@ -27,11 +34,8 @@ const Search = () => {
         ele.title.toLowerCase().includes(e.target.value) ||
         ele.genre.toLowerCase().includes(e.target.value)
     );
-    // console.log(filterData);
     setData(filterData);
   };
-  // console.log(data);
-  // console.log(post);
 
   return (
     <>
@@ -71,16 +75,6 @@ const Search = () => {
               <li className="nav-item">
                 <Link className="nav-link" to="/new">
                   New & Popular
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/myList">
-                  My List
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/browaseLauguages">
-                  Browse By Lauguages
                 </Link>
               </li>
             </ul>

@@ -13,6 +13,8 @@ const AddShows = () => {
     { value: "Kalki Koechlin", label: "Kalki Koechlin" },
     { value: "ranveer_kapur", label: "Ranveer Kapur" },
     { value: "ranbir_singh", label: "Ranbir Singh" },
+    { value: "deepika_padukon", label: "Deepika Padukon" },
+    { value: "deepika_padukon", label: "Deepika Padukon" },
   ];
   const [data, setData] = useState();
   const [episode_arr, setEpisode_arr] = useState([]);
@@ -54,7 +56,7 @@ const AddShows = () => {
     formData.append("episode_arr", JSON.stringify(episode_arr));
     const token = localStorage.getItem("token");
 
-    const res = await axios.post("http://localhost:9000/shows", formData, {
+    const res = await axios.post("/shows", formData, {
       headers: {
         token: token,
         "Content-Type": "multipart/form-data",
@@ -224,7 +226,7 @@ const AddShows = () => {
                     className="form-control"
                     type="file"
                     id="formFile"
-                    // onChange={(e) => setVideo_480p(e.target.files[0])}
+                    onChange={(e) => setVideo_480p(e.target.files[0])}
                   />
                 </div>
               </div>
@@ -237,7 +239,7 @@ const AddShows = () => {
                     className="form-control"
                     type="file"
                     id="formFile"
-                    // onChange={(e) => setVideo_720p(e.target.files[0])}
+                    onChange={(e) => setVideo_720p(e.target.files[0])}
                   />
                 </div>
                 <div className="mb-1 mt-3 ms-2 w-50">
@@ -248,7 +250,7 @@ const AddShows = () => {
                     className="form-control"
                     type="file"
                     id="formFile"
-                    // onChange={(e) => setVideo_1080p(e.target.files[0])}
+                    onChange={(e) => setVideo_1080p(e.target.files[0])}
                   />
                 </div>
               </div>

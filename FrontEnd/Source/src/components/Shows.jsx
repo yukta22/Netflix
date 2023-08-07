@@ -6,12 +6,12 @@ import Navbar from "./Navbar";
 import ShowInfo from "./ShowInfo";
 const Shows = () => {
   const [data, setData] = useState();
+  const [randomMovie, setRandomMovie] = useState();
   const [flag, setFlag] = useState(false);
 
   const [showData, setShowData] = useState();
   const navigate = useNavigate();
 
-  const { state } = useLocation();
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -20,7 +20,7 @@ const Shows = () => {
     }
     let config = {
       method: "get",
-      url: "http://localhost:9000/movie",
+      url: "/movie",
       headers: {
         token: token,
       },
@@ -29,7 +29,6 @@ const Shows = () => {
 
     axios(config)
       .then(function (response) {
-        // console.log(JSON.stringify(response.data));
         setData(response.data);
       })
       .catch(function (error) {
@@ -37,7 +36,29 @@ const Shows = () => {
       });
   }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    let config = {
+      method: "get",
+      url: "/randommovie",
+      headers: {
+        token: token,
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        setRandomMovie(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
+
+  // const findMovie = data?.find((e) => e.title == randomMovie[0]?.title);
   const findMovie = data?.find((e) => e.title == "Suits");
+
   const navigateToVideo = (showData) => {
     navigate("/home/movie", { state: showData });
   };
@@ -56,7 +77,7 @@ const Shows = () => {
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center center",
           height: "950px",
-          width: "1800px",
+          width: "100%",
           margin: "12px",
           marginTop: "0px",
         }}
@@ -129,13 +150,12 @@ const Shows = () => {
               </svg>
             </div>
           </div>
-          <div className="ps-5 pt-4 ms-1 fw-bold fs-3 text-justify">
+          <div className="d-none d-md-node d-lg-block ps-5 pt-4 ms-1 fw-bold fs-3 text-justify">
             <p style={{ paddingLeft: "70px" }}>{findMovie?.description}</p>
           </div>
         </div>
       </div>
       <Showsitem data={data}></Showsitem>
-      {/* <Outlet /> */}
     </>
   );
 };

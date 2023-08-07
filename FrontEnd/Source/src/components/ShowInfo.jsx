@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const ShowInfo = ({ showData, setFlag }) => {
   const [data, setData] = useState();
   const navigate = useNavigate();
-
+  // console.log(showData);
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -14,7 +14,7 @@ const ShowInfo = ({ showData, setFlag }) => {
     }
     let config = {
       method: "get",
-      url: "http://localhost:9000/movie",
+      url: "/movie",
       headers: {
         token: token,
       },
@@ -33,21 +33,33 @@ const ShowInfo = ({ showData, setFlag }) => {
   const navigateToVideo = (showData) => {
     navigate("/home/movie", { state: showData });
   };
-
   const filterData = data?.filter(
     (ele) =>
-      ele.genre.includes(showData.genre.split(" ")[0]) ||
-      ele.genre.includes(showData.genre.split(" ")[1]) ||
-      ele.genre.includes(showData.genre.split(",")[0]) ||
-      ele.genre.includes(showData.genre.split(",")[1])
+      ele.title !== showData?.title &&
+      (ele.genre
+        .toLowerCase()
+        .includes(showData?.genre.toLowerCase().split(" ")[0]) ||
+        ele.genre
+          .toLowerCase()
+          .includes(showData?.genre.toLowerCase().split(" ")[1]) ||
+        ele.genre
+          .toLowerCase()
+          .includes(showData?.genre.toLowerCase().split(",")[0]) ||
+        ele.genre
+          .toLowerCase()
+          .includes(showData?.genre.toLowerCase().split(",")[1]))
   );
-  // console.log(filterData);
 
   return (
     <>
       <div
-        className="front_page position-relative rounded mb-3"
-        style={{ margin: "12px", marginLeft: "400px", marginRight: "410px" }}
+        className="front_page position-relative rounded pb-5"
+        style={{
+          margin: "12px",
+          marginLeft: "400px",
+          marginRight: "410px",
+          overflowY: "auto",
+        }}
       >
         <div
           className="text-white"
@@ -130,13 +142,13 @@ const ShowInfo = ({ showData, setFlag }) => {
           />
         </svg>
 
-        {showData.episode && (
+        {showData?.episode && (
           <>
             <h3 className="text-light ps-4 ms-2  ">Episodes</h3>
             {showData.episode.map((ele) => {
               return (
                 <div
-                  key={crypto.randomUUID()}
+                  key={ele._id}
                   className="text-light ms-3"
                   onClick={() => navigateToVideo(ele)}
                 >
@@ -156,30 +168,32 @@ const ShowInfo = ({ showData, setFlag }) => {
             })}
           </>
         )}
-        <div className="text-light">
-          <div className="fs-4 fw-bold ps-4 ms-2 mt-4">More Like This</div>
-          <div className="mx-3 d-flex flex-wrap">
-            {filterData?.map((ele) => {
-              return (
-                <div
-                  className="card m-3 "
-                  style={{
-                    width: "18rem",
-                    cursor: "pointer",
-                  }}
-                  key={crypto.randomUUID()}
-                  onClick={() => navigateToVideo(ele)}
-                >
-                  <img src={ele.image} className="card-img-top" alt="..." />
-                  <div className="card-body showmore">
-                    <h5 className="card-title">{ele.title}</h5>
-                    <p className="card-text">{ele.description}</p>
+        {filterData?.length > 0 && (
+          <div className="text-light">
+            <div className="fs-4 fw-bold ps-4 ms-2 mt-4">More Like This</div>
+            <div className="mx-3 d-flex flex-wrap">
+              {filterData?.map((ele) => {
+                return (
+                  <div
+                    className="card m-3 "
+                    style={{
+                      width: "18rem",
+                      cursor: "pointer",
+                    }}
+                    key={ele._id}
+                    onClick={() => navigateToVideo(ele)}
+                  >
+                    <img src={ele.image} className="card-img-top" alt="..." />
+                    <div className="card-body showmore">
+                      <h5 className="card-title">{ele.title}</h5>
+                      <p className="card-text">{ele.description}</p>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </>
   );

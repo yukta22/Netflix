@@ -5,13 +5,14 @@ const watchhistorySchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
-  show: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Show",
-  },
+
   movie: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Movie",
   },
+  // show: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Show",
+  // },
 });
-const Watchhistory = mongoose.model("Watchhistory", watchhistorySchema);
+export const Watchhistory = mongoose.model("Watchhistory", watchhistorySchema);

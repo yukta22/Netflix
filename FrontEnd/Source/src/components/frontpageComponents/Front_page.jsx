@@ -4,9 +4,6 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Front_page = () => {
   const navigate = useNavigate();
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
 
   // useEffect(() => {
   //   const token = localStorage.getItem("token");
@@ -20,7 +17,7 @@ const Front_page = () => {
     <>
       <div>
         <div className="ms-5  text-white  bg-image ms-2  front_page_background_image">
-          <div className="ms-5 ps-4  w-100  ">
+          <div className="ms-5 ps-4  w-100 pb-5 ">
             <p
               className="fw-bold ms-5 "
               style={{ paddingTop: "220px", fontSize: "46px" }}
@@ -32,22 +29,21 @@ const Front_page = () => {
               Ready to watch? Enter your email to create or restart your
               membership.
             </p>
-            <div className="d-flex ms-5">
-              <input
+            <div className="d-flex ms-5 pb-5">
+              {/* <input
                 type="text"
                 className="bg-none p-1 text-white"
                 placeholder="Email Address"
                 name="userEmail"
-                onChange={handleChange}
                 style={{
                   background: "transparent",
                   fontWeight: "bold",
                   border: "1px solid gray",
                 }}
-              ></input>
+              ></input> */}
               <button
                 type="button"
-                className="fw-bold ms-2 btn btn-danger p-2 px-3 text-white fs-5"
+                className="fw-bold btn btn-danger p-2 px-5 text-white fs-5 "
               >
                 <Link to="/SignUp" className="text-decoration-none text-white">
                   Get Started
@@ -56,37 +52,40 @@ const Front_page = () => {
             </div>
           </div>
         </div>
-        <div className=" d-flex flex-row justify-content-center py-5">
-          <div className="d-flex justify-content-between align-items-center ms-5 w-50 py-3 text-white">
-            <div className="w-50 pe-4">
+        <div
+          className=" d-flex  justify-content-center p-5 "
+          style={{ marginTop: "190px" }}
+        >
+          <div className="d-flex  flex-row   justify-content-between align-items-center ps-2  py-3 text-white">
+            <div className="pe-4">
               <p className="fs-3 fw-bold ">Enjoy on your TV</p>
               <p>
                 Watch on smart TV, PlayStation, Xbox, Chromecast, Apple TV,
                 Blu-ray players and more.
               </p>
             </div>
-            <div className="w-50">
+            <div className="mx-5  d-none d-md-block">
               <img
-                src="https://cdn.mos.cms.futurecdn.net/rDJegQJaCyGaYysj2g5XWY.jpg"
+                src="https://t4.ftcdn.net/jpg/04/33/09/25/240_F_433092533_6yA8KufgoMuiRoSxYLmL9KXfD1klO8CL.jpg"
                 alt="..."
-                width="300px"
+                width="100%"
                 height="200px"
               />
             </div>
           </div>
         </div>
         <div className="horizonal_line" />
-        <div className=" d-flex flex-row justify-content-center p-5">
-          <div className="d-flex justify-content-between align-items-center ms-5 w-50 text-white">
-            <div className="w-50">
+        <div className=" d-flex  justify-content-center p-5">
+          <div className="d-flex  justify-content-between align-items-center  text-white">
+            <div className="mx-5  d-none d-md-block">
               <img
-                src="https://cdn.mos.cms.futurecdn.net/rDJegQJaCyGaYysj2g5XWY.jpg"
+                src="https://t4.ftcdn.net/jpg/03/88/28/09/240_F_388280980_m3cM90Reol12o34WTVLl87HteezWZezB.jpg"
                 alt="..."
                 width="300px"
                 height="200px"
               />
             </div>
-            <div className="w-50 pe-4">
+            <div className=" pe-4">
               <p className="fs-3 fw-bold ">Watch everywhere</p>
               <p>
                 Stream Unlimited movies and TV s on your phone, tablet, laptop,
@@ -96,18 +95,18 @@ const Front_page = () => {
           </div>
         </div>
         <div className="horizonal_line" />
-        <div className=" d-flex flex-row justify-content-center p-5">
-          <div className="d-flex justify-content-between align-items-center ms-5 w-50 text-white">
-            <div className="w-50 pe-4">
-              <p className="fs-3 fw-bold ">Create profile for Kids</p>
+        <div className=" d-flex  justify-content-center p-5">
+          <div className="d-flex justify-content-between align-items-center text-white">
+            <div className="pe-2 ">
+              <p className="fs-3  fw-bold ">Create profile for Kids</p>
               <p>
                 Send children on adventures with there favourite characters in a
                 space made just for them-free with your membership.
               </p>
             </div>
-            <div className="w-50">
+            <div className="mx-2  d-none d-md-block">
               <img
-                src="https://cdn.mos.cms.futurecdn.net/rDJegQJaCyGaYysj2g5XWY.jpg"
+                src="https://t4.ftcdn.net/jpg/04/71/79/29/240_F_471792969_ijZyg1Vvyr48fIpXorctMTkSiuN2UYzm.jpg"
                 alt="..."
                 width="300px"
                 height="200px"
@@ -116,17 +115,17 @@ const Front_page = () => {
           </div>
         </div>
         <div className="horizonal_line" />
-        <div className=" d-flex flex-row justify-content-center p-5">
-          <div className="d-flex justify-content-between align-items-center ms-5 w-50 text-white">
-            <div className="w-50">
+        <div className=" d-flex justify-content-center p-5">
+          <div className="d-flex justify-content-between align-items-center   text-white">
+            <div className="mx-5   d-none d-md-block">
               <img
-                src="https://cdn.mos.cms.futurecdn.net/rDJegQJaCyGaYysj2g5XWY.jpg"
+                src="https://t3.ftcdn.net/jpg/01/58/73/90/240_F_158739054_HCLkZaMcebEGaAVseiRxU0VMmkmoeXXl.jpg"
                 alt="..."
                 width="300px"
                 height="200px"
               />
             </div>
-            <div className="w-50 pe-4">
+            <div className="pe-4">
               <p className="fs-3 fw-bold ">
                 Download your shows to watch offline
               </p>
@@ -137,7 +136,7 @@ const Front_page = () => {
           </div>
         </div>
       </div>
-      <div className="front_page_accordion   pt-5">
+      <div className="front_page_accordion d-none d-md-block  pt-5 pb-5">
         <h1 className="text-white ms-5 px-5">Frequenty Asked Questions</h1>
         <div className="accordion " id="accordionExample">
           <div className="accordion-item m-3 accordion-item-background ">
@@ -328,21 +327,11 @@ const Front_page = () => {
           </div>
         </div>
       </div>
-      <div className="ms-5 text-white textForMembership">
-        <div>
+      <div className="d-none d-md-block text-white textForMembership pt-4 ">
+        <div className="">
           Ready to Watch? Enter your email to create or restart your membership.
         </div>
         <div className="d-flex py-3">
-          <input
-            type="text"
-            className="bg-none p-1"
-            placeholder="Email Address"
-            style={{
-              background: "transparent",
-              fontWeight: "bold",
-              border: "1px solid gray",
-            }}
-          ></input>
           <button
             type="button"
             className="fw-bold ms-2 btn btn-danger  px-3 text-white fs-5"
@@ -351,7 +340,7 @@ const Front_page = () => {
           </button>
         </div>
       </div>
-      <div className="footer py-5 mt-5 text-muted">
+      <div className="footer ps-5 ms-5  py-5 mt-5 text-muted">
         <div>
           <p>
             Questions? Call{" "}
@@ -451,7 +440,10 @@ const Front_page = () => {
         </div>
       </div>
 
-      <div className="dropdown py-3" style={{ paddingLeft: "320px" }}>
+      <div
+        className="d-none d-md-block dropdown py-3"
+        style={{ paddingLeft: "320px" }}
+      >
         <button
           className="btn bg-transparent text-white border border-white  dropdown-toggle"
           type="button"

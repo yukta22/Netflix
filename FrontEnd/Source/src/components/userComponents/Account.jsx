@@ -13,8 +13,6 @@ import { useSelector } from "react-redux";
 const Account = () => {
   const [post, setPost] = useState();
   const navigate = useNavigate();
-  // const user = JSON.parse(localStorage.getItem("user"));
-  // const user = useSelector((state) => state.login.user);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -22,16 +20,22 @@ const Account = () => {
       navigate("/");
       return;
     }
-
-    axios.get("http://localhost:9000/subscriptions").then((response) => {
+    let user = JSON.parse(localStorage.getItem("user"));
+    // console.log(user.id);
+    axios.post(`/subscriptions/${user.id}`).then((response) => {
       setPost(response.data);
     });
   }, []);
-  let user = localStorage.getItem("user");
-  user = user.substring(1, user.length - 1);
+
+  const handleClick = () => {
+    navigate("/changePlan", { state: post });
+  };
+  // console.log(post);
+
+  // user = user.substring(1, user.length - 1);
   // console.log(user);
-  const userSubscriptionData = post?.find((e) => e.user?.userEmail == user);
-  console.log(userSubscriptionData?.user);
+  // const userSubscriptionData = post?.find((e) => e.user?.userEmail == user);
+  // console.log(userSubscriptionData?.user);
 
   return (
     <div>
@@ -98,15 +102,9 @@ const Account = () => {
         </div>
         <div className="col">
           <div>
-            <div className="fw-bold fs-5">
-              {userSubscriptionData?.user.userEmail}
-            </div>
+            <div className="fw-bold fs-5">{post?.user.userEmail}</div>
             <div className="fs-5">
-              User Name:{" "}
-              <span className="ps-2">
-                {" "}
-                {userSubscriptionData?.user.userName}
-              </span>
+              User Name: <span className="ps-2"> {post?.user.userName}</span>
             </div>
             <div className="fs-5">
               Password: <span className="ps-2"> ********</span>
@@ -139,13 +137,17 @@ const Account = () => {
           <div className="fs-3 justify-content-start">PLAN DETAILS</div>
         </div>
         <div className="col fs-5">
-          <div>{userSubscriptionData?.plan.name}</div>
+          <div>{post?.plan.name}</div>
         </div>
         <div className="col ">
           <div className="fs-5 ps-5">
-            <Link className="dropdown-item text-primary fs-5" to="#">
+            <p
+              className="dropdown-item text-primary fs-5"
+              onClick={handleClick}
+              style={{ cursor: "pointer" }}
+            >
               Change Plan
-            </Link>
+            </p>
           </div>
         </div>
       </div>
@@ -192,9 +194,7 @@ const Account = () => {
               <div className="d-flex">
                 <FontAwesomeIcon icon={faUser} />
                 <div className="ms-3">
-                  <div className="fw-bold fs-6">
-                    {userSubscriptionData?.user.userName}
-                  </div>
+                  <div className="fw-bold fs-6">{post?.user.userName}</div>
                 </div>
               </div>
             </button>

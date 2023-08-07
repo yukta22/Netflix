@@ -14,9 +14,14 @@ const Second_plan_page = () => {
   const navigate = useNavigate();
 
   const [data, setData] = useState();
-  const registerUser = JSON.parse(localStorage.getItem("registerUser"));
+  const [selected, setSelected] = useState();
+  const registerUser = localStorage.getItem("registerUser");
   useEffect(() => {
-    axios.get("http://localhost:9000/plan").then((response) => {
+    if (!registerUser) {
+      navigate("/");
+      return;
+    }
+    axios.get("/plan").then((response) => {
       setData(response.data);
     });
   }, []);
@@ -29,35 +34,24 @@ const Second_plan_page = () => {
   };
 
   const handleClick = (ele) => {
-    alert("You have Selected " + ele.name + " Plan");
+    console.log(registerUser);
+    setSelected(ele._id);
+    // alert("You have Selected " + ele.name + " Plan");
     const dt = new Date();
 
-    let data = JSON.stringify({
+    let subdata = {
       startDate: Date.now(),
       endDate: dt.setMonth(dt.getMonth() + 1),
-      userId: registerUser._id,
+      userId: registerUser,
       planId: ele._id,
-    });
-    registerPlan(data);
+    };
+    registerPlan(subdata);
   };
 
-  const registerPlan = async (data) => {
-    let config = {
-      method: "post",
-      url: "http://localhost:9000/subscriptions",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-
-    axios(config)
-      .then(function (response) {
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  const registerPlan = async (subdata) => {
+    console.log(subdata);
+    const res = await axios.post("/subscriptions", subdata);
+    console.log(res);
   };
 
   return (
@@ -86,22 +80,18 @@ const Second_plan_page = () => {
       <div>
         {data?.map((ele, key) => {
           return (
-            <>
-              <div
-                className="container"
-                onClick={() => handleClick(ele)}
-                style={{ cursor: "pointer" }}
-              >
-                <div className="card mx-auto m-4 w-50 mt-3">
-                  <div
-                    className="card-header"
-                    style={{
-                      backgroundColor: `hsl(212, 76%, 18%)`,
-                      color: "white",
-                    }}
-                  >
-                    {ele.name}
-                  </div>
+            <div key={ele._id}>
+              <div className="container" onClick={() => handleClick(ele)}>
+                <div
+                  style={{
+                    border:
+                      `${ele._id}` == `${selected}`
+                        ? "3px solid violet"
+                        : "none",
+                  }}
+                  className="card mx-auto m-4 w-50 mt-3 hover-shadow"
+                >
+                  <div className="card-header cardName">{ele.name}</div>
                   <div className="card-body d-flex justify-content-between">
                     <div>Monthly Price:</div>
                     <div>{ele.charges}</div>
@@ -116,7 +106,7 @@ const Second_plan_page = () => {
                   </div>
                 </div>
               </div>
-            </>
+            </div>
           );
         })}
       </div>

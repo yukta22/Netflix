@@ -5,22 +5,70 @@ import { useDispatch } from "react-redux";
 import { addLoginCredentials } from "../redux/loginSlice";
 
 const SignIn = () => {
-  const dispatch = useDispatch();
   const [data, setData] = useState();
   const [flag, setFlag] = useState(false);
+  const [formerr, setFormerr] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const validation = () => {
+    let lowerCase = /[a-z]/g;
+    let upperCase = /[A-Z]/g;
+    let specialChar = /^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).*$/g;
+    const err = {};
+    let valflag = false;
+
+    if (!data?.userName) {
+      err.userName = "User name is required";
+      valflag = true;
+    }
+    if (!data?.userEmail) {
+      err.userEmail = "User email is required";
+      valflag = true;
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(data?.userEmail)
+    ) {
+      err.userEmail = "Invalid email address";
+      valflag = true;
+    }
+
+    if (!data?.userPassword) {
+      err.userPassword = "User password is required";
+      valflag = true;
+    } else if (data?.userPassword.length < 7) {
+      err.userPassword = "Password must be at least 8 characters!";
+      valflag = true;
+    } else if (!data?.userPassword.match(lowerCase)) {
+      err.userPassword = "Password should contains lowercase letters!";
+      valflag = true;
+    }
+    // else if (!data?.userPassword.match(upperCase)) {
+    //   err.userPassword = "Password should contain uppercase letters!";
+    //   valflag = true;
+    // }
+    else if (!data?.userPassword.match(specialChar)) {
+      err.userPassword = "Password should contain specialChar letters!";
+      valflag = true;
+    }
+
+    setFormerr(err);
+
+    return valflag;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    postRequest();
+    if (validation()) {
+      await postRequest();
+    }
   };
 
   const postRequest = async () => {
-    const login = await axios.post("http://localhost:9000/login/user", data);
+    const login = await axios.post("/login/user", data);
+    console.log(login);
     if (login.data.findData === undefined) {
       setFlag(true);
     } else {
@@ -28,9 +76,12 @@ const SignIn = () => {
       localStorage.setItem("token", login.data.token);
       localStorage.setItem(
         "user",
-        JSON.stringify(login.data.findData.userEmail)
+        JSON.stringify({
+          id: login.data.findData._id,
+          email: login.data.findData.userEmail,
+        })
       );
-      dispatch(addLoginCredentials(login.data.findData));
+
       if (login.data.findData.role == "admin") {
         navigate("/adminPage");
       } else {
@@ -83,8 +134,8 @@ const SignIn = () => {
                 id="formGroupExampleInput"
                 name="userEmail"
                 onChange={handleChange}
-                required
               />
+              <div className="text-danger">{formerr?.userEmail}</div>
             </div>
             <div className="mb-3">
               <input
@@ -94,8 +145,8 @@ const SignIn = () => {
                 placeholder="password"
                 name="userPassword"
                 onChange={handleChange}
-                required
               />
+              <div className="text-danger">{formerr?.userPassword}</div>
             </div>
             <button
               type="submit"

@@ -3,6 +3,7 @@ import { uploadS3 } from "../utils/multerS3.js";
 
 const createMovie = async (req, res) => {
   try {
+    // console.log(req.body);
     const imgfile = req.files?.image;
     const videoFile_360p = req.files?.video_360p;
     const videoFile_480p = req.files?.video_480p;
@@ -60,45 +61,29 @@ const getMovies = async (req, res) => {
   }
 };
 
-// const getVideoplayer = async (req, res) => {
-//   try {
-//     const id = req.params.id;
-//     const quality = req.params.selectedQuality;
-//     console.log("asd");
-//     console.log(quality);
-//     // res.end();
-//     const findData = await Movie.findById(id);
-//     let videoUrl;
-//     if (quality == "360p") {
-//       videoUrl = findData.video_360p;
-//     } else if (quality == "480p") {
-//       videoUrl = findData.video_480p;
-//     } else if (quality == "720p") {
-//       videoUrl = findData.video_720p;
-//     } else if (quality == "1080p") {
-//       videoUrl = findData.video_1080p;
-//     }
-//     console.log(videoUrl);
-//     https.get(videoUrl, (videoResponse) => {
-//       res.setHeader("Content-Type", videoResponse.headers["content-type"]);
-//       res.setHeader("Content-Length", videoResponse.headers["content-length"]);
+const getMoviesAdmin = async (req, res) => {
+  try {
+    const pageno = req.headers.pageno;
+    const skipData = 5;
+    const movies = await Movie.find()
+      .skip((pageno - 1) * skipData)
+      .limit(5);
+    res.status(200).json(movies);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
 
-//       videoResponse.on("data", (chunk) => {
-//         res.write(chunk);
-//       });
-//       videoResponse.on("end", () => {
-//         res.end();
-//       });
-//       videoResponse.on("error", (error) => {
-//         console.error(error);
-//         res.status(500).end("Internal Server Error");
-//       });
-//     });
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json(err);
-//   }
-// };
+const getrandomMovie = async (req, res) => {
+  try {
+    const randomdata = Math.floor(Math.random() * 10);
+    const getData = await Movie.find().skip(randomdata).limit(-1);
+    res.status(200).json(getData);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(err);
+  }
+};
 
 const getVideoplayer = async (req, res) => {
   try {
@@ -113,9 +98,9 @@ const getVideoplayer = async (req, res) => {
 
 const updateMovies = async (req, res) => {
   try {
-    const id = req.params.id;
-    await Movie.findByIdAndUpdate(id, req.body);
-    res.status(200).json("Data updated");
+    console.log(req.body);
+    const updateData = await Movie.findByIdAndUpdate(req.body.id, req.body);
+    res.status(200).json(updateData);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -123,10 +108,11 @@ const updateMovies = async (req, res) => {
 
 const deleteMovies = async (req, res) => {
   try {
-    const id = req.params.id;
-    await Movie.findByIdAndDelete(id, req.body);
+    console.log(req.params.id);
+    await Movie.findByIdAndDelete(req.params.id);
     res.status(200).json("Data deleted");
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 };
@@ -148,4 +134,6 @@ export {
   updateMovies,
   deleteMovies,
   searchMovies,
+  getrandomMovie,
+  getMoviesAdmin,
 };

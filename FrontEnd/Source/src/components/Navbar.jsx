@@ -22,8 +22,6 @@ const Navbar = ({ data }) => {
   // };
 
   const searchChange = (e) => {
-    const value = e.target.value;
-    // navigate(`/home/search/${value}`, { state: value });
     navigate(`/home/search`);
   };
 
@@ -67,15 +65,15 @@ const Navbar = ({ data }) => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/myList">
-                My List
+              <Link className="nav-link" to="/watchHistory">
+                Watch History
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link className="nav-link" to="/browaseLauguages">
                 Browse By Lauguages
               </Link>
-            </li>
+            </li> */}
           </ul>
           <div className="d-flex ">
             <div className="mx-3 mt-1 pt-1">
