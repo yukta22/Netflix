@@ -32,6 +32,7 @@ const AddMovie = () => {
   const [video_720p, setVideo_720p] = useState();
   const [video_1080p, setVideo_1080p] = useState();
   const [cast, setCast] = useState([]);
+  const [formErr, setFormErr] = useState();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -52,43 +53,73 @@ const AddMovie = () => {
     } else {
       setFlag(true);
     }
-    console.log(flag);
   }, []);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
+  const validation = () => {
+    const err = {};
+    let valflag = false;
+    if (!data?.title) {
+      err.title = "Title is required";
+      valflag = true;
+    } else if (!isNaN(data?.title)) {
+      err.title = "Title should not be a number";
+      valflag = true;
+    }
+    if (!data?.description) {
+      err.description = "Description is required";
+      valflag = true;
+    } else if (!isNaN(data?.description)) {
+      err.description = "Description should not be a number";
+      valflag = true;
+    }
+    if (!data?.genre) {
+      err.description = "Genre is required";
+      valflag = true;
+    } else if (!isNaN(data?.genre)) {
+      err.description = "Genre should not be a number";
+      valflag = true;
+    }
+    setFormErr(err);
+
+    return valflag;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoader(true);
-    const token = localStorage.getItem("token");
-    console.log(data);
-    const formdata = new FormData();
-    formdata.append("title", data?.title);
-    formdata.append("description", data?.description);
-    formdata.append("genre", data?.genre);
-    formdata.append("image", img);
-    formdata.append("video_360p", video_360p);
-    formdata.append("video_480p", video_480p);
-    formdata.append("video_720p", video_720p);
-    formdata.append("video_1080p", video_1080p);
+    if (validation()) {
+      setLoader(true);
+      const token = localStorage.getItem("token");
+      console.log(data);
+      const formdata = new FormData();
+      formdata.append("title", data?.title);
+      formdata.append("description", data?.description);
+      formdata.append("genre", data?.genre);
+      formdata.append("image", img);
+      formdata.append("video_360p", video_360p);
+      formdata.append("video_480p", video_480p);
+      formdata.append("video_720p", video_720p);
+      formdata.append("video_1080p", video_1080p);
 
-    for (const element of cast) {
-      formdata.append("cast", element.value);
+      for (const element of cast) {
+        formdata.append("cast", element.value);
+      }
+      const res = await axios.post("/movie", formdata, {
+        headers: {
+          token: token,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(res);
+      if (res) {
+        setLoader(false);
+        setSubmitflag(true);
+      }
+      setData({});
     }
-    const res = await axios.post("/movie", formdata, {
-      headers: {
-        token: token,
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    console.log(res);
-    if (res) {
-      setLoader(false);
-      setSubmitflag(true);
-    }
-    setData({});
   };
 
   const editData = async () => {
@@ -150,6 +181,7 @@ const AddMovie = () => {
               value={data?.title || ""}
               onChange={handleChange}
             />
+            <div className="text-danger">{formErr?.title}</div>
           </div>
           <div className="mb-1">
             <label
@@ -167,6 +199,7 @@ const AddMovie = () => {
               value={data?.description || ""}
               onChange={handleChange}
             />
+            <div className="text-danger">{formErr?.description}</div>
           </div>
 
           <div className="mb-1 mt-3 ">
@@ -174,34 +207,24 @@ const AddMovie = () => {
               Upload Cover Image
             </label>
             <div className="d-flex">
-              <img
-                src={`${
-                  typeof img === "string" ? img : URL.createObjectURL(img)
-                }`}
-                alt="..."
-                width="90px"
-                height="40px"
-                className="me-3"
-                loading="lazy"
-              />
-              <input
-                className="form-control"
-                type="file"
-                id="formFile"
-                onChange={(e) => setImg(e.target.files[0])}
-              />
-              {/* {state ? (
+              {state ? (
                 <>
-                  <img src={img} alt="..." width="70px" className="me-3" />
+                  <img
+                    src={`${
+                      typeof img === "string" ? img : URL.createObjectURL(img)
+                    }`}
+                    alt="..."
+                    width="90px"
+                    height="40px"
+                    className="me-3"
+                    loading="lazy"
+                    required
+                  />
                   <input
                     className="form-control"
                     type="file"
                     id="formFile"
-                    // value={img || ""}
-                    onChange={(e) => {
-                      setStateflag(true);
-                      setImg(e.target.files[0]);
-                    }}
+                    onChange={(e) => setImg(e.target.files[0])}
                   />
                 </>
               ) : (
@@ -209,12 +232,10 @@ const AddMovie = () => {
                   className="form-control"
                   type="file"
                   id="formFile"
-                  onChange={(e) => {
-                    setStateflag(true);
-                    setImg(e.target.files[0]);
-                  }}
+                  onChange={(e) => setImg(e.target.files[0])}
+                  required
                 />
-              )} */}
+              )}
             </div>
           </div>
 
@@ -229,6 +250,7 @@ const AddMovie = () => {
                   type="file"
                   id="formFile"
                   onChange={(e) => setVideo_360p(e.target.files[0])}
+                  required
                 />
               </div>
             </div>
@@ -241,6 +263,7 @@ const AddMovie = () => {
                 type="file"
                 id="formFile"
                 onChange={(e) => setVideo_480p(e.target.files[0])}
+                required
               />
             </div>
           </div>
@@ -254,6 +277,7 @@ const AddMovie = () => {
                 type="file"
                 id="formFile"
                 onChange={(e) => setVideo_720p(e.target.files[0])}
+                required
               />
             </div>
             <div className="mb-1 mt-3 ms-2 w-50">
@@ -265,6 +289,7 @@ const AddMovie = () => {
                 type="file"
                 id="formFile"
                 onChange={(e) => setVideo_1080p(e.target.files[0])}
+                required
               />
             </div>
           </div>
@@ -282,6 +307,7 @@ const AddMovie = () => {
                 value={data?.genre || ""}
                 onChange={handleChange}
               />
+              <div className="text-danger">{formErr?.genre}</div>
             </div>
             <div className="mb-3 mt-3 ms-2 w-50">
               <label htmlFor="formFile" className="form-label text-light ">
@@ -315,6 +341,7 @@ const AddMovie = () => {
               onChange={(e) => {
                 setCast(e);
               }}
+              required
             />
           </div>
           {flag ? (
@@ -332,15 +359,19 @@ const AddMovie = () => {
           )}
         </form>
         {loader ? (
-          <div
-            className="spinner-border text-white text-center  mb-5"
-            role="status"
-          >
-            <span className="visually-hidden">Loading...</span>
+          <div className="w-100">
+            <div
+              className=" spinner-border text-white text-center mb-5"
+              role="status"
+            >
+              <span className="visually-hidden">Loading...</span>
+            </div>
           </div>
         ) : (
           submitflag && (
-            <div className="text-white text-center mb-5">Data Submitted</div>
+            <div className="text-white text-center mb-5 fs-4">
+              Data Submitted
+            </div>
           )
         )}
       </div>

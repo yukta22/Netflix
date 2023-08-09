@@ -101,18 +101,15 @@ const SignIn = () => {
           <h1 className="ms-3 ">Netflix</h1>
         </div>
       </div>
-      <div className="ms-5  text-white  bg-image ms-2  front_page_background_image position-relative">
-        <div
-          className="bg-dark w-50 mx-auto position-absolute p-5"
-          style={{ top: "70px", left: "500px" }}
-        >
-          <div className="px-5 fw-bolder fs-3">Sign In</div>
+      <div className="text-white  bg-image ms-2  front_page_background_image position-relative">
+        <div className="bg-dark mx-auto position-absolute p-5 me-2 userBox">
+          <div className="px-2 fw-bolder fs-3">Sign In</div>
           {flag && (
             <div
               className="text-white mx-5 mt-3"
               style={{ backgroundColor: "#FF7F50" }}
             >
-              <p className="px-5 py-3 ">
+              <p className="px-2   py-3 ">
                 Sorry, we can't find an account with this email address. Please
                 try again{" "}
                 <a
@@ -125,11 +122,11 @@ const SignIn = () => {
               </p>
             </div>
           )}
-          <form className="px-5 py-4" onSubmit={handleSubmit}>
+          <form className="px-3 py-4 form" onSubmit={handleSubmit}>
             <div className="mb-3">
               <input
                 type="text"
-                placeholder="Email or phone number"
+                placeholder="Enter Email"
                 className="form-control bg-secondary signUpform text-white border-0 py-2 ps-3"
                 id="formGroupExampleInput"
                 name="userEmail"
@@ -142,7 +139,7 @@ const SignIn = () => {
                 type="password"
                 className="form-control bg-secondary signUpform text-white border-0 py-2 ps-3"
                 id="formGroupExampleInput2"
-                placeholder="password"
+                placeholder="Enter Password"
                 name="userPassword"
                 onChange={handleChange}
               />
@@ -162,8 +159,8 @@ const SignIn = () => {
               </a>
             </p>
           </div> */}
-          <div className="d-flex justify-content-between px-5">
-            <div className="form-check">
+          <div className="d-flex justify-content-between px-5 ">
+            <div className="form-check d-sm-none d-md-block">
               <input
                 className="form-check-input bg-secondary text-dark border-0"
                 type="checkbox"
@@ -174,7 +171,7 @@ const SignIn = () => {
                 Remember me
               </label>
             </div>
-            <div>
+            <div className="d-sm-none d-md-block">
               <p>Need help?</p>
             </div>
           </div>

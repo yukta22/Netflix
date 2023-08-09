@@ -35,18 +35,15 @@ const First_plan_page = () => {
           Sign Out
         </button>
       </div>
-      <div className="ms-5  text-white  bg-image ms-2   position-relative">
-        <div
-          className="bg-dark w-50 mx-auto position-absolute p-5"
-          style={{ top: "70px", left: "400px" }}
-        >
-          <div className="px-5 mx-auto">
-            <p className="px-5">STEP 2 OF 3</p>
-            <h2 className="px-5 ">Choose your plan</h2>
+      <div className="text-white  bg-image ms-2   position-relative">
+        <div className="bg-dark  mx-auto position-absolute p-5 userBox">
+          <div className="px-2 mx-auto">
+            <p className="px-2">STEP 2 OF 3</p>
+            <h2 className="px-2 ">Choose your plan</h2>
             <div className="pt-3">
-              <p className="px-5">No commitments, cancel anytime.</p>
-              <p className="px-5">Everything on Netflix for one low price.</p>
-              <p className="px-5">No ads and no extra fees. Ever.</p>
+              <p className="px-2">No commitments, cancel anytime.</p>
+              <p className="px-2">Everything on Netflix for one low price.</p>
+              <p className="px-2">No ads and no extra fees. Ever.</p>
             </div>
             <button
               type="button"

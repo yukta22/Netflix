@@ -7,5 +7,5 @@ import { verifyAdmin, verifyUser } from "../middleware/verifyJwt.js";
 
 export const watchhistoryRoute = express.Router();
 
-watchhistoryRoute.post("/watchHistory", createWatchHistory);
-watchhistoryRoute.post("/watchHistory/data", getWatchHistory);
+watchhistoryRoute.post("/watchHistory", verifyUser, createWatchHistory);
+watchhistoryRoute.post("/watchHistory/data", verifyUser, getWatchHistory);

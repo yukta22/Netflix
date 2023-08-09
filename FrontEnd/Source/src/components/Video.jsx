@@ -34,9 +34,15 @@ const Video = () => {
     }
     let user = JSON.parse(localStorage.getItem("user"));
     console.log(user.id);
-    axios.post(`/subscriptions/${user.id}`).then((response) => {
-      setPost(response.data);
-    });
+    axios
+      .post(`/subscriptions/${user.id}`, {
+        headers: {
+          token: token,
+        },
+      })
+      .then((response) => {
+        setPost(response.data);
+      });
 
     const savePosition = () => savePlaybackPosition();
     window.addEventListener("beforeunload", savePosition);
@@ -97,15 +103,15 @@ const Video = () => {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="text-white position-absolute"
-          style={{
-            width: "30px",
-            height: "30px",
-            marginBottom: "10px",
-            top: "896px",
-            right: "220px",
-            cursor: "pointer",
-          }}
+          className="text-white position-absolute qty_settings"
+          // style={{
+          //   width: "30px",
+          //   height: "30px",
+          //   marginBottom: "10px",
+          //   top: "896px",
+          //   right: "220px",
+          //   cursor: "pointer",
+          // }}
           onClick={handleSetting}
         >
           <path

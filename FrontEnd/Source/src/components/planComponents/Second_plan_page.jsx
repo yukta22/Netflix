@@ -89,7 +89,7 @@ const Second_plan_page = () => {
                         ? "3px solid violet"
                         : "none",
                   }}
-                  className="card mx-auto m-4 w-50 mt-3 hover-shadow"
+                  className="card w-50 mx-auto  mt-3 hover-shadow"
                 >
                   <div className="card-header cardName">{ele.name}</div>
                   <div className="card-body d-flex justify-content-between">
@@ -124,10 +124,10 @@ const Second_plan_page = () => {
             and 1 with Basic and Mobile.
           </p>
         </div>
-        <div className="mx-auto" style={{ paddingLeft: "510px" }}>
+        <div className="mx-auto plan_btn">
           <button
             type="button"
-            className="fw-bold  btn btn-danger w-25 mx-5 text-white fs-5 mb-5"
+            className="fw-bold  btn btn-danger w-25 mx-5 text-white fs-5 mb-5 pe-3"
             onClick={navigateThirdPage}
           >
             Next

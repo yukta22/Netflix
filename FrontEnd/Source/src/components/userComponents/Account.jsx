@@ -22,9 +22,15 @@ const Account = () => {
     }
     let user = JSON.parse(localStorage.getItem("user"));
     // console.log(user.id);
-    axios.post(`/subscriptions/${user.id}`).then((response) => {
-      setPost(response.data);
-    });
+    axios
+      .post(`/subscriptions/${user.id}`, {
+        headers: {
+          token: token,
+        },
+      })
+      .then((response) => {
+        setPost(response.data);
+      });
   }, []);
 
   const handleClick = () => {

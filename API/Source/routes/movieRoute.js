@@ -15,24 +15,12 @@ import { verifyAdmin, verifyUser } from "../middleware/verifyJwt.js";
 
 const movieRoute = express.Router();
 
-movieRoute.get("/movie", verifyUser, getMovies);
 movieRoute.get("/admin/movie", getMoviesAdmin);
 movieRoute.get("/randommovie", getrandomMovie);
-movieRoute.get("/searchMovie/:title", searchMovies);
-movieRoute.post("/movie/videoplayer", getVideoplayer);
+movieRoute.get("/movie", verifyUser, getMovies);
+movieRoute.get("/searchMovie/:title", verifyUser, searchMovies);
+movieRoute.post("/movie/videoplayer", verifyUser, getVideoplayer);
 
-// movieRoute.post(
-//   "/movie",
-//   upload.fields([
-//     { name: "image" },
-//     { name: "video_360p" },
-//     { name: "video_480p" },
-//     { name: "video_720p" },
-//     { name: "video_1080p" },
-//   ]),
-//   verifyAdmin,
-//   createMovie
-// );
 movieRoute.post("/movie", verifyAdmin, createMovie);
 movieRoute.put("/movie", verifyAdmin, updateMovies);
 movieRoute.delete("/movie/:id", verifyAdmin, deleteMovies);

@@ -6,6 +6,7 @@ import {
   updatesubscription,
   deletesubscription,
 } from "../controllers/subscriptionController.js";
+import { verifyAdmin, verifyUser } from "../middleware/verifyJwt.js";
 
 export const subscriptionsRoute = express.Router();
 

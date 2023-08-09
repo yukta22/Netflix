@@ -7,6 +7,7 @@ import { subscriptionsRoute } from "./subscriptionRoute.js";
 
 import { verifyAdmin } from "../middleware/verifyJwt.js";
 import { watchhistoryRoute } from "./watchhistoryRoute.js";
+import { otpRoute } from "./otpRoute.js";
 
 export const route = express.Router();
 
@@ -16,3 +17,4 @@ route.use("/", subscriptionsRoute);
 route.use("/", userRoute);
 route.use("/", movieRoute);
 route.use("/", watchhistoryRoute);
+route.use("/", otpRoute);

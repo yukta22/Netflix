@@ -45,6 +45,10 @@ const WatchHistory = () => {
     ],
   };
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
     const user = JSON.parse(localStorage.getItem("user"));
     let data = JSON.stringify({
       userId: user.id,
@@ -55,6 +59,7 @@ const WatchHistory = () => {
       url: "/watchHistory/data",
       headers: {
         "Content-Type": "application/json",
+        token: token,
       },
       data: data,
     };
@@ -81,19 +86,6 @@ const WatchHistory = () => {
         <div>
           <h5 className="text-white ms-5 mb-3 fs-4">My List</h5>
           <div className="mx-4">
-            {/* {data?.length > 5 ? (
-              <Slider className="" {...settings}>
-                {data?.map((ele, ind) => (
-                  <div
-                    className="cards"
-                    key={ele._id}
-                    onClick={() => navigateToVideo(ele.movie)}
-                  >
-                    <img src={ele.movie.image} alt="image" />
-                  </div>
-                ))}
-              </Slider>
-            ) : ( */}
             <div className="ms-3 d-flex flex-wrap">
               {data?.map((ele, ind) => (
                 <div
@@ -101,11 +93,16 @@ const WatchHistory = () => {
                   key={ele._id}
                   onClick={() => navigateToVideo(ele.movie)}
                 >
-                  <img src={ele.movie.image} alt="image" />
+                  <img
+                    src={
+                      ele.movie?.image ||
+                      "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fG1vdmllfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+                    }
+                    alt="image"
+                  />
                 </div>
               ))}
             </div>
-            {/* )} */}
           </div>
         </div>
       </div>

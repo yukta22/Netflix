@@ -150,7 +150,7 @@ const Shows = () => {
               </svg>
             </div>
           </div>
-          <div className="d-none d-md-node d-lg-block ps-5 pt-4 ms-1 fw-bold fs-3 text-justify">
+          <div className="d-none d-xxl-block ps-5 pt-4 ms-1 fw-bold fs-3 text-justify">
             <p style={{ paddingLeft: "70px" }}>{findMovie?.description}</p>
           </div>
         </div>

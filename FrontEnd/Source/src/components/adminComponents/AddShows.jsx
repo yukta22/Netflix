@@ -84,6 +84,7 @@ const AddShows = () => {
               placeholder="Title"
               name="title"
               onChange={handleChangeData}
+              required
             />
           </div>
           <div className="mb-1">
@@ -100,6 +101,7 @@ const AddShows = () => {
               placeholder="Description"
               name="description"
               onChange={handleChangeData}
+              required
             />
           </div>
           <div className="mb-1 mt-3 ">
@@ -111,6 +113,7 @@ const AddShows = () => {
               type="file"
               id="formFile"
               //   onChange={(e) => setImg(e.target.files[0])}
+              required
             />
           </div>
           <div className="d-flex justify-content-between">
@@ -124,6 +127,7 @@ const AddShows = () => {
                 id="formFile"
                 name="genre"
                 onChange={handleChangeData}
+                required
               />
             </div>
             <div className="mb-3 mt-3 ms-2 w-50">
@@ -136,6 +140,7 @@ const AddShows = () => {
                 id="formFile"
                 name="releaseDate"
                 onChange={handleChangeData}
+                required
               />
             </div>
           </div>
@@ -172,6 +177,7 @@ const AddShows = () => {
                   placeholder="Title"
                   name="title"
                   onChange={(e) => handleChange(index, e)}
+                  required
                 />
               </div>
               <div className="mb-1">
@@ -188,6 +194,7 @@ const AddShows = () => {
                   placeholder="Description"
                   name="description"
                   onChange={(e) => handleChange(index, e)}
+                  required
                 />
               </div>
               <div className="mb-1 mt-3 ">
@@ -201,6 +208,7 @@ const AddShows = () => {
                   onChange={(e) =>
                     setImg((prev) => [...prev, e.target.files[0]])
                   }
+                  required
                 />
               </div>
 
@@ -216,6 +224,7 @@ const AddShows = () => {
                     onChange={(e) =>
                       setVideo_360p([...video_360p, e.target.files[0]])
                     }
+                    required
                   />
                 </div>
                 <div className="mb-1 mt-3 ms-2 w-50">
@@ -227,6 +236,7 @@ const AddShows = () => {
                     type="file"
                     id="formFile"
                     onChange={(e) => setVideo_480p(e.target.files[0])}
+                    required
                   />
                 </div>
               </div>
@@ -240,6 +250,7 @@ const AddShows = () => {
                     type="file"
                     id="formFile"
                     onChange={(e) => setVideo_720p(e.target.files[0])}
+                    required
                   />
                 </div>
                 <div className="mb-1 mt-3 ms-2 w-50">
@@ -251,6 +262,7 @@ const AddShows = () => {
                     type="file"
                     id="formFile"
                     onChange={(e) => setVideo_1080p(e.target.files[0])}
+                    required
                   />
                 </div>
               </div>
@@ -265,6 +277,7 @@ const AddShows = () => {
                   id="formFile"
                   name="releaseDate"
                   onChange={handleChange}
+                  required
                 />
               </div>
               {index ? (

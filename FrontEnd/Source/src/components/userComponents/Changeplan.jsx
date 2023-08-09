@@ -41,7 +41,6 @@ const Changeplan = () => {
     console.log(data);
     registerPlan(data);
   };
-
   const registerPlan = async (data) => {
     const res = await axios.put("/subscriptions", data);
     console.log(res);

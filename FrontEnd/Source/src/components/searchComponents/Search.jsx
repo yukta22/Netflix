@@ -15,6 +15,8 @@ import Showsitem from "../Showsitem";
 const Search = () => {
   const [post, setPost] = useState();
   const [data, setData] = useState();
+  const [shows, setShows] = useState();
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     axios
@@ -26,17 +28,32 @@ const Search = () => {
       .then((response) => {
         setPost(response.data);
       });
-  }, [data]);
 
+    axios
+      .get("/shows", {
+        headers: {
+          token: token,
+        },
+      })
+      .then((response) => {
+        setShows(response.data);
+      });
+  }, [data]);
+  // console.log(shows);
   const searchChange = (e) => {
     const filterData = post?.filter(
       (ele) =>
         ele.title.toLowerCase().includes(e.target.value) ||
         ele.genre.toLowerCase().includes(e.target.value)
     );
-    setData(filterData);
+    const filterShowData = shows?.filter(
+      (ele) =>
+        ele.title.toLowerCase().includes(e.target.value) ||
+        ele.genre.toLowerCase().includes(e.target.value)
+    );
+    // console.log(filterShowData);
+    setData([...filterData, ...filterShowData]);
   };
-
   return (
     <>
       <div className="text-white ">

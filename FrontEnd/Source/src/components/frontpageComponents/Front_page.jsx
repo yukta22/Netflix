@@ -16,34 +16,29 @@ const Front_page = () => {
   return (
     <>
       <div>
-        <div className="ms-5  text-white  bg-image ms-2  front_page_background_image">
+        <div
+          className="text-white  bg-image ms-2  pb-5 front_page_background_image "
+          // style={{ width: "100%" }}
+        >
           <div className="ms-5 ps-4  w-100 pb-5 ">
             <p
-              className="fw-bold ms-5 "
-              style={{ paddingTop: "220px", fontSize: "46px" }}
+              className="fw-bold ms-3 me-5"
+              style={{
+                paddingTop: "220px",
+                fontSize: "46px",
+              }}
             >
               Unlimited Movies, TV s and more
             </p>
-            <p className="fs-5 ms-5">Watch anywhare. Cancel anytime</p>
-            <p className="pt-3 fs-5 ms-5">
+            <p className="fs-5 ms-3 me-5">Watch anywhare. Cancel anytime</p>
+            <p className="pt-3 fs-5 ms-3 me-5">
               Ready to watch? Enter your email to create or restart your
               membership.
             </p>
-            <div className="d-flex ms-5 pb-5">
-              {/* <input
-                type="text"
-                className="bg-none p-1 text-white"
-                placeholder="Email Address"
-                name="userEmail"
-                style={{
-                  background: "transparent",
-                  fontWeight: "bold",
-                  border: "1px solid gray",
-                }}
-              ></input> */}
+            <div className="d-flex ms-3 me-5 pb-5">
               <button
                 type="button"
-                className="fw-bold btn btn-danger p-2 px-5 text-white fs-5 "
+                className="fw-bold btn btn-danger p-2 px-5 text-white fs-5 me-5"
               >
                 <Link to="/SignUp" className="text-decoration-none text-white">
                   Get Started
@@ -53,8 +48,8 @@ const Front_page = () => {
           </div>
         </div>
         <div
-          className=" d-flex  justify-content-center p-5 "
-          style={{ marginTop: "190px" }}
+          className=" d-flex  justify-content-center px-5 "
+          // style={{ marginTop: "190px" }}
         >
           <div className="d-flex  flex-row   justify-content-between align-items-center ps-2  py-3 text-white">
             <div className="pe-4">

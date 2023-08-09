@@ -58,6 +58,12 @@ const Showsitem = ({ data }) => {
 
   const handleShowInfo = async (ele) => {
     console.log(ele);
+    const token = localStorage.getItem("token");
+    if (token == null) {
+      navigate("/");
+      return;
+    }
+    console.log(ele._id);
     const user = JSON.parse(localStorage.getItem("user"));
     let data = JSON.stringify({
       userId: user.id,
@@ -69,6 +75,7 @@ const Showsitem = ({ data }) => {
       url: "/watchHistory",
       headers: {
         "Content-Type": "application/json",
+        token: token,
       },
       data: data,
     };
@@ -98,7 +105,7 @@ const Showsitem = ({ data }) => {
       {newReleaseMovie?.length > 0 && (
         <div>
           <h5 className="text-white ms-5 mb-3 fs-4">New Release</h5>
-          <div className="mx-5">
+          <div className="mx-3">
             {newReleaseMovie?.length > 5 ? (
               <Slider className="" {...settings}>
                 {newReleaseMovie?.map((ele, ind) => (
@@ -136,7 +143,7 @@ const Showsitem = ({ data }) => {
       {trendingNowMovie?.length > 0 && (
         <div>
           <h5 className="text-white ms-5 my-3 fs-4">Trending Now</h5>
-          <div className="mx-5">
+          <div className="mx-3">
             {trendingNowMovie.length > 5 ? (
               <Slider className="" {...settings}>
                 {trendingNowMovie?.map((ele, ind) => (
@@ -172,7 +179,7 @@ const Showsitem = ({ data }) => {
       {Thriller?.length > 0 && (
         <div>
           <h5 className="text-white ms-5 my-3 fs-4">Thriller Movie</h5>
-          <div className="mx-5">
+          <div className="mx-3">
             {Thriller.length > 5 ? (
               <Slider className="" {...settings}>
                 {Thriller?.map((ele, ind) => (

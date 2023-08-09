@@ -1,4 +1,4 @@
-import { User } from "../models/users.js";
+import { User, validateUser } from "../models/users.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { uploadUserProfileS3 } from "../utils/userProfileS3.js";
@@ -7,11 +7,16 @@ dotenv.config();
 
 const createUser = async (req, res) => {
   try {
+    const { error } = validateUser(req.body);
+    if (error) {
+      return res.status(400).json({ message: error.details[0].message });
+    }
+
     const { userName, userEmail, userPassword, contactNumber, role } = req.body;
 
     const findUser = await User.findOne({ userEmail: userEmail });
     if (findUser) {
-      return res.json({ message: "User already exists" });
+      return res.send("User already exists");
     }
     const hashPassword = await bcrypt.hash(userPassword, 10);
 

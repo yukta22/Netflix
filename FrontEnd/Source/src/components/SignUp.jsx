@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 const SignUp = () => {
   const navigate = useNavigate();
   const [data, setData] = useState({});
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [arr, setArr] = useState([]);
   const [flag, setFlag] = useState(false);
   const [formerr, setFormerr] = useState();
+  const [enteredOTP, setEnteredOTP] = useState("");
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -25,6 +27,8 @@ const SignUp = () => {
     if (!data?.userName) {
       err.userName = "User name is required";
       valflag = true;
+    } else if (!isNaN(data?.userName)) {
+      err.userName = "User Name should not only Number";
     }
     if (!data?.userEmail) {
       err.userEmail = "User email is required";
@@ -52,24 +56,62 @@ const SignUp = () => {
       err.userPassword = "Password should contain specialChar letters!";
       valflag = true;
     }
+    if (!phoneNumber) {
+      err.phoneNumber = "Phone Number is required";
+      valflag = true;
+    } else if (isNaN(phoneNumber)) {
+      err.phoneNumber = "Phone Number Must be 10 digits";
+    } else if (phoneNumber.length !== 10) {
+      err.phoneNumber = "Phone Number Must be 10 digits";
+      valflag = true;
+    }
 
     setFormerr(err);
 
     return valflag;
   };
 
+  const handleVerifyOTP = async (otp) => {
+    const response = await axios.post("/verifyOtp", {
+      phoneNumber: phoneNumber, // You should replace this with the user's phone number
+      enteredOTP: otp,
+    });
+    console.log(response.data);
+
+    return response.data;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(phoneNumber);
+
     if (!validation()) {
       setArr([...arr, data]);
-      const res = await registerUser();
-      console.log(res.data._i);
-      if (res.status == 201) {
-        setFlag(false);
-        // localStorage.setItem("registerUser", res.data.userName);
-        navigate("/signUp/plan");
-      } else {
-        setFlag(true);
+
+      const response = await axios.post("/sendOtp", { phoneNumber });
+      let otp = prompt("Please enter OTP");
+      setEnteredOTP(otp);
+      // if (res.status == 201) {
+      //   setFlag(false);
+      //   if ((await handleVerifyOTP(otp)) == "OTP verified successfully") {
+      //     navigate("/signUp/plan");
+      //   } else if ((await handleVerifyOTP(otp)) == "Incorrect OTP") {
+      //     alert("Incorrect OTp");
+      //   }
+      // } else {
+      //   setFlag(true);
+      // }
+      if ((await handleVerifyOTP(otp)) == "OTP verified successfully") {
+        const res = await registerUser();
+        console.log(res);
+        if (res.status == 201) {
+          setFlag(false);
+          navigate("/signUp/plan");
+        } else if (res.data == "User already exists") {
+          setFlag(true);
+        }
+      } else if ((await handleVerifyOTP(otp)) == "Incorrect OTP") {
+        alert("Incorrect OTP");
       }
     }
     // console.log(flag);
@@ -90,22 +132,22 @@ const SignUp = () => {
       </div>
       <div className="  text-white  bg-image  position-relative">
         <div
-          className="bg-dark w-50 mx-auto position-absolute p-5"
-          style={{ top: "70px", left: "400px" }}
+          className="bg-dark  mx-auto position-absolute p-5 userBox"
+          // style={{ top: "70px", left: "400px" }}
         >
-          <p className="px-5">STEP 1 OF 3</p>
-          <div className="px-5 fw-bolder fs-3">Sign Up</div>
+          <p className="px-2 ps-4">STEP 1 OF 3</p>
+          <div className="px-2 ps-4 fw-bolder fs-3">Sign Up</div>
           {flag && (
             <div className="text-danger">
-              <p className="px-5 pt-4">User is already exists</p>
+              <p className="px-2 pt-4">User is already exists</p>
             </div>
           )}
-          <form className="px-5 py-4" onSubmit={handleSubmit}>
+          <form className="px-2 py-4 form" onSubmit={handleSubmit}>
             <div className="mb-3">
               <input
                 type="text"
                 placeholder="User Name"
-                className="form-control bg-secondary signUpform text-white border-0 py-2 ps-3"
+                className="form-control bg-secondary signUpform text-white border-0 py-2 ps-3 "
                 name="userName"
                 onChange={handleChange}
               />
@@ -114,7 +156,7 @@ const SignUp = () => {
             <div className="mb-3">
               <input
                 type="text"
-                placeholder="Email or phone number"
+                placeholder="Email"
                 className="form-control bg-secondary signUpform text-white border-0 py-2 ps-3"
                 name="userEmail"
                 onChange={handleChange}
@@ -131,6 +173,16 @@ const SignUp = () => {
                 onChange={handleChange}
               />
               <div className="text-danger">{formerr?.userPassword}</div>
+            </div>
+            <div className="mb-3">
+              <input
+                type="text"
+                className="form-control bg-secondary signUpform text-white border-0 py-2 ps-3"
+                placeholder="Contact Number"
+                name="phoneNumber"
+                onChange={(e) => setPhoneNumber(e.target.value)}
+              />
+              <div className="text-danger">{formerr?.phoneNumber}</div>
             </div>
             <button
               type="submit"

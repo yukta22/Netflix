@@ -5,14 +5,8 @@ const Front_page_navbar = () => {
   return (
     <>
       <div className="d-flex justify-content-between  ">
-        {/* <img
-          src="https://www.edigitalagency.com.au/wp-content/uploads/Netflix-logo-red-black-png.png"
-          alt="netflix"
-          width="280vw"
-          height="80vh"
-        /> */}
         <div className="text-danger">
-          <h1 className="ms-3">Netflix</h1>
+          <h1 className="ps-5 mt-3">Netflix</h1>
         </div>
         <div className="d-flex me-3 ">
           <div className="dropdown m-3">

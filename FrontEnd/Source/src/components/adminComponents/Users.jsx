@@ -51,6 +51,9 @@ const Users = () => {
   };
 
   const prevPage = () => {
+    if (pageno == 1) {
+      setBtn(false);
+    }
     if (pageno <= 1) {
       setPageno(1);
     } else {
@@ -59,13 +62,13 @@ const Users = () => {
   };
   const nextPage = () => {
     const len = data?.length;
-    console.log(len);
     if (data?.length > 4) {
-      // setBtn(true);
+      // setBtn(false);
       setPageno(pageno + 1);
     } else {
-      // setBtn(false);
+      // setBtn(true);
     }
+    console.log(btn);
   };
 
   return (
