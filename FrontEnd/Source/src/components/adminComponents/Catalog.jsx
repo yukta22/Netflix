@@ -147,7 +147,7 @@ const Catalog = () => {
               </tbody>
             </table>
           </div>
-          <div className="d-flex justify-content-center mx-auto pb-4">
+          <div className="d-flex justify-content-center mx-auto pb-4 pagination">
             <button
               type="button"
               className="btn btn-primary m-2 text-white px-3 rounded"

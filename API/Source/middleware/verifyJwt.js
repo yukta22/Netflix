@@ -2,6 +2,26 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
+export const validateTokenMiddleware = (req, res, next) => {
+  const token = req.headers.token; // Assuming token is sent in the format 'Bearer <token>'
+  if (!token) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
+  try {
+    jwt.verify(token, process.env.SECRET_KEY, (err, data) => {
+      if (err) {
+        res.status(409).send(err);
+      } else {
+        next();
+      }
+    });
+  } catch (error) {
+    console.log("error");
+    res.status(401).json({ message: "Unauthorized" });
+  }
+};
+
 export const verifyUser = (req, res, next) => {
   const token = req.headers.token;
   jwt.verify(token, process.env.SECRET_KEY, (err, data) => {

@@ -1,10 +1,11 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ShowInfo = ({ showData, setFlag }) => {
   const [data, setData] = useState();
   const navigate = useNavigate();
+  const ref = useRef(null);
   // console.log(showData);
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -30,6 +31,18 @@ const ShowInfo = ({ showData, setFlag }) => {
       });
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setFlag(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, []);
+
   const navigateToVideo = (showData) => {
     navigate("/home/movie", { state: showData });
   };
@@ -53,6 +66,7 @@ const ShowInfo = ({ showData, setFlag }) => {
   return (
     <>
       <div
+        ref={ref}
         className="front_page position-relative rounded pb-5"
         style={{
           margin: "12px",

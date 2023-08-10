@@ -6,25 +6,27 @@ import { useSelector } from "react-redux";
 const Video = () => {
   const { state } = useLocation();
   const videoRef = useRef(null);
+  const ref = useRef(null);
   const navigate = useNavigate();
   const [selectedQuality, setSelectedQuality] = useState("360p");
   const [videoUrl, setVideoUrl] = useState(state?.video_360p);
   const [flag, setFlag] = useState(false);
   const [qualityFlag, setQualityflag] = useState(false);
   const [post, setPost] = useState();
+  const [expiredFlag, setExpiredFlag] = useState(false);
 
-  const savePlaybackPosition = () => {
-    const currentTime = videoRef.current.currentTime;
-    localStorage.setItem("videoPlaybackPosition", currentTime);
-  };
+  // const savePlaybackPosition = () => {
+  //   const currentTime = videoRef.current.currentTime;
+  //   localStorage.setItem("videoPlaybackPosition", currentTime);
+  // };
 
-  // Function to load the saved playback position from local storage and resume playback
-  const loadSavedPlaybackPosition = () => {
-    const savedPosition = localStorage.getItem("videoPlaybackPosition");
-    if (savedPosition !== null) {
-      videoRef.current.currentTime = parseFloat(savedPosition);
-    }
-  };
+  // // Function to load the saved playback position from local storage and resume playback
+  // const loadSavedPlaybackPosition = () => {
+  //   const savedPosition = localStorage.getItem("videoPlaybackPosition");
+  //   if (savedPosition !== null) {
+  //     videoRef?.current.currentTime = parseFloat(savedPosition);
+  //   }
+  // };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -33,7 +35,7 @@ const Video = () => {
       return;
     }
     let user = JSON.parse(localStorage.getItem("user"));
-    console.log(user.id);
+    // console.log(user.id);
     axios
       .post(`/subscriptions/${user.id}`, {
         headers: {
@@ -44,24 +46,40 @@ const Video = () => {
         setPost(response.data);
       });
 
-    const savePosition = () => savePlaybackPosition();
-    window.addEventListener("beforeunload", savePosition);
-    loadSavedPlaybackPosition();
-    return () => {
-      window.removeEventListener("beforeunload", savePosition);
-    };
+    // const savePosition = () => savePlaybackPosition();
+    // window.addEventListener("beforeunload", savePosition);
+    // loadSavedPlaybackPosition();
+    // return () => {
+    //   window.removeEventListener("beforeunload", savePosition);
+    // };
   }, [selectedQuality]);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setFlag(false);
+        setQualityflag(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  }, []);
 
-  // let user = localStorage.getItem("user");
-  // user = user.substring(1, user.length - 1);
-
-  // let user = JSON.parse(localStorage.getItem("user"));
-  // console.log(user.id);
-
-  // const userSubscriptionData = post?.find(
-  //   (e) => e.user?.userEmail == user.email
-  // );
-  // console.log(userSubscriptionData?.plan.name);
+  // useEffect(() => {
+  //   console.log(post);
+  //   console.log(
+  //     new Date(post?.endDate),
+  //     new Date(Date.now()),
+  //     new Date(post?.endDate) < new Date(Date.now())
+  //   );
+  //   if (new Date(post?.endDate) < new Date(Date.now())) {
+  //     setExpiredFlag(true);
+  //   } else {
+  //     setExpiredFlag(false);
+  //   }
+  //   console.log(expiredFlag);
+  // }, []);
 
   const handleQualityChange = (e) => {
     const quality = e.target.value;
@@ -83,10 +101,7 @@ const Video = () => {
     setFlag(!flag);
     setQualityflag(!qualityFlag);
   };
-  // const handleQualitySetting = () => {
-  //   setQualityflag(!qualityFlag);
-  // };
-  console.log(post);
+
   return (
     <>
       <div style={{ overflowY: "hidden" }}>
@@ -104,14 +119,6 @@ const Video = () => {
           strokeWidth="1.5"
           stroke="currentColor"
           className="text-white position-absolute qty_settings"
-          // style={{
-          //   width: "30px",
-          //   height: "30px",
-          //   marginBottom: "10px",
-          //   top: "896px",
-          //   right: "220px",
-          //   cursor: "pointer",
-          // }}
           onClick={handleSetting}
         >
           <path
@@ -128,7 +135,8 @@ const Video = () => {
 
         {flag && (
           <div
-            className="bg-dark text-white position-absolute me-5"
+            className="bg-dark text-white position-absolute me-5 qty"
+            ref={ref}
             style={{ top: 800, right: 210 }}
             // onClick={handleQualitySetting}
           >

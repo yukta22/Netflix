@@ -56,7 +56,7 @@ const Dashboard = () => {
   return (
     <>
       <AdminNavbar />
-      <div className="d-flex flex-sm-column flex-md-row flex-lg-row justify-content-around text-light">
+      <div className="d-flex flex-column flex-sm-column flex-md-column flex-lg-row justify-content-around text-light mx-3">
         <div className="dashboard_box py-2 px-5 ps-3 m-2 rounded">
           <div className="m-2">
             <div className="fs-5">Total User</div>
@@ -129,15 +129,15 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="px-5 mx-5 mt-4">
-        <div className="d-flex  flex-sm-column flex-md-row justify-content-around">
+      <div className="px-5 mx-3  mt-4">
+        <div className="d-flex flex-column flex-sm-column flex-md-column flex-lg-row justify-content-around">
           <div
-            className="rounded my-4 mx-5 w-50"
-            style={{ backgroundColor: "hsl(212, 92%, 21%)", width: "auto" }}
+            className="rounded my-4 mx-3 "
+            style={{ backgroundColor: "hsl(212, 92%, 21%)", width: "600px" }}
           >
             <div className="d-flex ">
               <div className="d-flex justify-content-around">
-                <div className="d-flex me-4 ms-1">
+                <div className="d-flex  ms-1">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -169,8 +169,8 @@ const Dashboard = () => {
             <Tabledata data={moviedata} />
           </div>
           <div
-            className="rounded my-4 mx-5 w-50"
-            style={{ backgroundColor: "hsl(212, 92%, 21%)", width: "auto" }}
+            className="rounded my-4 mx-3 "
+            style={{ backgroundColor: "hsl(212, 92%, 21%)", width: "600px" }}
           >
             <div className="d-flex ">
               <div className="d-flex justify-content-around mx-2">
@@ -207,10 +207,10 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="px-5  my-3 text-white" style={{ margin: "0px 95px" }}>
+      <div className="px-5 my-3 text-white" style={{ margin: "0px 99px" }}>
         <div
-          className="rounded w-100 "
-          style={{ backgroundColor: "hsl(212, 92%, 21%)" }}
+          className="rounded "
+          style={{ backgroundColor: "hsl(212, 92%, 21%)", width: "100%" }}
         >
           <div className="d-flex ">
             <div className="d-flex justify-content-around mx-2">

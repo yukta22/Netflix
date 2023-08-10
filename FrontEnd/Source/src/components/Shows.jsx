@@ -57,7 +57,7 @@ const Shows = () => {
   }, []);
 
   // const findMovie = data?.find((e) => e.title == randomMovie[0]?.title);
-  const findMovie = data?.find((e) => e.title == "Suits");
+  const findMovie = data?.find((e) => e.title == "Gumraah");
 
   const navigateToVideo = (showData) => {
     navigate("/home/movie", { state: showData });
@@ -150,7 +150,10 @@ const Shows = () => {
               </svg>
             </div>
           </div>
-          <div className="d-none d-xxl-block ps-5 pt-4 ms-1 fw-bold fs-3 text-justify">
+          <div
+            className="d-none d-xxl-block ps-5 pt-4 ms-1 fw-bold fs-3"
+            style={{ textAlign: "justify" }}
+          >
             <p style={{ paddingLeft: "70px" }}>{findMovie?.description}</p>
           </div>
         </div>

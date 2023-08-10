@@ -11,6 +11,7 @@ import Second_plan_page from "./components/planComponents/Second_plan_page";
 import Third_plan_page from "./components/planComponents/Third_plan_page";
 // import Main from "./components/Main";
 import Shows from "./components/Shows";
+import Home from "./components/Home";
 import Account from "./components/userComponents/Account";
 import ManageProfile from "./components/userComponents/ManageProfile";
 import EditImage from "./components/userComponents/EditImage";
@@ -28,6 +29,7 @@ import Newpopular from "./components/TVshowsComponents/Newpopular";
 import Updateuser from "./components/adminComponents/Updateuser";
 import WatchHistory from "./components/WatchHistory";
 import Changeplan from "./components/userComponents/Changeplan";
+import PrivateRoute from "./components/AuthGuard/PrivateRoute";
 
 axios.defaults.baseURL = "http://192.168.101.161:9000";
 
@@ -36,7 +38,6 @@ function App() {
 
   return (
     <>
-      {/* <All_Front_page /> */}
       <Routes>
         <Route path="/" element={<All_Front_page />}></Route>
         <Route path="/signIn" element={<SignIn />}></Route>
@@ -51,7 +52,9 @@ function App() {
         <Route path="/signUp/plan" element={<First_plan_page />}></Route>
         <Route path="/signUp/plan2" element={<Second_plan_page />}></Route>
         <Route path="/signUp/plan3" element={<Third_plan_page />}></Route>
-        <Route path="/home" element={<Shows />}></Route>
+        {/* <PrivateRoute path="/home" component={Shows} /> */}
+        <Route path="/home" element={<Home />}></Route>
+        <Route path="/movie" element={<Shows />}></Route>
         <Route path="/home/account" element={<Account />}></Route>
         <Route path="/home/profile-manage" element={<ManageProfile />}></Route>
         <Route

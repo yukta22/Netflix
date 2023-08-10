@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSearch,
@@ -12,6 +12,7 @@ import {
 
 const Navbar = ({ data }) => {
   const navigate = useNavigate();
+  const [active, setActive] = useState();
   // console.log(data);
 
   // const navigate = useNavigate();
@@ -45,35 +46,56 @@ const Navbar = ({ data }) => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link" aria-current="page" to="/home">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "nav-link active text-white " : "nav-link "
+                }
+                aria-current="page"
+                to="/home"
+              >
                 Home
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/tvShows">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "nav-link active text-white " : "nav-link "
+                }
+                to="/tvShows"
+              >
                 Tv Shows
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/home">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "nav-link active text-white " : "nav-link "
+                }
+                to="/movie"
+              >
                 Movies
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/new">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "nav-link active text-white " : "nav-link "
+                }
+                to="/new"
+              >
                 New & Popular
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/watchHistory">
+              <NavLink
+                className={({ isActive }) =>
+                  isActive ? "nav-link active text-white " : "nav-link "
+                }
+                to="/watchHistory"
+              >
                 Watch History
-              </Link>
+              </NavLink>
             </li>
-            {/* <li className="nav-item">
-              <Link className="nav-link" to="/browaseLauguages">
-                Browse By Lauguages
-              </Link>
-            </li> */}
           </ul>
           <div className="d-flex ">
             <div className="mx-3 mt-1 pt-1">
@@ -94,12 +116,12 @@ const Navbar = ({ data }) => {
               </div>
             </div>
             <div className="mx-3 mt-1 pt-1">
-              <Link className="text-white" to="#">
+              <NavLink className="text-white" to="#">
                 <FontAwesomeIcon icon={faBell} />
-              </Link>
+              </NavLink>
             </div>
             <div className="mx-3 my-1">
-              <Link className="text-white" to="#">
+              <div className="text-white" to="#">
                 <FontAwesomeIcon icon={faUser} />
                 <div className="btn-group  me-2">
                   <button
@@ -158,7 +180,7 @@ const Navbar = ({ data }) => {
                     </li>
                   </ul>
                 </div>
-              </Link>
+              </div>
             </div>
           </div>
         </div>

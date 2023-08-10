@@ -14,7 +14,7 @@ const Second_plan_page = () => {
   const navigate = useNavigate();
 
   const [data, setData] = useState();
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState("647dc6dce5ce8769bec0afd0");
   const registerUser = localStorage.getItem("registerUser");
   useEffect(() => {
     if (!registerUser) {
@@ -34,18 +34,22 @@ const Second_plan_page = () => {
   };
 
   const handleClick = (ele) => {
-    console.log(registerUser);
-    setSelected(ele._id);
-    // alert("You have Selected " + ele.name + " Plan");
-    const dt = new Date();
+    // console.log(registerUser);
 
-    let subdata = {
-      startDate: Date.now(),
-      endDate: dt.setMonth(dt.getMonth() + 1),
-      userId: registerUser,
-      planId: ele._id,
-    };
-    registerPlan(subdata);
+    setSelected(ele._id);
+    const test = confirm("You have Selected " + ele.name + " Plan");
+    // console.log(test);
+    if (test == true) {
+      const dt = new Date();
+
+      let subdata = {
+        startDate: Date.now(),
+        endDate: dt.setMonth(dt.getMonth() + 1),
+        userId: registerUser,
+        planId: ele._id,
+      };
+      registerPlan(subdata);
+    }
   };
 
   const registerPlan = async (subdata) => {

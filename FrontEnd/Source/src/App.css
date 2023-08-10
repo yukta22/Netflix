@@ -268,14 +268,14 @@ td {
   padding-left: 510px;
 }
 
-/* .qty_settings {
-  width: 30px"
-            height: 30px"
-            marginBottom: 10px"
-            top: 896px,
-            right: 220px,
-            cursor: pointr",
-} */
+.qty_settings {
+  width: 30px;
+  height: 30px;
+  margin-bottom: 10px;
+  top: 896px;
+  right: 220px;
+  cursor: pointer;
+}
 
 @media screen and (min-width: 1000px) {
   .userBox {
@@ -290,6 +290,18 @@ td {
   .plan_btn {
     padding-left: 450px;
   }
+  .qty_settings {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 10px;
+    top: 896px;
+    right: 220px;
+    cursor: pointer;
+  }
+  .qty {
+    top: 910px;
+    right: 60px;
+  }
 }
 
 @media screen and (max-width: 900px) {
@@ -301,6 +313,21 @@ td {
   .plan_btn {
     padding-left: 150px;
   }
+  .qty_settings {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 10px;
+    top: 910px;
+    right: 60px;
+    cursor: pointer;
+  }
+  .qty {
+    top: 910px;
+    right: 20px;
+  }
+  .pagination {
+    margin-top: 220px;
+  }
 }
 
 @media screen and (max-width: 300px) {
@@ -310,5 +337,20 @@ td {
   }
   .plan_btn {
     padding-left: 20px;
+  }
+  .qty_settings {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 10px;
+    top: 910px;
+    right: 60px;
+    cursor: pointer;
+  }
+  .qty {
+    top: 910px;
+    right: 60px;
+  }
+  .pagination {
+    margin-top: 350px;
   }
 }

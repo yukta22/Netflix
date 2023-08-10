@@ -105,7 +105,7 @@ const Showsitem = ({ data }) => {
       {newReleaseMovie?.length > 0 && (
         <div>
           <h5 className="text-white ms-5 mb-3 fs-4">New Release</h5>
-          <div className="mx-3">
+          <div className="mx-4">
             {newReleaseMovie?.length > 5 ? (
               <Slider className="" {...settings}>
                 {newReleaseMovie?.map((ele, ind) => (
@@ -143,7 +143,7 @@ const Showsitem = ({ data }) => {
       {trendingNowMovie?.length > 0 && (
         <div>
           <h5 className="text-white ms-5 my-3 fs-4">Trending Now</h5>
-          <div className="mx-3">
+          <div className="mx-4">
             {trendingNowMovie.length > 5 ? (
               <Slider className="" {...settings}>
                 {trendingNowMovie?.map((ele, ind) => (
@@ -179,7 +179,7 @@ const Showsitem = ({ data }) => {
       {Thriller?.length > 0 && (
         <div>
           <h5 className="text-white ms-5 my-3 fs-4">Thriller Movie</h5>
-          <div className="mx-3">
+          <div className="mx-4">
             {Thriller.length > 5 ? (
               <Slider className="" {...settings}>
                 {Thriller?.map((ele, ind) => (
@@ -215,7 +215,7 @@ const Showsitem = ({ data }) => {
       {Comedy?.length > 0 && (
         <div>
           <h5 className="text-white ms-5 my-3 fs-4">Comedy Movie</h5>
-          <div className="mx-5">
+          <div className="mx-4">
             {Comedy?.length > 5 ? (
               <Slider className="" {...settings}>
                 {Comedy?.map((ele, ind) => (

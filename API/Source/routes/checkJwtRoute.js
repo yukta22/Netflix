@@ -1,11 +1,16 @@
 import express from "express";
-import { verifyUser } from "../middleware/verifyJwt.js";
+import {
+  validateTokenMiddleware,
+  verifyUser,
+} from "../middleware/verifyJwt.js";
 
 export const jwtRoute = express.Router();
 
-jwtRoute.post("/verifyjwt", verifyUser, (req, res) => {
+jwtRoute.get("/validate-token", validateTokenMiddleware, (req, res) => {
   try {
+    res.json({ valid: true });
   } catch (error) {
     console.log(error);
+    res.send(error);
   }
 });
