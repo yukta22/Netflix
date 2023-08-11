@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
+import Footer from "../Footer";
 
 const Front_page = () => {
   const navigate = useNavigate();
@@ -17,10 +18,10 @@ const Front_page = () => {
     <>
       <div>
         <div
-          className="text-white  bg-image ms-2  pb-5 front_page_background_image "
+          className="text-white  bg-image ms-2 front_page_background_image "
           // style={{ width: "100%" }}
         >
-          <div className="ms-5 ps-4  w-100 pb-5 ">
+          <div className="ms-5 ps-4  w-100 pb-2 ">
             <p
               className="fw-bold ms-3 me-5"
               style={{
@@ -35,7 +36,7 @@ const Front_page = () => {
               Ready to watch? Enter your email to create or restart your
               membership.
             </p>
-            <div className="d-flex ms-3 me-5 pb-5">
+            <div className="d-flex ms-3 me-5 pb-2">
               <button
                 type="button"
                 className="fw-bold btn btn-danger p-2 px-5 text-white fs-5 me-5"
@@ -47,13 +48,10 @@ const Front_page = () => {
             </div>
           </div>
         </div>
-        <div
-          className=" d-flex  justify-content-center px-5 "
-          // style={{ marginTop: "190px" }}
-        >
-          <div className="d-flex  flex-row   justify-content-between align-items-center ps-2  py-3 text-white">
+        <div className=" d-flex mt-5 justify-content-center px-5 ">
+          <div className="d-flex  flex-row  mt-3 justify-content-between align-items-center ps-2  pb-3 text-white">
             <div className="pe-4">
-              <p className="fs-3 fw-bold ">Enjoy on your TV</p>
+              <p className="fs-3 fw-bold t">Enjoy on your TV</p>
               <p>
                 Watch on smart TV, PlayStation, Xbox, Chromecast, Apple TV,
                 Blu-ray players and more.
@@ -133,11 +131,11 @@ const Front_page = () => {
       </div>
       <div className="front_page_accordion d-none d-md-block  pt-5 pb-5">
         <h1 className="text-white ms-5 px-5">Frequenty Asked Questions</h1>
-        <div className="accordion " id="accordionExample">
+        <div className="accordion text-white" id="accordionExample">
           <div className="accordion-item m-3 accordion-item-background ">
             <h2 className="accordion-header" id="headingOne">
               <button
-                className="accordion-button accordion-item-background  "
+                className="accordion-button text-white accordion-item-background  "
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseOne"
@@ -168,7 +166,7 @@ const Front_page = () => {
           <div className="accordion-item m-3 accordion-item-background ">
             <h2 className="accordion-header" id="headingTwo">
               <button
-                className="accordion-button accordion-item-background collapsed"
+                className="accordion-button text-white accordion-item-background collapsed"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseTwo"
@@ -199,7 +197,7 @@ const Front_page = () => {
           <div className="accordion-item m-3 accordion-item-background ">
             <h2 className="accordion-header" id="headingThree">
               <button
-                className="accordion-button accordion-item-background collapsed"
+                className="accordion-button text-white accordion-item-background collapsed"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseThree"
@@ -230,7 +228,7 @@ const Front_page = () => {
           <div className="accordion-item m-3 accordion-item-background ">
             <h2 className="accordion-header" id="headingFour">
               <button
-                className="accordion-button accordion-item-background collapsed"
+                className="accordion-button text-white accordion-item-background collapsed"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseFour"
@@ -261,7 +259,7 @@ const Front_page = () => {
           <div className="accordion-item m-3 accordion-item-background ">
             <h2 className="accordion-header" id="headingFive">
               <button
-                className="accordion-button accordion-item-background collapsed"
+                className="accordion-button text-white accordion-item-background collapsed"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseFive"
@@ -292,7 +290,7 @@ const Front_page = () => {
           <div className="accordion-item m-3 accordion-item-background ">
             <h2 className="accordion-header" id="headingSix">
               <button
-                className="accordion-button accordion-item-background collapsed"
+                className="accordion-button text-white accordion-item-background collapsed"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#collapseSix"
@@ -331,134 +329,13 @@ const Front_page = () => {
             type="button"
             className="fw-bold ms-2 btn btn-danger  px-3 text-white fs-5"
           >
-            Get Started
+            <Link to="/SignUp" className="text-decoration-none text-white">
+              Get Started
+            </Link>
           </button>
         </div>
       </div>
-      <div className="footer ps-5 ms-5  py-5 mt-5 text-muted">
-        <div>
-          <p>
-            Questions? Call{" "}
-            <span className="text-underline">
-              <u>000-800-919-1694</u>
-            </span>
-          </p>
-        </div>
-        <div className="row">
-          <div className="col-lg-4 col-md-6 mb-4 pt-4 mb-md-0">
-            <ul className="list-unstyled mb-0 ">
-              <li className="py-1">
-                <a href="#!" className="text-muted ">
-                  FAQ
-                </a>
-              </li>
-              <li className="py-1">
-                <a href="#!" className="text-muted ">
-                  Media Center
-                </a>
-              </li>
-              <li className="py-1">
-                <a href="#!" className="text-muted ">
-                  Ways to Watch
-                </a>
-              </li>
-              <li className="py-1">
-                <a href="#!" className="text-muted ">
-                  Cookie Preferences
-                </a>
-              </li>
-              <li className="py-1">
-                <a href="#!" className="text-muted ">
-                  Speed Test
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className="col-lg-4 col-md-6 mb-4 pt-4 mb-md-0">
-            <ul className="list-unstyled mb-0">
-              <li className="py-1">
-                <a href="#!" className="text-muted ">
-                  Help Center
-                </a>
-              </li>
-              <li className="py-1">
-                <a href="#!" className="text-muted ">
-                  Investor Relations
-                </a>
-              </li>
-              <li className="py-1">
-                <a href="#!" className="text-muted">
-                  Terms of Use
-                </a>
-              </li>
-              <li className="py-1">
-                <a href="#!" className="text-muted ">
-                  Corporate Information
-                </a>
-              </li>
-              <li className="py-1">
-                <a href="#!" className="text-muted ">
-                  Legal Notices
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div className="col-lg-4 col-md-6 mb-4 pt-4 mb-md-0">
-            <ul className="list-unstyled mb-0">
-              <li className="py-1">
-                <a href="#!" className="text-muted ">
-                  Account
-                </a>
-              </li>
-              <li className="py-1">
-                <a href="#!" className="text-muted ">
-                  Jobs
-                </a>
-              </li>
-              <li className="py-1">
-                <a href="#!" className="text-muted ">
-                  Privacy
-                </a>
-              </li>
-              <li className="py-1">
-                <a href="#!" className="text-muted ">
-                  Contact Us
-                </a>
-              </li>
-              <li className="py-1">
-                <a href="#!" className="text-muted ">
-                  Only on Netflix
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div
-        className="d-none d-md-block dropdown py-3"
-        style={{ paddingLeft: "320px" }}
-      >
-        <button
-          className="btn bg-transparent text-white border border-white  dropdown-toggle"
-          type="button"
-          id="dropdownMenuButton1"
-          data-bs-toggle="dropdown"
-          aria-expanded="false"
-        >
-          English
-        </button>
-        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li>
-            <a className="dropdown-item" href="#">
-              Hindi
-            </a>
-          </li>
-        </ul>
-        <div className="py-4">
-          <p className="text-muted">Netflix India</p>
-        </div>
-      </div>
+      <Footer />
     </>
   );
 };

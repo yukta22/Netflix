@@ -21,6 +21,9 @@ const Navbar = ({ data }) => {
   //   console.log("navigate home");
   //   navigate("/");
   // };
+  const [isNavCollapsed, setIsNavCollapsed] = useState(true);
+
+  const handleNavCollapse = () => setIsNavCollapsed(!isNavCollapsed);
 
   const searchChange = (e) => {
     navigate(`/home/search`);
@@ -29,17 +32,18 @@ const Navbar = ({ data }) => {
   return (
     <div className="text-white ">
       <nav className="navbar navbar-expand-lg navbar-dark ">
-        <Link className="navbar-brand text-danger fs-4 ps-2" to="/home">
-          NETFLIX
+        <Link className="navbar-brand text-danger ps-2" to="/home">
+          <h3>NetFlix</h3>
         </Link>
         <button
           className="navbar-toggler"
           type="button"
           data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded={!isNavCollapsed ? true : false}
           aria-label="Toggle navigation"
+          onClick={handleNavCollapse}
         >
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -115,11 +119,7 @@ const Navbar = ({ data }) => {
                 </form>
               </div>
             </div>
-            <div className="mx-3 mt-1 pt-1">
-              <NavLink className="text-white" to="#">
-                <FontAwesomeIcon icon={faBell} />
-              </NavLink>
-            </div>
+
             <div className="mx-3 my-1">
               <div className="text-white" to="#">
                 <FontAwesomeIcon icon={faUser} />

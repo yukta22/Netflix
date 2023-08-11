@@ -10,8 +10,8 @@ import First_plan_page from "./components/planComponents/First_plan_page";
 import Second_plan_page from "./components/planComponents/Second_plan_page";
 import Third_plan_page from "./components/planComponents/Third_plan_page";
 // import Main from "./components/Main";
-import Shows from "./components/Shows";
-import Home from "./components/Home";
+import Shows from "./components/ShowsComponents/Shows";
+import Home from "./components/ShowsComponents/Home";
 import Account from "./components/userComponents/Account";
 import ManageProfile from "./components/userComponents/ManageProfile";
 import EditImage from "./components/userComponents/EditImage";
@@ -30,6 +30,7 @@ import Updateuser from "./components/adminComponents/Updateuser";
 import WatchHistory from "./components/WatchHistory";
 import Changeplan from "./components/userComponents/Changeplan";
 import PrivateRoute from "./components/AuthGuard/PrivateRoute";
+import Otp from "./components/planComponents/Otp";
 
 axios.defaults.baseURL = "http://192.168.101.161:9000";
 
@@ -41,15 +42,10 @@ function App() {
       <Routes>
         <Route path="/" element={<All_Front_page />}></Route>
         <Route path="/signIn" element={<SignIn />}></Route>
-        <Route
-          path="/signUp"
-          element={<SignUp data={data} setData={setData} />}
-        ></Route>
-        <Route
-          path="/signUp"
-          element={<SignUp data={data} setData={setData} />}
-        ></Route>
+        <Route path="/signUp" element={<SignUp />}></Route>
+
         <Route path="/signUp/plan" element={<First_plan_page />}></Route>
+        <Route path="/signUp/planOtp" element={<Otp />}></Route>
         <Route path="/signUp/plan2" element={<Second_plan_page />}></Route>
         <Route path="/signUp/plan3" element={<Third_plan_page />}></Route>
         {/* <PrivateRoute path="/home" component={Shows} /> */}
@@ -68,12 +64,12 @@ function App() {
         <Route path="/new" element={<Newpopular />}></Route>
         <Route path="/watchHistory" element={<WatchHistory />}></Route>
         <Route path="/changePlan" element={<Changeplan />}></Route>
-        <Route path="/adminPage" element={<Dashboard />}></Route>
-        <Route path="/addMovie" element={<AddMovie />}></Route>
-        <Route path="/addShows" element={<AddShows />}></Route>
-        <Route path="/catalog" element={<Catalog />}></Route>
-        <Route path="/users" element={<Users />}></Route>
-        <Route path="/updateUser" element={<Updateuser />}></Route>
+        <Route path="/admin/dashboard" element={<Dashboard />}></Route>
+        <Route path="/admin/addMovie" element={<AddMovie />}></Route>
+        <Route path="/admin/addShows" element={<AddShows />}></Route>
+        <Route path="/admin/catalog" element={<Catalog />}></Route>
+        <Route path="/admin/users" element={<Users />}></Route>
+        <Route path="/admin/updateUser" element={<Updateuser />}></Route>
       </Routes>
     </>
   );

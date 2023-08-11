@@ -7,23 +7,54 @@ const Updateuser = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [data, setData] = useState();
+  const [plan, setPlan] = useState();
+  const [selected, setSelected] = useState(state.plan._id);
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/");
+      return;
+    }
+    axios.get("/plan").then((response) => {
+      setPlan(response.data);
+    });
+  }, []);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
     console.log(data);
     const res = await axios.put(`/user/${state?.user._id}`, data, {
       headers: {
         token: token,
       },
     });
-    console.log(res);
+    const dt = new Date();
+    let updatedata = {
+      id: state._id,
+      startDate: Date.now(),
+      endDate: dt.setMonth(dt.getMonth() + 1),
+      userId: state?.user._id,
+      planId: selected,
+    };
+    const resSub = await axios.put(`/subscriptions/`, updatedata, {
+      headers: {
+        token: token,
+      },
+    });
+    console.log(resSub);
+
     if (res.data) {
-      navigate("/users");
+      navigate("/admin/users");
     }
+  };
+
+  const handleClick = (ele) => {
+    console.log(ele);
+    setSelected(ele._id);
   };
 
   return (
@@ -42,9 +73,9 @@ const Updateuser = () => {
             type="text"
             className="form-control"
             id="formGroupExampleInput"
-            placeholder="Username"
+            placeholder={state?.user?.userName || ""}
             name="userName"
-            // value={data?.user.userName || ""}
+            // value={state?.user?.userName || ""}
             onChange={handleChange}
           />
           <label
@@ -57,15 +88,50 @@ const Updateuser = () => {
             type="text"
             className="form-control"
             id="formGroupExampleInput"
-            placeholder="UserEmail"
+            placeholder={state?.user?.userEmail || ""}
             name="userEmail"
-            // value={data?.user.userEmail || ""}
+            // value={data?.user.userName || ""}
             onChange={handleChange}
           />
-
-          <button className="btn btn-primary m-5 mx-auto" type="submit">
-            Submit
-          </button>
+          <label className="form-label text-light pt-4">Change Plan</label>
+          <div>
+            {plan?.map((ele, key) => {
+              return (
+                <div key={ele._id}>
+                  <div className="container" onClick={() => handleClick(ele)}>
+                    <div
+                      style={{
+                        border:
+                          `${ele._id}` == `${selected}`
+                            ? "3px solid violet"
+                            : "none",
+                      }}
+                      className="card mx-auto m-3 w-100 mt-3 hover-shadow"
+                    >
+                      <div className="card-header cardName">{ele.name}</div>
+                      <div className="card-body d-flex justify-content-between">
+                        <div>Monthly Price:</div>
+                        <div>{ele.charges}</div>
+                      </div>
+                      <div className="card-body d-flex justify-content-between">
+                        <div>Quality:</div>
+                        <div>{ele.quality}</div>
+                      </div>
+                      <div className="card-body d-flex justify-content-between">
+                        <div>Resolution:</div>
+                        <div>{ele.resolution}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <div style={{ marginLeft: "360px" }}>
+            <button className="btn btn-primary m-5 px-5" type="submit">
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </>

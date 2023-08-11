@@ -30,12 +30,16 @@ const AdminNavbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link" aria-current="page" to="/adminPage">
+              <Link
+                className="nav-link"
+                aria-current="page"
+                to="/admin/dashboard"
+              >
                 Dashboard
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/addMovie">
+              <Link className="nav-link" to="/admin/addMovie">
                 Add Movie
               </Link>
             </li>
@@ -45,19 +49,19 @@ const AdminNavbar = () => {
               </Link>
             </li> */}
             <li className="nav-item">
-              <Link className="nav-link" to="/catalog">
+              <Link className="nav-link" to="/admin/catalog">
                 Catalog
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/users">
+              <Link className="nav-link" to="/admin/users">
                 Users
               </Link>
             </li>
           </ul>
           <div className="d-flex ">
             <div className="mx-3 my-1">
-              <Link className="text-white" to="#">
+              <div className="text-white" to="#">
                 <FontAwesomeIcon icon={faUser} />
                 <div className="btn-group  me-2">
                   <button
@@ -80,7 +84,7 @@ const AdminNavbar = () => {
                     </li>
                   </ul>
                 </div>
-              </Link>
+              </div>
             </div>
           </div>
         </div>

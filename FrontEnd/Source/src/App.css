@@ -23,7 +23,7 @@ body {
 .front_page_background_image {
   background-image: url("https://help.nflxext.com/0af6ce3e-b27a-4722-a5f0-e32af4df3045_what_is_netflix_5_en.png");
   background-repeat: no-repeat;
-  height: 200vh;
+  height: 100vh;
   width: 100vw;
   /* background-size: 330vw 80vh; */
 }
@@ -277,11 +277,38 @@ td {
   cursor: pointer;
 }
 
+@media (min-width: 1024px) and (max-width: 1025px) {
+  .userBox {
+    top: 80px;
+    left: 200px;
+    width: 45%;
+  }
+  .form {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .plan_btn {
+    padding-left: 450px;
+  }
+  .qty_settings {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 10px;
+    top: 896px;
+    right: 220px;
+    cursor: pointer;
+  }
+  .qty {
+    top: 910px;
+    right: 60px;
+  }
+}
+
 @media screen and (min-width: 1000px) {
   .userBox {
     top: 80px;
-    left: 500px;
-    width: 40%;
+    left: 460px;
+    width: 45%;
   }
   .form {
     margin-left: 20px;

@@ -9,6 +9,7 @@ import { verifyAdmin } from "../middleware/verifyJwt.js";
 import { watchhistoryRoute } from "./watchhistoryRoute.js";
 import { otpRoute } from "./otpRoute.js";
 import { jwtRoute } from "./checkJwtRoute.js";
+import { paymentRoute } from "./paymentRoute.js";
 
 export const route = express.Router();
 
@@ -20,3 +21,4 @@ route.use("/", movieRoute);
 route.use("/", watchhistoryRoute);
 route.use("/", otpRoute);
 route.use("/", jwtRoute);
+route.use("/", paymentRoute);

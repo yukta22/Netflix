@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import Navbar from "../Navbar";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,7 +9,7 @@ import {
   faPencilAlt,
   faInfoCircle,
 } from "@fortawesome/fontawesome-free-solid";
-import Showsitem from "../Showsitem";
+import Showsitem from "../ShowsComponents/Showsitem";
 
 const Search = () => {
   const [post, setPost] = useState();
@@ -85,7 +84,7 @@ const Search = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/movies">
+                <Link className="nav-link" to="/movie">
                   Movies
                 </Link>
               </li>
@@ -116,11 +115,7 @@ const Search = () => {
                   </form>
                 </div>
               </div>
-              <div className="mx-3 mt-1 pt-1">
-                <Link className="text-white" to="#">
-                  <FontAwesomeIcon icon={faBell} />
-                </Link>
-              </div>
+
               <div className="mx-3 my-1">
                 <Link className="text-white" to="#">
                   <FontAwesomeIcon icon={faUser} />

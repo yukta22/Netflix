@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import Showsitem from "../Showsitem";
-import ShowInfo from "../ShowInfo";
+import Showsitem from "../ShowsComponents/Showsitem";
+import ShowInfo from "../ShowsComponents/ShowInfo";
+import Footer from "../Footer";
 
 const TvShow = () => {
   const [data, setData] = useState();
@@ -140,6 +141,7 @@ const TvShow = () => {
         </div>
       </div>
       <Showsitem data={data}></Showsitem>
+      <Footer />
     </>
   );
 };

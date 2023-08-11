@@ -30,7 +30,7 @@ const Users = () => {
 
   const handleEdit = async (ele) => {
     console.log(ele);
-    navigate("/updateUser", { state: ele });
+    navigate("/admin/updateUser", { state: ele });
   };
 
   const handleDelete = async (id) => {
@@ -68,7 +68,7 @@ const Users = () => {
     } else {
       // setBtn(true);
     }
-    console.log(btn);
+    // console.log(btn);
   };
 
   return (
@@ -122,7 +122,11 @@ const Users = () => {
                           stroke="currentColor"
                           className=""
                           onClick={() => handleEdit(ele)}
-                          style={{ width: "15px", height: "15px" }}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            color: "#008040",
+                          }}
                         >
                           <path
                             strokeLinecap="round"
@@ -143,7 +147,11 @@ const Users = () => {
                           stroke="currentColor"
                           className=""
                           onClick={() => handleDelete(ele._id)}
-                          style={{ width: "15px", height: "15px" }}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            color: "#e63900",
+                          }}
                         >
                           <path
                             strokeLinecap="round"

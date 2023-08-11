@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Footer from "./Footer";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -71,47 +72,20 @@ const SignUp = () => {
     return valflag;
   };
 
-  const handleVerifyOTP = async (otp) => {
-    const response = await axios.post("/verifyOtp", {
-      phoneNumber: phoneNumber, // You should replace this with the user's phone number
-      enteredOTP: otp,
-    });
-    console.log(response.data);
-
-    return response.data;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(phoneNumber);
 
     if (!validation()) {
-      setArr([...arr, data]);
-
       const response = await axios.post("/sendOtp", { phoneNumber });
-      let otp = prompt("Please enter OTP");
-      setEnteredOTP(otp);
-      // if (res.status == 201) {
-      //   setFlag(false);
-      //   if ((await handleVerifyOTP(otp)) == "OTP verified successfully") {
-      //     navigate("/signUp/plan");
-      //   } else if ((await handleVerifyOTP(otp)) == "Incorrect OTP") {
-      //     alert("Incorrect OTp");
-      //   }
-      // } else {
-      //   setFlag(true);
-      // }
-      if ((await handleVerifyOTP(otp)) == "OTP verified successfully") {
-        const res = await registerUser();
-        console.log(res);
-        if (res.status == 201) {
-          setFlag(false);
-          navigate("/signUp/plan");
-        } else if (res.data == "User already exists") {
-          setFlag(true);
-        }
-      } else if ((await handleVerifyOTP(otp)) == "Incorrect OTP") {
-        alert("Incorrect OTP");
+
+      const res = await registerUser();
+      console.log(res);
+      if (res.status == 201) {
+        setFlag(false);
+        navigate("/signUp/planOtp", { state: phoneNumber });
+      } else if (res.data == "User already exists") {
+        setFlag(true);
       }
     }
     // console.log(flag);
@@ -139,7 +113,7 @@ const SignUp = () => {
           <div className="px-2 ps-4 fw-bolder fs-3">Sign Up</div>
           {flag && (
             <div className="text-danger">
-              <p className="px-2 pt-4">User is already exists</p>
+              <p className="ps-3 ms-3 pt-4">User is already exists</p>
             </div>
           )}
           <form className="px-2 py-4 form" onSubmit={handleSubmit}>

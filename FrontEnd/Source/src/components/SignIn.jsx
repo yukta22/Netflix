@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addLoginCredentials } from "../redux/loginSlice";
-
+import Footer from "./Footer";
 const SignIn = () => {
   const [data, setData] = useState();
   const [flag, setFlag] = useState(false);
@@ -83,7 +81,7 @@ const SignIn = () => {
       );
 
       if (login.data.findData.role == "admin") {
-        navigate("/adminPage");
+        navigate("/admin/dashboard");
       } else {
         navigate("/home");
       }
@@ -193,6 +191,7 @@ const SignIn = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

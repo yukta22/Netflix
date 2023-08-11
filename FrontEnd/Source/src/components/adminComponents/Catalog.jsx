@@ -111,7 +111,11 @@ const Catalog = () => {
                           stroke="currentColor"
                           className=""
                           onClick={() => handleEdit(ele)}
-                          style={{ width: "15px", height: "15px" }}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            color: "#008040",
+                          }}
                         >
                           <path
                             strokeLinecap="round"
@@ -132,7 +136,11 @@ const Catalog = () => {
                           stroke="currentColor"
                           className=""
                           onClick={() => handleDelete(ele._id)}
-                          style={{ width: "15px", height: "15px" }}
+                          style={{
+                            width: "20px",
+                            height: "20px",
+                            color: "#e63900",
+                          }}
                         >
                           <path
                             strokeLinecap="round"
