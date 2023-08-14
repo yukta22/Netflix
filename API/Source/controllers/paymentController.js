@@ -10,7 +10,7 @@ const razorpay = new Razorpay({
 
 const createPayment = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const options = {
       amount: req.body.amount,
       currency: "INR",

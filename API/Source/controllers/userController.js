@@ -99,7 +99,7 @@ const updateUser = async (req, res) => {
     // console.log(req.files.userProfile);
     // const file = req.files.userProfile;
     const { userName, userEmail } = req.body;
-    console.log(req.params.id, req.body);
+    // console.log(req.params.id, req.body);
     const updateData = await User.findByIdAndUpdate(
       req.params.id,
       { userName, userEmail },
@@ -110,7 +110,7 @@ const updateUser = async (req, res) => {
 
     res.status(201).send(updateData);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).send(err);
   }
 };

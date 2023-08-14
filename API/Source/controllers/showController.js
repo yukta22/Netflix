@@ -3,129 +3,96 @@ import { uploadS3 } from "../utils/multerS3.js";
 
 const createShow = async (req, res) => {
   try {
+    // console.log(data);
     const data = req.body;
-    // const newShow = new Show({
-    //   title: data.title,
-    //   description: data.description,
-    //   genre: data.genre,
-    //   cast: data.cast,
-    //   // episode: JSON.parse(data.episode_arr),
-    // });
-    // console.log(newShow);
-    // await newShow.save();
-    // res.status(200).json({ data: newShow });
-    // console.log(req.body);
-    const imgfile = req.files.image;
-    const videoFile_360p = req.files.video_360p;
-    const videoFile_480p = req.files.video_480p;
-    const videoFile_720p = req.files.video_720p;
-    const videoFile_1080p = req.files.video_1080p;
-    const epiImgFile_0 = req.files.episode_image_0;
-    const epiImgFile_1 = req.files.episode_image_1;
-    const epiImgFile_2 = req.files.episode_image_2;
-    const epiImgFile_3 = req.files.episode_image_3;
-    const epiImgFile_4 = req.files.episode_image_4;
-    const episode_video_360p_0 = req.files.episode_video_360p_0;
-    const episode_video_360p_1 = req.files.episode_video_360p_1;
-    const episode_video_480p_0 = req.files.episode_video_480p_0;
-    const episode_video_480p_1 = req.files.episode_video_480p_1;
-    const episode_video_720p_0 = req.files.episode_video_720p_0;
-    const episode_video_720p_1 = req.files.episode_video_720p_1;
-    const episode_video_1080p_0 = req.files.episode_video_1080p_0;
-    const episode_video_1080p_1 = req.files.episode_video_1080p_1;
+    const imgfile = req.files?.image;
+    const video_360p = req.files?.video_360p;
+    const video_480p = req.files?.video_480p;
+    const video_720p = req.files?.video_720p;
+    const video_1080p = req.files?.video_1080p;
+    const imgUrl = await uploadS3(imgfile?.name, imgfile?.data);
+    const video_360pUrl = await uploadS3(video_360p?.name, video_360p?.data);
+    const video_480pUrl = await uploadS3(video_480p?.name, video_480p?.data);
+    const video_720pUrl = await uploadS3(video_720p?.name, video_720p?.data);
+    const video_1080pUrl = await uploadS3(video_1080p?.name, video_1080p?.data);
 
-    const imgUrl = await uploadS3(imgfile.name, imgfile.buffer);
-    const videoUrl_360p = await uploadS3(
-      videoFile_360p.name,
-      videoFile_360p.buffer
+    const episodeDataArray = JSON.parse(data.episode_arr);
+
+    const episodes = await Promise.all(
+      episodeDataArray.map(async (episodeData, index) => {
+        const episodeImgFile = req.files[`episode_image_${index}`];
+        const episode_video_360p = req.files[`episode_video_360p_${index}`];
+        const episode_video_480p = req.files[`episode_video_480p_${index}`];
+        const episode_video_720p = req.files[`episode_video_720p_${index}`];
+        const episode_video_1080p = req.files[`episode_video_1080p_${index}`];
+
+        const episode = {
+          title: episodeData.title,
+          description: episodeData.description,
+          image: await uploadS3(episodeImgFile?.name, episodeImgFile?.data),
+          video_360p: await uploadS3(
+            episode_video_360p?.name,
+            episode_video_360p?.data
+          ),
+          video_480p: await uploadS3(
+            episode_video_480p?.name,
+            episode_video_480p?.data
+          ),
+          video_720p: await uploadS3(
+            episode_video_720p?.name,
+            episode_video_720p?.data
+          ),
+          video_1080p: await uploadS3(
+            episode_video_1080p?.name,
+            episode_video_1080p?.data
+          ),
+        };
+
+        return episode;
+      })
     );
-    const videoUrl_480p = await uploadS3(
-      videoFile_480p.name,
-      videoFile_480p.buffer
-    );
-    const videoUrl_720p = await uploadS3(
-      videoFile_720p.name,
-      videoFile_720p.buffer
-    );
-    const videoUrl_1080p = await uploadS3(
-      videoFile_1080p.name,
-      videoFile_1080p.buffer
-    );
-    const epiImgUrl_0 = await uploadS3(epiImgFile_0.name, epiImgFile_0.buffer);
-    const epiImgUrl_1 = await uploadS3(epiImgFile_1.name, epiImgFile_1.buffer);
-    const epiImgUrl_2 = await uploadS3(epiImgFile_2.name, epiImgFile_2.buffer);
-    const epiImgUrl_3 = await uploadS3(epiImgFile_3.name, epiImgFile_3.buffer);
-    const epiImgUrl_4 = await uploadS3(epiImgFile_4.name, epiImgFile_4.buffer);
-    const epiVideoUrl_360p_0 = await uploadS3(
-      episode_video_360p_0.name,
-      episode_video_360p_0.buffer
-    );
-    const epiVideoUrl_480p_0 = await uploadS3(
-      episode_video_480p_0.name,
-      episode_video_480p_0.buffer
-    );
-    const epiVideoUrl_720p_0 = await uploadS3(
-      episode_video_720p_0.name,
-      episode_video_720p_0.buffer
-    );
-    const epiVideoUrl_1080p_0 = await uploadS3(
-      episode_video_1080p_0.name,
-      episode_video_1080p_0.buffer
-    );
-    const epiVideoUrl_360p_1 = await uploadS3(
-      episode_video_360p_1.name,
-      episode_video_360p_1.buffer
-    );
-    const epiVideoUrl_480p_1 = await uploadS3(
-      episode_video_480p_1.name,
-      episode_video_480p_1.buffer
-    );
-    const epiVideoUrl_720p_1 = await uploadS3(
-      episode_video_720p_1.name,
-      episode_video_720p_1.buffer
-    );
-    const epiVideoUrl_1080p_1 = await uploadS3(
-      episode_video_1080p_1.name,
-      episode_video_1080p_1.buffer
-    );
-    console.log(req.body);
-    const show = new Show({
-      title: req.body.title,
-      description: req.body.description,
+
+    const newShow = new Show({
+      title: data.title,
+      description: data.description,
+      genre: data.genre,
+      cast: data.cast,
       image: imgUrl,
-      video_360p: videoUrl_360p,
-      video_480p: videoUrl_480p,
-      video_720p: videoUrl_720p,
-      video_1080p: videoUrl_1080p,
-      releaseDate: req.body.releaseDate,
-      genre: req.body.genre,
-      cast: req.body.cast,
-      typeOfMovie: req.body.typeOfMovie,
-      episode: [
-        {
-          title: req.body.episode_title,
-          description: req.body.episode_description,
-          releaseDate: req.body.releaseDate,
-          image: epiImgUrl_0,
-          video_360p: epiVideoUrl_360p_0,
-          video_480p: epiVideoUrl_480p_0,
-          video_720p: epiVideoUrl_720p_0,
-          video_1080p: epiVideoUrl_1080p_0,
-        },
-      ],
+      video_360p: video_360pUrl,
+      video_480p: video_480pUrl,
+      video_720p: video_720pUrl,
+      video_1080p: video_1080pUrl,
+      episode: episodes,
     });
-    console.log(show);
-    const saveShow = await show.save();
+
+    const saveShow = await newShow.save();
+    // console.log(saveShow);
     res.status(201).json(saveShow);
   } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+    // console.error(err.message);
+    res
+      .status(500)
+      .json({ error: "An error occurred while creating the show." });
   }
 };
 
 const getShow = async (req, res) => {
   try {
+    const pageno = req.headers.pageno;
+
+    const skipData = 5;
+    const shows = await Show.find()
+      .skip((pageno - 1) * skipData)
+      .limit(5);
+    res.status(200).json(shows);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+const getAllShow = async (req, res) => {
+  try {
     const shows = await Show.find();
+
     res.status(200).json(shows);
   } catch (err) {
     res.status(500).json(err);
@@ -134,10 +101,73 @@ const getShow = async (req, res) => {
 
 const updateShow = async (req, res) => {
   try {
-    const id = req.params.id;
-    await Show.findByIdAndUpdate(id, req.body);
-    res.status(200).json("Data updated");
+    const data = req.body;
+    const imgfile = req.files?.image;
+    const video_360p = req.files?.video_360p;
+    const video_480p = req.files?.video_480p;
+    const video_720p = req.files?.video_720p;
+    const video_1080p = req.files?.video_1080p;
+    const imgUrl = await uploadS3(imgfile?.name, imgfile?.data);
+    const video_360pUrl = await uploadS3(video_360p?.name, video_360p?.data);
+    const video_480pUrl = await uploadS3(video_480p?.name, video_480p?.data);
+    const video_720pUrl = await uploadS3(video_720p?.name, video_720p?.data);
+    const video_1080pUrl = await uploadS3(video_1080p?.name, video_1080p?.data);
+
+    const episodeDataArray = JSON.parse(data.episode_arr);
+
+    const episodes = await Promise.all(
+      episodeDataArray.map(async (episodeData, index) => {
+        const episodeImgFile = req.files[`episode_image_${index}`];
+        const episode_video_360p = req.files[`episode_video_360p_${index}`];
+        const episode_video_480p = req.files[`episode_video_480p_${index}`];
+        const episode_video_720p = req.files[`episode_video_720p_${index}`];
+        const episode_video_1080p = req.files[`episode_video_1080p_${index}`];
+
+        const episode = {
+          title: episodeData.title,
+          description: episodeData.description,
+          image: await uploadS3(episodeImgFile?.name, episodeImgFile?.data),
+          video_360p: await uploadS3(
+            episode_video_360p?.name,
+            episode_video_360p?.data
+          ),
+          video_480p: await uploadS3(
+            episode_video_480p?.name,
+            episode_video_480p?.data
+          ),
+          video_720p: await uploadS3(
+            episode_video_720p?.name,
+            episode_video_720p?.data
+          ),
+          video_1080p: await uploadS3(
+            episode_video_1080p?.name,
+            episode_video_1080p?.data
+          ),
+        };
+
+        return episode;
+      })
+    );
+
+    const updateData = await Show.findByIdAndUpdate(
+      req.body.id,
+      {
+        title: data.title,
+        description: data.description,
+        genre: data.genre,
+        cast: data.cast,
+        image: imgUrl,
+        video_360p: video_360pUrl,
+        video_480p: video_480pUrl,
+        video_720p: video_720pUrl,
+        video_1080p: video_1080pUrl,
+        episode: episodes,
+      },
+      { new: true }
+    );
+    res.status(200).json(updateData);
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 };
@@ -152,4 +182,4 @@ const deleteShow = async (req, res) => {
   }
 };
 
-export { createShow, getShow, updateShow, deleteShow };
+export { createShow, getShow, updateShow, deleteShow, getAllShow };

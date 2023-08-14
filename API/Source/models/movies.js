@@ -34,12 +34,7 @@ const moviesSchema = mongoose.Schema({
   releaseDate: {
     type: Date,
     default: Date.now,
-    validate: {
-      validator: function (value) {
-        return value <= new Date(); // Ensure releaseDate is not in the future
-      },
-      message: "Release date cannot be in the future",
-    },
+    required: true,
   },
   genre: {
     type: String,

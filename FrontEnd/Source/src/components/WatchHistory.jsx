@@ -78,7 +78,7 @@ const WatchHistory = () => {
   const navigateToVideo = (showData) => {
     navigate("/home/movie", { state: showData });
   };
-
+  // console.log(data);
   return (
     <>
       <Navbar />
@@ -86,20 +86,24 @@ const WatchHistory = () => {
         <div>
           <h5 className="text-white ms-5 mb-3 fs-4">My List</h5>
           <div className="mx-4">
-            <div className="ms-3 d-flex flex-wrap">
+            <div className=" d-flex flex-wrap">
               {data?.map((ele, ind) => (
                 <div
                   className="m-2 cards"
                   key={ele._id}
                   onClick={() => navigateToVideo(ele.movie)}
                 >
-                  <img
-                    src={
-                      ele.movie?.image ||
-                      "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fG1vdmllfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60"
+                  {(() => {
+                    if (ele.movie != null) {
+                      return (
+                        <>
+                          <img src={ele.movie?.image} alt="image" />
+                        </>
+                      );
                     }
-                    alt="image"
-                  />
+
+                    return null;
+                  })()}
                 </div>
               ))}
             </div>

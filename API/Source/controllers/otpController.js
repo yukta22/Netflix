@@ -33,7 +33,7 @@ const sendOtp = async (req, res) => {
       to: phoneNumber,
     });
 
-    console.log(message.sid);
+    // console.log(message.sid);
     res.json({ success: true, message: "OTP sent successfully" });
   } catch (error) {
     console.error(error.message);
@@ -42,7 +42,7 @@ const sendOtp = async (req, res) => {
 };
 
 const VerifyOtp = async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const phoneNumber = `+91${req.body.phoneNumber}`;
   const enteredOTP = req.body.enteredOTP;
 
@@ -52,7 +52,7 @@ const VerifyOtp = async (req, res) => {
       otp: enteredOTP,
       expiration: { $gt: new Date() },
     });
-    console.log(storedOTP);
+    // console.log(storedOTP);
     if (storedOTP) {
       await Otp.deleteOne({ phoneNumber: phoneNumber });
       res.send("OTP verified successfully");

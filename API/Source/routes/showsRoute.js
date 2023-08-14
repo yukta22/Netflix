@@ -4,15 +4,17 @@ import {
   getShow,
   updateShow,
   deleteShow,
+  getAllShow,
 } from "../controllers/showController.js";
 // import { upload } from "../utils/multerS3.js";
 import { verifyAdmin, verifyUser } from "../middleware/verifyJwt.js";
 
 const showRoute = express.Router();
 
-showRoute.get("/shows", verifyUser, getShow);
+showRoute.get("/shows", getAllShow);
+showRoute.get("/admin/shows", getShow);
 showRoute.post("/shows", verifyAdmin, createShow);
-showRoute.put("/shows", updateShow);
-showRoute.delete("/shows", deleteShow);
+showRoute.put("/shows", verifyAdmin, updateShow);
+showRoute.delete("/shows/:id", verifyAdmin, deleteShow);
 
 export { showRoute };

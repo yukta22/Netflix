@@ -6,7 +6,7 @@ const s3 = new S3Client();
 // export const upload = multer({});
 
 export const uploadS3 = async (fileName, fileBuffer) => {
-  let name = randomUUID() + fileName;
+  let name = fileName;
 
   const command = new PutObjectCommand({
     Bucket: "netflix-video",

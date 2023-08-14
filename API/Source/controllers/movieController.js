@@ -3,7 +3,7 @@ import { uploadS3 } from "../utils/multerS3.js";
 
 const createMovie = async (req, res) => {
   try {
-    // console.log(req.body);
+    console.log(req.body);
     const imgfile = req.files?.image;
     const videoFile_360p = req.files?.video_360p;
     const videoFile_480p = req.files?.video_480p;
@@ -46,8 +46,8 @@ const createMovie = async (req, res) => {
     // console.log(saveMovie);
     res.status(201).json(saveMovie);
   } catch (err) {
-    console.log("asd");
-    console.log(err);
+    // console.log("asd");
+    // console.log(err);
     res.status(500).json(err);
   }
 };
@@ -80,7 +80,7 @@ const getrandomMovie = async (req, res) => {
     const getData = await Movie.find().skip(randomdata).limit(-1);
     res.status(200).json(getData);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(500).json(err);
   }
 };
@@ -91,16 +91,57 @@ const getVideoplayer = async (req, res) => {
     const findData = await Movie.findOne({ title: req.body.title });
     res.status(201).json(findData);
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json(err);
   }
 };
 
 const updateMovies = async (req, res) => {
   try {
-    console.log(req.body);
-    const updateData = await Movie.findByIdAndUpdate(req.body.id, req.body);
-    res.status(200).json(updateData);
+    const imgfile = req.files?.image;
+    const videoFile_360p = req.files?.video_360p;
+    const videoFile_480p = req.files?.video_480p;
+    const videoFile_720p = req.files?.video_720p;
+    const videoFile_1080p = req.files?.video_1080p;
+
+    const existingMovie = await Movie.findById(req.body.id);
+
+    const imgUrl = imgfile
+      ? await uploadS3(imgfile.name, imgfile.data)
+      : existingMovie.image;
+    const videoUrl_360p = videoFile_360p
+      ? await uploadS3(videoFile_360p.name, videoFile_360p.data)
+      : existingMovie.video_360p;
+    const videoUrl_480p = videoFile_480p
+      ? await uploadS3(videoFile_480p.name, videoFile_480p.data)
+      : existingMovie.video_480p;
+    const videoUrl_720p = videoFile_720p
+      ? await uploadS3(videoFile_720p.name, videoFile_720p.data)
+      : existingMovie.video_720p;
+    const videoUrl_1080p = videoFile_1080p
+      ? await uploadS3(videoFile_1080p.name, videoFile_1080p.data)
+      : existingMovie.video_1080p;
+
+    const updateData = {
+      title: req.body.title || existingMovie.title,
+      description: req.body.description || existingMovie.description,
+      image: imgUrl,
+      video_360p: videoUrl_360p,
+      video_480p: videoUrl_480p,
+      video_720p: videoUrl_720p,
+      video_1080p: videoUrl_1080p,
+      releaseDate: req.body.releaseDate || existingMovie.releaseDate,
+      genre: req.body.genre || existingMovie.genre,
+      cast: req.body.cast || existingMovie.cast,
+      typeOfMovie: req.body.typeOfMovie || existingMovie.typeOfMovie,
+    };
+
+    const updatedMovie = await Movie.findByIdAndUpdate(
+      req.body.id,
+      updateData,
+      { new: true }
+    );
+    res.status(200).json(updatedMovie);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -108,11 +149,11 @@ const updateMovies = async (req, res) => {
 
 const deleteMovies = async (req, res) => {
   try {
-    console.log(req.params.id);
+    // console.log(req.params.id);
     await Movie.findByIdAndDelete(req.params.id);
     res.status(200).json("Data deleted");
   } catch (err) {
-    console.log(err);
+    // console.log(err);
     res.status(500).json(err);
   }
 };

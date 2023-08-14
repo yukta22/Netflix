@@ -3,13 +3,13 @@ import { Watchhistory } from "../models/watchhistory.js";
 const createWatchHistory = async (req, res) => {
   try {
     // console.log("asd");
-    console.log(req.body);
+    // console.log(req.body);
     const { userId, movieId } = req.body;
     const findData = await Watchhistory.findOne({
       user: userId,
       movie: movieId,
     });
-    console.log(findData);
+    // console.log(findData);
     if (findData) {
       return res.send("Alread Exists");
     }
@@ -21,7 +21,7 @@ const createWatchHistory = async (req, res) => {
     const saveWatchHistory = await watchhistory.save();
     res.status(200).json(saveWatchHistory);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(404).send(error);
   }
 };
@@ -33,7 +33,7 @@ const getWatchHistory = async (req, res) => {
     );
     res.status(200).json(data);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     res.status(404).send(error);
   }
 };

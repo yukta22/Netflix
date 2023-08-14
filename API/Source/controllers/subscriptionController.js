@@ -2,7 +2,7 @@ import { Subscription } from "../models/subscriptions.js";
 
 const createSubscription = async (req, res) => {
   try {
-    console.log("Asd");
+    // console.log("Asd");
     const { startDate, endDate, userId, planId } = req.body;
     const subscriptions = new Subscription({
       startDate: startDate,
@@ -11,11 +11,11 @@ const createSubscription = async (req, res) => {
       plan: planId,
     });
     const saveSubscription = await subscriptions.save();
-    console.log(saveSubscription);
+    // console.log(saveSubscription);
     res.status(201).json(saveSubscription);
   } catch (err) {
-    console.log("err");
-    console.log(err.message);
+    // console.log("err");
+    // console.log(err.message);
     res.status(500).send(err);
   }
 };
@@ -48,7 +48,7 @@ const getsubscriptiondata = async (req, res) => {
 
 const updatesubscription = async (req, res) => {
   try {
-    console.log(req.body);
+    // console.log(req.body);
     const { startDate, endDate, userId, planId } = req.body;
     const updateData = await Subscription.findByIdAndUpdate(
       req.body.id,
@@ -60,7 +60,7 @@ const updatesubscription = async (req, res) => {
       },
       { new: true }
     );
-    console.log(updateData);
+    // console.log(updateData);
     res.status(201).json(updateData);
   } catch (err) {
     res.status(500).send(err);
