@@ -12,54 +12,49 @@ import {
 import Showsitem from "../ShowsComponents/Showsitem";
 
 const Search = () => {
-  const [post, setPost] = useState();
-  const [data, setData] = useState();
-  const [shows, setShows] = useState();
+  const [data, setData] = useState([]);
+  const [searchdata, setSearchdata] = useState("");
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      if (searchdata !== "") {
+        fetchData();
+      } else {
+        setData([]);
+      }
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [searchdata]);
+
+  const fetchData = async () => {
     const token = localStorage.getItem("token");
-    axios
-      .get("/movie", {
+    try {
+      const response = await axios.get(`/searchMovie/${searchdata}`, {
         headers: {
           token: token,
         },
-      })
-      .then((response) => {
-        setPost(response.data);
       });
 
-    axios
-      .get("/shows", {
+      const responseShow = await axios.get(`/searchShow/${searchdata}`, {
         headers: {
           token: token,
         },
-      })
-      .then((response) => {
-        setShows(response.data);
       });
-  }, [data]);
-  // console.log(shows);
-  const searchChange = (e) => {
-    const filterData = post?.filter(
-      (ele) =>
-        ele.title.toLowerCase().includes(e.target.value) ||
-        ele.genre.toLowerCase().includes(e.target.value)
-    );
-    const filterShowData = shows?.filter(
-      (ele) =>
-        ele.title.toLowerCase().includes(e.target.value) ||
-        ele.genre.toLowerCase().includes(e.target.value)
-    );
-    // console.log(filterShowData);
-    setData([...filterData, ...filterShowData]);
+
+      setData([...response.data, ...responseShow.data]);
+    } catch (error) {
+      console.error(error);
+    }
   };
+  // console.log(data);
   return (
     <>
       <div className="text-white ">
         <nav className="navbar navbar-expand-lg navbar-dark ">
-          <a className="navbar-brand text-danger fs-4 ps-2" href="#">
-            NETFLIX
-          </a>
+          <Link className="navbar-brand text-danger ps-2 ms-3" to="/home">
+            <h3>NetFlix</h3>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -135,7 +130,8 @@ const Search = () => {
                       type="search"
                       name="search"
                       placeholder="Search"
-                      onChange={searchChange}
+                      // onChange={searchChange}
+                      onChange={(e) => setSearchdata(e.target.value)}
                     />
                     <label
                       className="button searchbutton"
@@ -148,7 +144,7 @@ const Search = () => {
               </div>
 
               <div className="mx-3 my-1">
-                <Link className="text-white" to="#">
+                <div className="text-white" to="#">
                   <FontAwesomeIcon icon={faUser} />
                   <div className="btn-group  me-2">
                     <button
@@ -158,7 +154,7 @@ const Search = () => {
                       aria-expanded="false"
                     ></button>
                     <ul className="dropdown-menu ">
-                      <li className="">
+                      {/* <li className="">
                         <Link
                           to="/home/profile-manage"
                           className="d-flex dropdown-item text-decoration-none text-dark ps-2"
@@ -169,7 +165,7 @@ const Search = () => {
                           />
                           <p className="mb-0 ps-1">Manage Profile</p>
                         </Link>
-                      </li>
+                      </li> */}
                       <li className="">
                         <Link
                           to="/home/account"
@@ -207,7 +203,7 @@ const Search = () => {
                       </li>
                     </ul>
                   </div>
-                </Link>
+                </div>
               </div>
             </div>
           </div>

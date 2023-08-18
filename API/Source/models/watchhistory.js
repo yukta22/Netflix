@@ -14,5 +14,9 @@ const watchhistorySchema = mongoose.Schema({
   //   type: mongoose.Schema.Types.ObjectId,
   //   ref: "Show",
   // },
+  timeStamp: {
+    type: Date,
+    default: Date.now,
+  },
 });
 export const Watchhistory = mongoose.model("Watchhistory", watchhistorySchema);

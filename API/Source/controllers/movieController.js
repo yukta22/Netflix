@@ -36,18 +36,14 @@ const createMovie = async (req, res) => {
       video_480p: videoUrl_480p,
       video_720p: videoUrl_720p,
       video_1080p: videoUrl_1080p,
-      // videoSize: videoFile.size,
       releaseDate: req.body.releaseDate,
       genre: req.body.genre,
       cast: req.body.cast,
       typeOfMovie: req.body.typeOfMovie,
     });
     const saveMovie = await movie.save();
-    // console.log(saveMovie);
     res.status(201).json(saveMovie);
   } catch (err) {
-    // console.log("asd");
-    // console.log(err);
     res.status(500).json(err);
   }
 };
@@ -160,9 +156,16 @@ const deleteMovies = async (req, res) => {
 
 const searchMovies = async (req, res) => {
   try {
-    // console.log(req.params.title);
-    const filterData = await Movie.findOne({ title: req.params.title });
-    res.status(200).json(filterData);
+    const { query } = req.params;
+
+    const movies = await Movie.find({
+      $or: [
+        { title: { $regex: query, $options: "i" } },
+        { genre: { $regex: query, $options: "i" } },
+      ],
+    });
+
+    res.json(movies);
   } catch (err) {
     res.status(500).json(err);
   }

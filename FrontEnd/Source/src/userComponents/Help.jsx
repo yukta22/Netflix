@@ -1,9 +1,12 @@
 import React from "react";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 
 const Help = () => {
   const user = JSON.parse(localStorage.getItem("user"));
   return (
     <>
+      <Navbar />
       <div>
         <div className="text-center text-white display-5 fw-bold mt-5">
           Help Center
@@ -73,6 +76,7 @@ const Help = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

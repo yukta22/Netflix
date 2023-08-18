@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 
 const First_plan_page = () => {
   const navigate = useNavigate();
@@ -11,20 +12,40 @@ const First_plan_page = () => {
   };
 
   useEffect(() => {
-    const registerUser = localStorage.getItem("registerUser");
-    if (!registerUser) {
+    const userId = localStorage.getItem("registerUser");
+
+    if (userId) {
+      axios
+        .get(`/validate/${userId}`)
+        .then((response) => {
+          if (response.data.isValid == false) {
+            navigate("/");
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+          navigate("/");
+        });
+    } else {
       navigate("/");
-      return;
     }
   }, []);
   const navigateSecondPage = () => {
     navigate("/signUp/plan2");
   };
 
+  const navigateTolandingPage = () => {
+    navigate("/");
+  };
+
   return (
     <>
       <div className="d-flex justify-content-between  ">
-        <div className="text-danger">
+        <div
+          className="text-danger"
+          onClick={navigateTolandingPage}
+          style={{ cursor: "pointer" }}
+        >
           <h1 className="ms-3 ">Netflix</h1>
         </div>
         <button

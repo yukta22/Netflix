@@ -197,7 +197,12 @@ const ShowInfo = ({ showData, setFlag }) => {
                     key={ele._id}
                     onClick={() => navigateToVideo(ele)}
                   >
-                    <img src={ele.image} className="card-img-top" alt="..." />
+                    <img
+                      src={ele.image}
+                      style={{ height: "240px" }}
+                      className="card-img-top"
+                      alt="..."
+                    />
                     <div className="card-body showmore">
                       <h5 className="card-title">{ele.title}</h5>
                       <p className="card-text">{ele.description}</p>

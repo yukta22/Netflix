@@ -37,7 +37,7 @@ const Video = () => {
     let user = JSON.parse(localStorage.getItem("user"));
     // console.log(user.id);
     axios
-      .post(`/subscriptions/${user.id}`, {
+      .get(`/subscriptions/${user.id}`, {
         headers: {
           token: token,
         },
@@ -46,14 +46,29 @@ const Video = () => {
         setPost(response.data);
       });
 
-    // const savePosition = () => savePlaybackPosition();
-    // window.addEventListener("beforeunload", savePosition);
-    // loadSavedPlaybackPosition();
-    // return () => {
-    //   window.removeEventListener("beforeunload", savePosition);
-    // };
-  }, [selectedQuality]);
-  useEffect(() => {
+    let data = JSON.stringify({
+      userId: user.id,
+      movieId: state._id,
+    });
+
+    let config = {
+      method: "post",
+      url: "/watchHistory",
+      headers: {
+        "Content-Type": "application/json",
+        token: token,
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        // console.log(JSON.stringify(response.data));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
     const handleClickOutside = (event) => {
       if (ref.current && !ref.current.contains(event.target)) {
         setFlag(false);
@@ -64,7 +79,18 @@ const Video = () => {
     return () => {
       document.removeEventListener("click", handleClickOutside, true);
     };
-  }, []);
+
+    // const savePosition = () => savePlaybackPosition();
+    // window.addEventListener("beforeunload", savePosition);
+    // loadSavedPlaybackPosition();
+    // return () => {
+    //   window.removeEventListener("beforeunload", savePosition);
+    // };
+  }, [selectedQuality]);
+
+  // useEffect(() => {
+
+  // }, []);
 
   // useEffect(() => {
   //   console.log(post);
@@ -102,15 +128,28 @@ const Video = () => {
     setQualityflag(!qualityFlag);
   };
 
+  const navigateToHome = () => {
+    navigate("/home");
+  };
+
   return (
     <>
       <div style={{ overflowY: "hidden" }}>
+        <div className="text-danger">
+          <h1
+            className="ms-3 "
+            onClick={navigateToHome}
+            style={{ cursor: "pointer" }}
+          >
+            Netflix
+          </h1>
+        </div>
         <video
           ref={videoRef}
           src={videoUrl}
           controls
-          style={{ width: "100%", height: "960px", overflowY: "hidden" }}
-          className="position-relative mt-2"
+          style={{ width: "100%", height: "890px", overflowY: "hidden" }}
+          className="position-relative mt-4"
         ></video>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -119,7 +158,7 @@ const Video = () => {
           strokeWidth="1.5"
           stroke="currentColor"
           className="text-white position-absolute qty_settings"
-          onClick={handleSetting}
+          onClick={() => handleSetting()}
         >
           <path
             strokeLinecap="round"
@@ -229,7 +268,7 @@ const Video = () => {
             }}
           >
             {(() => {
-              if (post?.plan.name == "Mobile") {
+              if (post?.plan?.name == "Mobile") {
                 return (
                   <>
                     <option value="select">Quality</option>

@@ -9,6 +9,7 @@ const Showsitem = ({ data }) => {
   // console.log(data);
   const [flag, setFlag] = useState(false);
   const [showData, setShowData] = useState();
+  const [selected, setSelected] = useState(false);
 
   const newReleaseMovie = data?.filter((e) => e.typeOfMovie == "New Releases");
   const trendingNowMovie = data?.filter((e) => e.typeOfMovie == "Trending Now");
@@ -58,36 +59,8 @@ const Showsitem = ({ data }) => {
 
   const handleShowInfo = async (ele) => {
     // console.log(ele);
-    const token = localStorage.getItem("token");
-    if (token == null) {
-      navigate("/");
-      return;
-    }
-    // console.log(ele._id);
-    const user = JSON.parse(localStorage.getItem("user"));
-    let data = JSON.stringify({
-      userId: user.id,
-      movieId: ele._id,
-    });
-
-    let config = {
-      method: "post",
-      url: "/watchHistory",
-      headers: {
-        "Content-Type": "application/json",
-        token: token,
-      },
-      data: data,
-    };
-
-    axios(config)
-      .then(function (response) {
-        // console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
+    setSelected(ele._id);
+    window.scrollTo({ top: 0, behavior: "smooth" });
     setFlag(true);
     setShowData(ele);
   };
@@ -107,22 +80,26 @@ const Showsitem = ({ data }) => {
           <h5 className="text-white ms-5 mb-3 fs-4">New Release</h5>
           <div className="mx-4">
             {newReleaseMovie?.length > 5 ? (
-              <Slider className="" {...settings}>
+              <Slider className="items" {...settings}>
                 {newReleaseMovie?.map((ele, ind) => (
                   <div
-                    className="cards"
+                    className="cards "
                     key={ele._id}
                     onClick={() => handleShowInfo(ele)}
                   >
-                    <img src={ele.image} alt="image" />
+                    <img
+                      src={ele.image}
+                      alt="image"
+                      style={{
+                        border:
+                          `${ele._id}` == `${selected}`
+                            ? "3px solid red"
+                            : "none",
+                      }}
+                    />
                     {/* <div className="moviecard">
-                    <img src={ele.image} alt="image" />
-                    <div className="d-flex p-1">
-                      <button className="">Play</button>
-
-                      <button className="">Watch now</button>
-                    </div>
-                  </div> */}
+                      <img src={ele.image} alt="image" />
+                    </div> */}
                   </div>
                 ))}
               </Slider>
@@ -133,6 +110,12 @@ const Showsitem = ({ data }) => {
                     className="cards mx-2"
                     key={ele._id}
                     onClick={() => handleShowInfo(ele)}
+                    style={{
+                      border:
+                        `${ele._id}` == `${selected}`
+                          ? "3px solid red"
+                          : "none",
+                    }}
                   >
                     <img src={ele.image} alt="image" />
                   </div>
@@ -153,6 +136,12 @@ const Showsitem = ({ data }) => {
                     className="cards"
                     key={ele._id}
                     onClick={() => handleShowInfo(ele)}
+                    style={{
+                      border:
+                        `${ele._id}` == `${selected}`
+                          ? "3px solid red"
+                          : "none",
+                    }}
                   >
                     <div className="w-25">
                       <img src={ele.image} alt="image" />
@@ -167,6 +156,12 @@ const Showsitem = ({ data }) => {
                     className="cards mx-2"
                     key={ele._id}
                     onClick={() => handleShowInfo(ele)}
+                    style={{
+                      border:
+                        `${ele._id}` == `${selected}`
+                          ? "3px solid red"
+                          : "none",
+                    }}
                   >
                     <div className="w-25">
                       <img src={ele.image} alt="image" />
@@ -189,6 +184,12 @@ const Showsitem = ({ data }) => {
                     className="cards"
                     key={ele._id}
                     onClick={() => handleShowInfo(ele)}
+                    style={{
+                      border:
+                        `${ele._id}` == `${selected}`
+                          ? "3px solid red"
+                          : "none",
+                    }}
                   >
                     <div className="w-25">
                       <img src={ele.image} alt="image" />
@@ -203,6 +204,12 @@ const Showsitem = ({ data }) => {
                     className="cards mx-2"
                     key={ele._id}
                     onClick={() => handleShowInfo(ele)}
+                    style={{
+                      border:
+                        `${ele._id}` == `${selected}`
+                          ? "3px solid red"
+                          : "none",
+                    }}
                   >
                     <div className="w-25">
                       <img src={ele.image} alt="image" />
@@ -225,6 +232,12 @@ const Showsitem = ({ data }) => {
                     className="cards"
                     key={ele._id}
                     onClick={() => handleShowInfo(ele)}
+                    style={{
+                      border:
+                        `${ele._id}` == `${selected}`
+                          ? "3px solid red"
+                          : "none",
+                    }}
                   >
                     <div className="w-25">
                       <img src={ele.image} alt="image" />
@@ -239,6 +252,12 @@ const Showsitem = ({ data }) => {
                     className="cards mx-2"
                     key={ele._id}
                     onClick={() => handleShowInfo(ele)}
+                    style={{
+                      border:
+                        `${ele._id}` == `${selected}`
+                          ? "3px solid red"
+                          : "none",
+                    }}
                   >
                     <div className="w-25">
                       <img src={ele.image} alt="image" />

@@ -28,9 +28,9 @@ const createWatchHistory = async (req, res) => {
 
 const getWatchHistory = async (req, res) => {
   try {
-    const data = await Watchhistory.find({ user: req.body.userId }).populate(
-      "movie"
-    );
+    const data = await Watchhistory.find({ user: req.body.userId })
+      .populate("movie")
+      .sort({ timeStamp: -1 });
     res.status(200).json(data);
   } catch (error) {
     // console.log(error);

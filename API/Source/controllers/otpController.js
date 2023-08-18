@@ -10,6 +10,7 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = twilio(accountSid, authToken);
 
 const sendOtp = async (req, res) => {
+  // console.log(req.body);
   const { error } = validateOtp(req.body);
   if (error) {
     return res.status(400).json({ message: error.details[0].message });
@@ -18,7 +19,7 @@ const sendOtp = async (req, res) => {
   const otp = Math.floor(1000 + Math.random() * 9000); // Generate a 4-digit OTP
   console.log(otp);
   try {
-    // Store OTP in MongoDB
+    await Otp.deleteMany({ phoneNumber: phoneNumber });
     const newOTP = new Otp({
       phoneNumber: phoneNumber,
       otp: otp.toString(),
@@ -54,11 +55,20 @@ const VerifyOtp = async (req, res) => {
     });
     // console.log(storedOTP);
     if (storedOTP) {
-      await Otp.deleteOne({ phoneNumber: phoneNumber });
+      await Otp.deleteMany({ phoneNumber: phoneNumber });
       res.send("OTP verified successfully");
     } else {
       // Incorrect OTP or expired
-      res.send("Incorrect OTP");
+      const existingOTP = await Otp.findOne({ phoneNumber: phoneNumber });
+      if (existingOTP) {
+        if (existingOTP.expiration <= new Date()) {
+          res.send("OTP has expired");
+        } else {
+          res.send("Incorrect OTP");
+        }
+      } else {
+        res.send("No OTP sent for this phone number.");
+      }
     }
   } catch (error) {
     console.error(error);

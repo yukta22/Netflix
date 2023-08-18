@@ -43,11 +43,11 @@ const getUser = async (req, res) => {
     if (findData) {
       bcrypt.compare(userPassword, findData.userPassword, (err, result) => {
         if (result) {
-          console.log({
-            userName: findData.userName,
-            userEmail: findData.userEmail,
-            role: findData.role,
-          });
+          // console.log({
+          //   userName: findData.userName,
+          //   userEmail: findData.userEmail,
+          //   role: findData.role,
+          // });
           const token = jwt.sign(
             {
               userName: findData.userName,
@@ -81,6 +81,23 @@ const getUsers = async (req, res) => {
   }
 };
 
+const validateuser = async (req, res) => {
+  const id = req.params.id;
+
+  // console.log(req.params.id);
+  try {
+    const user = await User.findById(id);
+    if (user) {
+      res.status(200).json({ isValid: true });
+    } else {
+      res.status(404).json({ isValid: false });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
+
 const getAllUser = async (req, res) => {
   try {
     const pageno = req.headers.pageno;
@@ -97,17 +114,22 @@ const getAllUser = async (req, res) => {
 const updateUser = async (req, res) => {
   try {
     // console.log(req.files.userProfile);
-    // const file = req.files.userProfile;
-    const { userName, userEmail } = req.body;
     // console.log(req.params.id, req.body);
+    const findUser = await User.findById(req.params.id);
     const updateData = await User.findByIdAndUpdate(
       req.params.id,
-      { userName, userEmail },
+      {
+        userName: req.body.userName || findUser.userName,
+        userEmail: req.body.userEmail || findUser.userEmail,
+        userPassword: findUser.userPassword,
+        contactNumber: findUser.contactNumber,
+        role: findUser.role,
+      },
       {
         new: true,
       }
     );
-
+    // console.log(updateData);
     res.status(201).send(updateData);
   } catch (err) {
     // console.log(err);
@@ -125,4 +147,12 @@ const deleteUser = async (req, res) => {
   }
 };
 
-export { createUser, getUser, getUsers, getAllUser, updateUser, deleteUser };
+export {
+  createUser,
+  getUser,
+  getUsers,
+  getAllUser,
+  updateUser,
+  deleteUser,
+  validateuser,
+};

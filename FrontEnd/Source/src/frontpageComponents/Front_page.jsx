@@ -18,28 +18,30 @@ const Front_page = () => {
     <>
       <div>
         <div
-          className="text-white  bg-image ms-2 front_page_background_image "
+          className="text-white  bg-image ms-3 front_page_background_image rounded"
           // style={{ width: "100%" }}
         >
-          <div className="ms-5 ps-4  w-100 pb-2 ">
+          <div className="w-100 pb-2 text-center">
             <p
-              className="fw-bold ms-3 me-5"
+              className="fw-bold me-5"
               style={{
-                paddingTop: "220px",
+                paddingTop: "260px",
                 fontSize: "46px",
               }}
             >
-              Unlimited Movies, TV s and more
+              Unlimited Movies, TV shows and more
             </p>
-            <p className="fs-5 ms-3 me-5">Watch anywhare. Cancel anytime</p>
-            <p className="pt-3 fs-5 ms-3 me-5">
+            <p className="fs-5 d-none d-md-block">
+              Watch anywhare. Cancel anytime
+            </p>
+            <p className="pt-2 fs-5  d-none d-md-block">
               Ready to watch? Enter your email to create or restart your
               membership.
             </p>
-            <div className="d-flex ms-3 me-5 pb-2">
+            <div className="d-flex  pb-2 justify-content-center">
               <button
                 type="button"
-                className="fw-bold btn btn-danger p-2 px-5 text-white fs-5 me-5"
+                className="fw-bold btn btn-danger p-2 px-5 text-white fs-5 "
               >
                 <Link to="/SignUp" className="text-decoration-none text-white">
                   Get Started
@@ -129,10 +131,10 @@ const Front_page = () => {
           </div>
         </div>
       </div>
-      <div className="front_page_accordion d-none d-md-block  pt-5 pb-5">
-        <h1 className="text-white ms-5 px-5">Frequenty Asked Questions</h1>
+      <div className="front_page_accordion d-none d-lg-block  pt-5 pb-5">
+        <h1 className="text-white ms-5 px-5 pb-3">Frequenty Asked Questions</h1>
         <div className="accordion text-white" id="accordionExample">
-          <div className="accordion-item m-3 accordion-item-background ">
+          <div className="accordion-item my-3 p-2 px-2 accordion-item-background ">
             <h2 className="accordion-header" id="headingOne">
               <button
                 className="accordion-button text-white accordion-item-background collapsed"
@@ -163,7 +165,7 @@ const Front_page = () => {
               </div>
             </div>
           </div>
-          <div className="accordion-item m-3 accordion-item-background ">
+          <div className="accordion-item my-3 p-2 px-2 accordion-item-background ">
             <h2 className="accordion-header" id="headingTwo">
               <button
                 className="accordion-button text-white accordion-item-background collapsed"
@@ -194,7 +196,7 @@ const Front_page = () => {
               </div>
             </div>
           </div>
-          <div className="accordion-item m-3 accordion-item-background ">
+          <div className="accordion-item my-3 p-2 px-2  accordion-item-background ">
             <h2 className="accordion-header" id="headingThree">
               <button
                 className="accordion-button text-white accordion-item-background collapsed"
@@ -225,7 +227,7 @@ const Front_page = () => {
               </div>
             </div>
           </div>
-          <div className="accordion-item m-3 accordion-item-background ">
+          <div className="accordion-item my-3 p-2 px-2  accordion-item-background ">
             <h2 className="accordion-header" id="headingFour">
               <button
                 className="accordion-button text-white accordion-item-background collapsed"
@@ -256,7 +258,7 @@ const Front_page = () => {
               </div>
             </div>
           </div>
-          <div className="accordion-item m-3 accordion-item-background ">
+          <div className="accordion-item my-3 p-2 px-2  accordion-item-background ">
             <h2 className="accordion-header" id="headingFive">
               <button
                 className="accordion-button text-white accordion-item-background collapsed"
@@ -287,7 +289,7 @@ const Front_page = () => {
               </div>
             </div>
           </div>
-          <div className="accordion-item m-3 accordion-item-background ">
+          <div className="accordion-item my-3 p-2 px-2  accordion-item-background ">
             <h2 className="accordion-header" id="headingSix">
               <button
                 className="accordion-button text-white accordion-item-background collapsed"

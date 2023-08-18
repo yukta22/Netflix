@@ -23,7 +23,7 @@ const Account = () => {
     let user = JSON.parse(localStorage.getItem("user"));
     // console.log(user.id);
     axios
-      .post(`/subscriptions/${user.id}`, {
+      .get(`/subscriptions/${user.id}`, {
         headers: {
           token: token,
         },
@@ -42,15 +42,24 @@ const Account = () => {
   // console.log(user);
   // const userSubscriptionData = post?.find((e) => e.user?.userEmail == user);
   // console.log(userSubscriptionData?.user);
+  const navigateToHome = () => {
+    navigate("/home");
+  };
 
   return (
     <div>
       <div className="d-flex justify-content-between  ">
         <div className="text-danger">
-          <h1 className="ms-3 ">Netflix</h1>
+          <h1
+            className="ms-3 "
+            onClick={navigateToHome}
+            style={{ cursor: "pointer" }}
+          >
+            Netflix
+          </h1>
         </div>
         <div className="mx-3 my-1">
-          <Link className="text-white" to="#">
+          <div className="text-white" to="#">
             <FontAwesomeIcon icon={faUser} />
             <div className="btn-group  me-2">
               <button
@@ -91,7 +100,7 @@ const Account = () => {
                 </li>
               </ul>
             </div>
-          </Link>
+          </div>
         </div>
       </div>
 
@@ -152,7 +161,7 @@ const Account = () => {
         <div className="col "></div>
       </div>
       <div className="horizonal_line" style={{ margin: "1.5rem 3rem" }} />
-      <div className="row text-white px-5">
+      {/* <div className="row text-white px-5">
         <div className="col-4">
           <div className="fs-3 justify-content-start">
             PROFILE & PARENTAL CONTROLS
@@ -362,8 +371,7 @@ const Account = () => {
             </ul>
           </div>
         </div>
-      </div>
-      <div className="horizonal_line" style={{ margin: "1.5rem 3rem" }} />
+      </div> */}
       <Footer />
     </div>
   );

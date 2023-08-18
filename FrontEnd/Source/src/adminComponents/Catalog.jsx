@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Catalog = () => {
   const [data, setData] = useState();
+  const [editFlag, setEditFlag] = useState();
   const [deleteflag, setDeleteflag] = useState(1);
   const [pageno, setPageno] = useState(1);
   const navigate = useNavigate();
@@ -28,6 +29,11 @@ const Catalog = () => {
   }, [deleteflag, pageno]);
 
   const handleEdit = async (ele) => {
+    // const multipleData = {
+    //   key1: ele,
+    //   key2: editFlag,
+    //   key2: setEditFlag,
+    // };
     navigate("/admin/addMovie", { state: ele });
   };
 

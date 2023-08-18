@@ -12,7 +12,7 @@ import {
 
 const Navbar = ({ data }) => {
   const navigate = useNavigate();
-  const [active, setActive] = useState();
+  // const [active, setActive] = useState();
   // console.log(data);
 
   // const navigate = useNavigate();
@@ -32,7 +32,7 @@ const Navbar = ({ data }) => {
   return (
     <div className="text-white ">
       <nav className="navbar navbar-expand-lg navbar-dark ">
-        <Link className="navbar-brand text-danger ps-2" to="/home">
+        <Link className="navbar-brand text-danger ps-2 ms-3" to="/home">
           <h3>NetFlix</h3>
         </Link>
         <button
@@ -131,7 +131,7 @@ const Navbar = ({ data }) => {
                     aria-expanded="false"
                   ></button>
                   <ul className="dropdown-menu ">
-                    <li className="">
+                    {/* <li className="">
                       <Link
                         to="/home/profile-manage"
                         className="d-flex dropdown-item text-decoration-none text-dark ps-2"
@@ -142,7 +142,7 @@ const Navbar = ({ data }) => {
                         />
                         <p className="mb-0 ps-1">Manage Profile</p>
                       </Link>
-                    </li>
+                    </li> */}
                     <li className="">
                       <Link
                         to="/home/account"

@@ -42,12 +42,10 @@ const SignIn = () => {
     } else if (!data?.userPassword.match(lowerCase)) {
       err.userPassword = "Password should contains lowercase letters!";
       valflag = true;
-    }
-    // else if (!data?.userPassword.match(upperCase)) {
-    //   err.userPassword = "Password should contain uppercase letters!";
-    //   valflag = true;
-    // }
-    else if (!data?.userPassword.match(specialChar)) {
+    } else if (!data?.userPassword.match(upperCase)) {
+      err.userPassword = "Password should contain uppercase letters!";
+      valflag = true;
+    } else if (!data?.userPassword.match(specialChar)) {
       err.userPassword = "Password should contain specialChar letters!";
       valflag = true;
     }
@@ -88,23 +86,31 @@ const SignIn = () => {
     }
   };
 
-  const navigateHome = () => {
+  const navigateTolandingPage = () => {
     navigate("/");
+  };
+
+  const navigateHome = () => {
+    navigate("/SignUp");
   };
 
   return (
     <>
       <div className="d-flex justify-content-between">
-        <div className="text-danger">
+        <div
+          className="text-danger"
+          onClick={navigateTolandingPage}
+          style={{ cursor: "pointer" }}
+        >
           <h1 className="ms-3 ">Netflix</h1>
         </div>
       </div>
       <div className="text-white  bg-image ms-2  front_page_background_image position-relative">
         <div className="bg-dark mx-auto position-absolute p-5 me-2 userBox">
-          <div className="px-2 fw-bolder fs-3">Sign In</div>
+          <div className="ps-4 fw-bolder fs-3">Sign In</div>
           {flag && (
             <div
-              className="text-white mx-5 mt-3"
+              className="text-white mx-5 mt-3 px-4 rounded"
               style={{ backgroundColor: "#FF7F50" }}
             >
               <p className="px-2   py-3 ">
@@ -140,6 +146,7 @@ const SignIn = () => {
                 id="formGroupExampleInput2"
                 placeholder="Enter Password"
                 name="userPassword"
+                onBlur={() => validation()}
                 onChange={handleChange}
               />
               <div className="text-danger">{formerr?.userPassword}</div>

@@ -59,7 +59,7 @@ const Dashboard = () => {
   return (
     <>
       <AdminNavbar />
-      <div className="d-flex flex-column flex-sm-column flex-md-column flex-lg-row justify-content-around text-light mx-3">
+      <div className="d-flex flex-column flex-sm-column flex-md-column flex-lg-row justify-content-around text-light mx-5 px-4 pt-4">
         <div className="dashboard_box py-2 px-5 ps-3 m-2 rounded">
           <div className="m-2">
             <div className="fs-5">Total User</div>
@@ -210,7 +210,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="px-5 my-3 text-white" style={{ margin: "0px 99px" }}>
+      <div className="px-5 my-3 text-white" style={{ margin: "0px 130px" }}>
         <div
           className="rounded "
           style={{ backgroundColor: "hsl(212, 92%, 21%)", width: "100%" }}

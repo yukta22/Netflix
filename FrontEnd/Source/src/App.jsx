@@ -47,7 +47,7 @@ function App() {
         <Route path="/signUp" element={<SignUp />}></Route>
 
         <Route path="/signUp/plan" element={<First_plan_page />}></Route>
-        <Route path="/signUp/planOtp" element={<Otp />}></Route>
+        <Route path="/signUp/otp" element={<Otp />}></Route>
         <Route path="/signUp/plan2" element={<Second_plan_page />}></Route>
         <Route path="/signUp/plan3" element={<Third_plan_page />}></Route>
         {/* <PrivateRoute path="/home" component={Shows} /> */}
@@ -80,7 +80,7 @@ function App() {
         ></Route>
         <Route
           path="/home/search"
-          element={<PrivateRoute component={Video} />}
+          element={<PrivateRoute component={Search} />}
         ></Route>
         <Route
           path="/tvShows"

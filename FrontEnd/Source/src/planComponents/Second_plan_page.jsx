@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMobile,
@@ -16,35 +16,69 @@ const Second_plan_page = () => {
   const [data, setData] = useState();
   const [plan, setPlan] = useState();
   const [selected, setSelected] = useState("647dc6dce5ce8769bec0afd0");
+  const { state } = useLocation();
+
   const registerUser = localStorage.getItem("registerUser");
+
   useEffect(() => {
-    if (!registerUser) {
-      navigate("/");
-      return;
-    }
+    // const userId = localStorage.getItem("registerUser");
+
+    // if (userId) {
+    //   axios
+    //     .get(`/validate/${userId}`)
+    //     .then((response) => {
+    //       if (response.data.isValid == false) {
+    //         navigate("/");
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       console.error(error);
+    //       navigate("/");
+    //     });
+    // } else {
+    //   navigate("/");
+    // }
     axios.get("/plan").then((response) => {
       setData(response.data);
     });
   }, []);
-
+  console.log(state);
   const navigateThirdPage = () => {
     const dt = new Date();
-
-    let subdata = {
-      startDate: Date.now(),
-      endDate: dt.setMonth(dt.getMonth() + 1),
-      userId: registerUser,
-      planId: selected,
-    };
-    if (plan == undefined) {
-      alert("Please select plan");
+    if (state) {
+      let subdata = {
+        startDate: Date.now(),
+        endDate: dt.setMonth(dt.getMonth() + 1),
+        userId: state.id,
+        planId: selected,
+      };
+      if (plan == undefined) {
+        alert("Please select plan");
+      } else {
+        registerPlan(subdata);
+        navigate("/signUp/plan3", { state: plan });
+      }
     } else {
-      registerPlan(subdata);
-      navigate("/signUp/plan3", { state: plan });
+      let subdata = {
+        startDate: Date.now(),
+        endDate: dt.setMonth(dt.getMonth() + 1),
+        userId: registerUser,
+        planId: selected,
+      };
+      if (plan == undefined) {
+        alert("Please select plan");
+      } else {
+        registerPlan(subdata);
+        navigate("/signUp/plan3", { state: plan });
+      }
     }
   };
 
   const navigateHome = () => {
+    navigate("/");
+  };
+
+  const navigateTolandingPage = () => {
     navigate("/");
   };
 
@@ -68,7 +102,11 @@ const Second_plan_page = () => {
   return (
     <>
       <div className="d-flex justify-content-between  ">
-        <div className="text-danger">
+        <div
+          className="text-danger"
+          onClick={navigateTolandingPage}
+          style={{ cursor: "pointer" }}
+        >
           <h1 className="ms-3 ">Netflix</h1>
         </div>
         <button

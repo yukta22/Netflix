@@ -14,6 +14,7 @@ import { actorRoute } from "./actorRoute.js";
 
 export const route = express.Router();
 
+route.use("/", actorRoute);
 route.use("/", showRoute);
 route.use("/", planRoute);
 route.use("/", subscriptionsRoute);
@@ -23,4 +24,3 @@ route.use("/", watchhistoryRoute);
 route.use("/", otpRoute);
 route.use("/", jwtRoute);
 route.use("/", paymentRoute);
-route.use("/", actorRoute);

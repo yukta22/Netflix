@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faSearch,
@@ -30,38 +30,38 @@ const AdminNavbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link
+              <NavLink
                 className="nav-link"
                 aria-current="page"
                 to="/admin/dashboard"
               >
                 Dashboard
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/admin/addMovie">
+              <NavLink className="nav-link" to="/admin/addMovie">
                 Add Movie
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/admin/addShows">
+              <NavLink className="nav-link" to="/admin/addShows">
                 Add Shows
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/admin/catalog">
+              <NavLink className="nav-link" to="/admin/catalog">
                 Catalog
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/admin/series">
+              <NavLink className="nav-link" to="/admin/series">
                 Shows
-              </Link>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/admin/users">
+              <NavLink className="nav-link" to="/admin/users">
                 Users
-              </Link>
+              </NavLink>
             </li>
           </ul>
           <div className="d-flex ">

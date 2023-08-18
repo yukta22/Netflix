@@ -58,19 +58,31 @@ const Third_plan_page = () => {
     rzpay.open();
   };
 
-  // useEffect(() => {
-  //   if (isLoaded) {
-  //     handlePayment();
-  //   }
-  // }, [isLoaded]);
-
   useEffect(() => {
-    const registerUser = localStorage.getItem("registerUser");
-    if (!registerUser) {
-      navigate("/");
-      return;
+    if (isLoaded) {
+      handlePayment();
     }
-  }, []);
+  }, [isLoaded]);
+
+  // useEffect(() => {
+  //   const userId = localStorage.getItem("registerUser");
+
+  //   // if (userId) {
+  //   //   axios
+  //   //     .get(`/validate/${userId}`)
+  //   //     .then((response) => {
+  //   //       if (response.data.isValid == false) {
+  //   //         navigate("/");
+  //   //       }
+  //   //     })
+  //   //     .catch((error) => {
+  //   //       console.error(error);
+  //   //       navigate("/");
+  //   //     });
+  //   // } else {
+  //   //   navigate("/");
+  //   // }
+  // }, []);
 
   const navigateSignin = () => {
     navigate("/signin");
@@ -80,11 +92,19 @@ const Third_plan_page = () => {
     navigate("/");
   };
 
+  const navigateTolandingPage = () => {
+    navigate("/");
+  };
+
   return (
     <>
       <div className="text-white">
         <div className="d-flex justify-content-between  ">
-          <div className="text-danger">
+          <div
+            className="text-danger"
+            onClick={navigateTolandingPage}
+            style={{ cursor: "pointer" }}
+          >
             <h1 className="ms-3 ">Netflix</h1>
           </div>
           <button

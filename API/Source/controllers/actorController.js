@@ -7,7 +7,7 @@ const createActor = async (req, res) => {
     const insertedActors = await Actor.insertMany(actorsData);
     res.status(201).json(insertedActors);
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
     res.status(500).send("An error occurred while inserting actor data.");
   }
 };

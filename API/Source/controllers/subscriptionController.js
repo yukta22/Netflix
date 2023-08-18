@@ -40,6 +40,9 @@ const getsubscriptiondata = async (req, res) => {
     const subscription = await Subscription.findOne({ user: req.params.id })
       .populate("user")
       .populate("plan");
+    if (!subscription) {
+      return res.send("Data not found");
+    }
     res.status(200).send(subscription);
   } catch (err) {
     res.status(500).send(err);

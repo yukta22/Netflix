@@ -51,11 +51,21 @@ const Changeplan = () => {
     navigate("/home");
   };
 
+  const navigateToHome = () => {
+    navigate("/home");
+  };
+
   return (
     <>
       <div className="d-flex justify-content-between  ">
         <div className="text-danger">
-          <h1 className="ms-3 ">Netflix</h1>
+          <h1
+            className="ms-3 "
+            onClick={navigateToHome}
+            style={{ cursor: "pointer" }}
+          >
+            Netflix
+          </h1>
         </div>
         <div className="mx-3 my-1">
           <Link className="text-white" to="#">

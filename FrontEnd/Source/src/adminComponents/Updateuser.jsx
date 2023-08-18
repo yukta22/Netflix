@@ -27,11 +27,13 @@ const Updateuser = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(data);
+
     const res = await axios.put(`/user/${state?.user._id}`, data, {
       headers: {
         token: token,
       },
     });
+    console.log(res);
     const dt = new Date();
     let updatedata = {
       id: state._id,
@@ -51,7 +53,7 @@ const Updateuser = () => {
       navigate("/admin/users");
     }
   };
-
+  console.log(data);
   const handleClick = (ele) => {
     // console.log(ele);
     setSelected(ele._id);

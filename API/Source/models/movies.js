@@ -45,7 +45,7 @@ const moviesSchema = mongoose.Schema({
   },
   typeOfMovie: {
     type: String,
-    default: "Trending Now",
+    default: "New Releases",
   },
 });
 export const Movie = mongoose.model("Movie", moviesSchema);

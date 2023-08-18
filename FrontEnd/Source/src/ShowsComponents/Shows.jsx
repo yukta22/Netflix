@@ -39,6 +39,7 @@ const Shows = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+
     let config = {
       method: "get",
       url: "/randommovie",
@@ -57,8 +58,12 @@ const Shows = () => {
       });
   }, []);
 
-  // const findMovie = data?.find((e) => e.title == randomMovie[0]?.title);
-  const findMovie = data?.find((e) => e.title == "Mr. Car And Knights Templar");
+  const findMovie =
+    randomMovie && randomMovie.length > 0
+      ? data?.find((e) => e.title === randomMovie[0]?.title)
+      : undefined;
+
+  // const findMovie = data?.find((e) => e.title == "Mr. Car And Knights Templar");
 
   const navigateToVideo = (showData) => {
     navigate("/home/movie", { state: showData });
@@ -77,10 +82,9 @@ const Shows = () => {
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center center",
-          height: "950px",
-          width: "100%",
+          height: "900px",
+          width: "99%",
           margin: "12px",
-          marginTop: "0px",
         }}
       >
         {flag && (
@@ -94,7 +98,7 @@ const Shows = () => {
         <div className="p-5 w-75 ">
           <h1
             className="display-1 fw-bold"
-            style={{ paddingTop: "330px", paddingLeft: "120px" }}
+            style={{ paddingTop: "270px", paddingLeft: "120px" }}
           >
             {findMovie?.title}
           </h1>

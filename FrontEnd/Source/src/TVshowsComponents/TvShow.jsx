@@ -37,7 +37,7 @@ const TvShow = () => {
         console.log(error);
       });
   }, []);
-  console.log(data);
+  // console.log(data);
   const findMovie = data?.find((e) => e.title == "Money Heist");
   const navigateToVideo = (showData) => {
     navigate("/home/movie", { state: showData });
@@ -140,7 +140,6 @@ const TvShow = () => {
           </div>
         </div>
       </div>
-      {console.log(data)}
       <Showsitem data={data}></Showsitem>
       <Footer />
     </>

@@ -18,7 +18,7 @@ const movieRoute = express.Router();
 movieRoute.get("/admin/movie", getMoviesAdmin);
 movieRoute.get("/randommovie", getrandomMovie);
 movieRoute.get("/movie", verifyUser, getMovies);
-movieRoute.get("/searchMovie/:title", verifyUser, searchMovies);
+movieRoute.get("/searchMovie/:query", verifyUser, searchMovies);
 movieRoute.post("/movie/videoplayer", verifyUser, getVideoplayer);
 
 movieRoute.post("/movie", verifyAdmin, createMovie);

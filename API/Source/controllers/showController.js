@@ -102,21 +102,34 @@ const getAllShow = async (req, res) => {
 const updateShow = async (req, res) => {
   try {
     const data = req.body;
+    const existingData = await Show.findById(req.body.id);
+
     const imgfile = req.files?.image;
     const video_360p = req.files?.video_360p;
     const video_480p = req.files?.video_480p;
     const video_720p = req.files?.video_720p;
     const video_1080p = req.files?.video_1080p;
-    const imgUrl = await uploadS3(imgfile?.name, imgfile?.data);
-    const video_360pUrl = await uploadS3(video_360p?.name, video_360p?.data);
-    const video_480pUrl = await uploadS3(video_480p?.name, video_480p?.data);
-    const video_720pUrl = await uploadS3(video_720p?.name, video_720p?.data);
-    const video_1080pUrl = await uploadS3(video_1080p?.name, video_1080p?.data);
+    const imgUrl = imgfile
+      ? await uploadS3(imgfile.name, imgfile.data)
+      : existingData.image;
+    const video_360pUrl = video_360p
+      ? await uploadS3(video_360p?.name, video_360p?.data)
+      : existingData.video_360p;
+    const video_480pUrl = video_480p
+      ? await uploadS3(video_480p?.name, video_480p?.data)
+      : existingData.video_480p;
+    const video_720pUrl = video_720p
+      ? await uploadS3(video_720p?.name, video_720p?.data)
+      : existingData.video_720p;
+    const video_1080pUrl = video_1080p
+      ? await uploadS3(video_1080p?.name, video_1080p?.data)
+      : existingData.video_1080p;
 
     const episodeDataArray = JSON.parse(data.episode_arr);
 
     const episodes = await Promise.all(
       episodeDataArray.map(async (episodeData, index) => {
+        console.log(episodeData);
         const episodeImgFile = req.files[`episode_image_${index}`];
         const episode_video_360p = req.files[`episode_video_360p_${index}`];
         const episode_video_480p = req.files[`episode_video_480p_${index}`];
@@ -182,4 +195,20 @@ const deleteShow = async (req, res) => {
   }
 };
 
-export { createShow, getShow, updateShow, deleteShow, getAllShow };
+const searchShow = async (req, res) => {
+  try {
+    const { query } = req.params;
+
+    const shows = await Show.find({
+      $or: [
+        { title: { $regex: query, $options: "i" } },
+        { genre: { $regex: query, $options: "i" } },
+      ],
+    });
+    res.json(shows);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+};
+
+export { createShow, getShow, updateShow, deleteShow, getAllShow, searchShow };

@@ -58,12 +58,12 @@ const SignUp = () => {
       valflag = true;
     }
     if (!phoneNumber) {
-      err.phoneNumber = "Phone Number is required";
+      err.phoneNumber = "Contact number is required";
       valflag = true;
     } else if (isNaN(phoneNumber)) {
-      err.phoneNumber = "Phone Number Must be 10 digits";
+      err.phoneNumber = "Contact number only contains digits";
     } else if (phoneNumber.length !== 10) {
-      err.phoneNumber = "Phone Number Must be 10 digits";
+      err.phoneNumber = "Contact number Must be 10 digits";
       valflag = true;
     }
 
@@ -83,7 +83,7 @@ const SignUp = () => {
       // console.log(res);
       if (res.status == 201) {
         setFlag(false);
-        navigate("/signUp/planOtp", { state: phoneNumber });
+        navigate("/signUp/otp", { state: phoneNumber });
       } else if (res.data == "User already exists") {
         setFlag(true);
       }
@@ -97,10 +97,18 @@ const SignUp = () => {
     return res;
   };
 
+  const navigateTolandingPage = () => {
+    navigate("/");
+  };
+
   return (
     <>
       <div className="d-flex justify-content-between  ">
-        <div className="text-danger">
+        <div
+          className="text-danger"
+          onClick={navigateTolandingPage}
+          style={{ cursor: "pointer" }}
+        >
           <h1 className="ms-3 ">Netflix</h1>
         </div>
       </div>
@@ -113,7 +121,12 @@ const SignUp = () => {
           <div className="px-2 ps-4 fw-bolder fs-3">Sign Up</div>
           {flag && (
             <div className="text-danger">
-              <p className="ps-3 ms-3 pt-4">User is already exists</p>
+              <p className="ps-3 ms-3 pt-4">
+                User is already exists. please{" "}
+                <Link className="text-decoration-none" to="/signIn">
+                  Sign In
+                </Link>
+              </p>
             </div>
           )}
           <form className="px-2 py-4 form" onSubmit={handleSubmit}>
@@ -123,6 +136,7 @@ const SignUp = () => {
                 placeholder="User Name"
                 className="form-control bg-secondary signUpform text-white border-0 py-2 ps-3 "
                 name="userName"
+                onBlur={() => validation()}
                 onChange={handleChange}
               />
               <div className="text-danger">{formerr?.userName}</div>
@@ -133,6 +147,7 @@ const SignUp = () => {
                 placeholder="Email"
                 className="form-control bg-secondary signUpform text-white border-0 py-2 ps-3"
                 name="userEmail"
+                onBlur={() => validation()}
                 onChange={handleChange}
               />
               <div className="text-danger">{formerr?.userEmail}</div>
@@ -144,6 +159,7 @@ const SignUp = () => {
                 id="formGroupExampleInput2"
                 placeholder="password"
                 name="userPassword"
+                onBlur={() => validation()}
                 onChange={handleChange}
               />
               <div className="text-danger">{formerr?.userPassword}</div>
@@ -154,6 +170,7 @@ const SignUp = () => {
                 className="form-control bg-secondary signUpform text-white border-0 py-2 ps-3"
                 placeholder="Contact Number"
                 name="phoneNumber"
+                onBlur={() => validation()}
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
               <div className="text-danger">{formerr?.phoneNumber}</div>

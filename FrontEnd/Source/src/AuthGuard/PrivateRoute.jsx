@@ -11,7 +11,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       return;
     }
 
-    // Function to verify token on the backend
     const verifyTokenOnBackend = async () => {
       try {
         const response = await axios.get("/verify-token", {
@@ -19,10 +18,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
             token: token,
           },
         });
-
-        // Token is valid, proceed with fetching movie data
       } catch (error) {
-        // Token is invalid, navigate to login or handle the error
         navigate("/");
         console.log("Token verification failed:", error);
       }
